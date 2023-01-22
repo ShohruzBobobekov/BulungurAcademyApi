@@ -3,7 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BulungurAcademyApi", "BulungurAcademyApi\BulungurAcademyApi.csproj", "{550F6C99-45CF-4F2D-BC1E-9B263EFCC8E1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BulungurAcademyApi", "BulungurAcademyApi\BulungurAcademyApi.csproj", "{550F6C99-45CF-4F2D-BC1E-9B263EFCC8E1}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BulungurAcademy.Application", "BulungurAcademy.Application\BulungurAcademy.Application\BulungurAcademy.Application.csproj", "{DF7DBE16-470E-4BB6-A2BB-A4E90D8A7BDF}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BulungurAcademy.Domain", "BulungurAcademy.Domain\BulungurAcademy.Domain\BulungurAcademy.Domain.csproj", "{17E02ACE-6837-4CD4-95E4-DB1103A097D6}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BulungurAcademy.Infrastructure", "BulungurAcademy.Infrastructure\BulungurAcademy.Infrastructure\BulungurAcademy.Infrastructure.csproj", "{B8F202AF-46D4-488E-8631-5394F3A0B89E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +21,18 @@ Global
 		{550F6C99-45CF-4F2D-BC1E-9B263EFCC8E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{550F6C99-45CF-4F2D-BC1E-9B263EFCC8E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{550F6C99-45CF-4F2D-BC1E-9B263EFCC8E1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DF7DBE16-470E-4BB6-A2BB-A4E90D8A7BDF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DF7DBE16-470E-4BB6-A2BB-A4E90D8A7BDF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DF7DBE16-470E-4BB6-A2BB-A4E90D8A7BDF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DF7DBE16-470E-4BB6-A2BB-A4E90D8A7BDF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{17E02ACE-6837-4CD4-95E4-DB1103A097D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{17E02ACE-6837-4CD4-95E4-DB1103A097D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{17E02ACE-6837-4CD4-95E4-DB1103A097D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{17E02ACE-6837-4CD4-95E4-DB1103A097D6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B8F202AF-46D4-488E-8631-5394F3A0B89E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B8F202AF-46D4-488E-8631-5394F3A0B89E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B8F202AF-46D4-488E-8631-5394F3A0B89E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B8F202AF-46D4-488E-8631-5394F3A0B89E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
