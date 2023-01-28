@@ -1,11 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using BulungurAcademy.Domain.Entities.Exams;
+using BulungurAcademy.Domain.Entities.Subjects;
 
 namespace BulungurAcademy.Domain.Entities.ExamSubjects;
 
-internal class ExamSubject
+public class ExamSubject
 {
+    public Guid ExamId { get; set; }
+    public Guid SubjectId { get; set; }
+    public Exam Exam { get; set; }
+    public Subject Subject { get; set; }
 }
