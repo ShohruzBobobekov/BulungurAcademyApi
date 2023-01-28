@@ -15,6 +15,7 @@ public class User : Auditable
 
     public User(string firstName, string lastName, string phone, UserRole userRole)
     {
+        Id = Guid.NewGuid();
         FirstName = firstName;
         LastName = lastName;
         Phone = phone;

@@ -11,7 +11,24 @@ public class ExamConfiguration : IEntityTypeConfiguration<Exam>
     {
         builder.ToTable(TableNames.Exams);
 
-        builder.Property(exam=>exam.ExamName)
+        builder.Property(exam => exam.ExamName)
             .HasMaxLength(256);
+        builder.HasData(GenerateData());
+    }
+
+    private List<Exam> GenerateData()
+    {
+        var data = new List<Exam>()
+        {
+            new Exam
+            {
+                Id=Guid.NewGuid(),
+                ExamName="Imtihon 1",
+                ExamDate=new DateTime(year:2023,month:4,day:21),
+                CreatedAt= DateTime.Now
+            }
+        };
+        return data;
     }
 }
+
