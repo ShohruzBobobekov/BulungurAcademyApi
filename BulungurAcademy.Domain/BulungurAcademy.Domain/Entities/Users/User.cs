@@ -5,6 +5,7 @@ namespace BulungurAcademy.Domain.Entities.Users;
 
 public class User : Auditable
 {
+    public long? TelegramId { get; set; }
     public string FirstName { get; set; }
     public string LastName { get; set; }
     public string Phone { get; set; }
