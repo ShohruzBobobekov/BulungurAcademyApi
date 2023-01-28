@@ -11,6 +11,12 @@ public class ExamSubjectsConfiguration : IEntityTypeConfiguration<ExamSubject>
     {
         builder.ToTable(TableNames.ExamsSubjects);
 
-        builder.
+        builder.HasOne(examSubject => examSubject.Subject)
+            .WithMany()
+            .HasForeignKey(examSubject => examSubject.SubjectId);
+
+        builder.HasOne(examSubject => examSubject.Exam)
+            .WithMany(exam => exam.ExamSubjects)
+            .HasForeignKey(examSubject => examSubject.ExamId);
     }
 }
