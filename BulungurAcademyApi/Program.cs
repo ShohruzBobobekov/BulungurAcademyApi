@@ -1,4 +1,6 @@
 
+using BulungurAcademy.Api.Extensions;
+
 namespace BulungurAcademyApi
 {
     public class Program
@@ -8,6 +10,7 @@ namespace BulungurAcademyApi
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
+            builder.Services.AddDbContexts(builder.Configuration);
 
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

@@ -7,11 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\BulungurAcademy.Infrastructure\BulungurAcademy.Infrastructure\BulungurAcademy.Infrastructure.csproj" />
+    <Compile Remove="NewFolder\**" />
+    <EmbeddedResource Remove="NewFolder\**" />
+    <None Remove="NewFolder\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="NewFolder\" />
+    <ProjectReference Include="..\..\BulungurAcademy.Infrastructure\BulungurAcademy.Infrastructure\BulungurAcademy.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>
