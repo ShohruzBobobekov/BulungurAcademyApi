@@ -18,12 +18,16 @@ public class ExamApplicantsConfiguration : IEntityTypeConfiguration<ExamApplican
         builder
             .HasOne(ea => ea.FirstSubject)
             .WithMany()
-            .HasForeignKey(ea => ea.FirstSubjectId);
+            .HasForeignKey(ea => ea.FirstSubjectId)
+            .IsRequired(false)
+            .OnDelete(DeleteBehavior.SetNull);
 
         builder
             .HasOne(ea => ea.SecondSubject)
             .WithMany()
-            .HasForeignKey(ea => ea.SecondSubjectId);
+            .HasForeignKey(ea => ea.SecondSubjectId)
+            .IsRequired(false)
+            .OnDelete(DeleteBehavior.SetNull);
 
         builder
             .HasOne(ea => ea.Exam)
