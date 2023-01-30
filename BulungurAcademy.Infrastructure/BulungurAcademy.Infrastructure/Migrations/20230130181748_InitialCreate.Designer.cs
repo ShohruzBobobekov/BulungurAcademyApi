@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BulungurAcademy.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230128113036_InitialCreate")]
+    [Migration("20230130181748_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -36,13 +36,13 @@ namespace BulungurAcademy.Infrastructure.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid>("FirstSubjectId")
+                    b.Property<Guid?>("FirstSubjectId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("Id")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("SecondSubjectId")
+                    b.Property<Guid?>("SecondSubjectId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("UpdatedAt")
@@ -100,8 +100,8 @@ namespace BulungurAcademy.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("ae921b34-bf03-4fc9-93b2-ec389b4222e7"),
-                            CreatedAt = new DateTime(2023, 1, 28, 16, 30, 35, 346, DateTimeKind.Local).AddTicks(4502),
+                            Id = new Guid("7191f33f-11ce-43af-887b-dfb98549acb2"),
+                            CreatedAt = new DateTime(2023, 1, 30, 23, 17, 48, 112, DateTimeKind.Local).AddTicks(8205),
                             ExamDate = new DateTime(2023, 4, 21, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ExamName = "Imtihon 1",
                             UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
@@ -169,8 +169,8 @@ namespace BulungurAcademy.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("61a42341-64f3-4b2c-b42b-c445cb28cdac"),
-                            CreatedAt = new DateTime(2023, 1, 28, 16, 30, 35, 366, DateTimeKind.Local).AddTicks(6766),
+                            Id = new Guid("39183f27-2ace-41fc-958c-aa5ec7a7d1fd"),
+                            CreatedAt = new DateTime(2023, 1, 30, 23, 17, 48, 114, DateTimeKind.Local).AddTicks(8983),
                             FirstName = "Shohruz",
                             LastName = "Bobobekov",
                             Phone = "+998901033685",
@@ -191,14 +191,12 @@ namespace BulungurAcademy.Infrastructure.Migrations
                     b.HasOne("BulungurAcademy.Domain.Entities.Subjects.Subject", "FirstSubject")
                         .WithMany()
                         .HasForeignKey("FirstSubjectId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.HasOne("BulungurAcademy.Domain.Entities.Subjects.Subject", "SecondSubject")
                         .WithMany()
                         .HasForeignKey("SecondSubjectId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.HasOne("BulungurAcademy.Domain.Entities.Users.User", "User")
                         .WithMany("ExamApplicants")

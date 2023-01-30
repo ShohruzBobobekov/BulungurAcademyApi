@@ -88,8 +88,8 @@ namespace BulungurAcademy.Infrastructure.Migrations
                 {
                     UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     ExamId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    FirstSubjectId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    SecondSubjectId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    FirstSubjectId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    SecondSubjectId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
@@ -108,13 +108,13 @@ namespace BulungurAcademy.Infrastructure.Migrations
                         column: x => x.FirstSubjectId,
                         principalTable: "Subjects",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.SetNull);
                     table.ForeignKey(
                         name: "FK_ExamApplicant_Subjects_SecondSubjectId",
                         column: x => x.SecondSubjectId,
                         principalTable: "Subjects",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.SetNull);
                     table.ForeignKey(
                         name: "FK_ExamApplicant_Users_UserId",
                         column: x => x.UserId,
@@ -126,12 +126,12 @@ namespace BulungurAcademy.Infrastructure.Migrations
             migrationBuilder.InsertData(
                 table: "Exams",
                 columns: new[] { "Id", "CreatedAt", "ExamDate", "ExamName", "UpdatedAt" },
-                values: new object[] { new Guid("ae921b34-bf03-4fc9-93b2-ec389b4222e7"), new DateTime(2023, 1, 28, 16, 30, 35, 346, DateTimeKind.Local).AddTicks(4502), new DateTime(2023, 4, 21, 0, 0, 0, 0, DateTimeKind.Unspecified), "Imtihon 1", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) });
+                values: new object[] { new Guid("7191f33f-11ce-43af-887b-dfb98549acb2"), new DateTime(2023, 1, 30, 23, 17, 48, 112, DateTimeKind.Local).AddTicks(8205), new DateTime(2023, 4, 21, 0, 0, 0, 0, DateTimeKind.Unspecified), "Imtihon 1", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) });
 
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "CreatedAt", "FirstName", "LastName", "Phone", "TelegramId", "UpdatedAt", "UserRole" },
-                values: new object[] { new Guid("61a42341-64f3-4b2c-b42b-c445cb28cdac"), new DateTime(2023, 1, 28, 16, 30, 35, 366, DateTimeKind.Local).AddTicks(6766), "Shohruz", "Bobobekov", "+998901033685", 1035640073L, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 2 });
+                values: new object[] { new Guid("39183f27-2ace-41fc-958c-aa5ec7a7d1fd"), new DateTime(2023, 1, 30, 23, 17, 48, 114, DateTimeKind.Local).AddTicks(8983), "Shohruz", "Bobobekov", "+998901033685", 1035640073L, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 2 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_ExamApplicant_ExamId",
