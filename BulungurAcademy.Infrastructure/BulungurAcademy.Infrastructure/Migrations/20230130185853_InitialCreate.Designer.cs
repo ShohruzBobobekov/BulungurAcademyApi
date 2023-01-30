@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BulungurAcademy.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230130181748_InitialCreate")]
+    [Migration("20230130185853_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -100,8 +100,8 @@ namespace BulungurAcademy.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("7191f33f-11ce-43af-887b-dfb98549acb2"),
-                            CreatedAt = new DateTime(2023, 1, 30, 23, 17, 48, 112, DateTimeKind.Local).AddTicks(8205),
+                            Id = new Guid("24ff6d2f-5a91-4007-b88b-77603e0b2105"),
+                            CreatedAt = new DateTime(2023, 1, 30, 23, 58, 53, 168, DateTimeKind.Local).AddTicks(1940),
                             ExamDate = new DateTime(2023, 4, 21, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ExamName = "Imtihon 1",
                             UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
@@ -169,8 +169,8 @@ namespace BulungurAcademy.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("39183f27-2ace-41fc-958c-aa5ec7a7d1fd"),
-                            CreatedAt = new DateTime(2023, 1, 30, 23, 17, 48, 114, DateTimeKind.Local).AddTicks(8983),
+                            Id = new Guid("3d938834-4082-4881-be34-395d15d25dea"),
+                            CreatedAt = new DateTime(2023, 1, 30, 23, 58, 53, 170, DateTimeKind.Local).AddTicks(8778),
                             FirstName = "Shohruz",
                             LastName = "Bobobekov",
                             Phone = "+998901033685",
@@ -191,12 +191,12 @@ namespace BulungurAcademy.Infrastructure.Migrations
                     b.HasOne("BulungurAcademy.Domain.Entities.Subjects.Subject", "FirstSubject")
                         .WithMany()
                         .HasForeignKey("FirstSubjectId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("BulungurAcademy.Domain.Entities.Subjects.Subject", "SecondSubject")
                         .WithMany()
                         .HasForeignKey("SecondSubjectId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.HasOne("BulungurAcademy.Domain.Entities.Users.User", "User")
                         .WithMany("ExamApplicants")

@@ -20,14 +20,14 @@ public class ExamApplicantsConfiguration : IEntityTypeConfiguration<ExamApplican
             .WithMany()
             .HasForeignKey(ea => ea.FirstSubjectId)
             .IsRequired(false)
-            .OnDelete(DeleteBehavior.SetNull);
+            .OnDelete(DeleteBehavior.Cascade);
 
         builder
             .HasOne(ea => ea.SecondSubject)
             .WithMany()
             .HasForeignKey(ea => ea.SecondSubjectId)
             .IsRequired(false)
-            .OnDelete(DeleteBehavior.SetNull);
+            .OnDelete(DeleteBehavior.NoAction);
 
         builder
             .HasOne(ea => ea.Exam)
