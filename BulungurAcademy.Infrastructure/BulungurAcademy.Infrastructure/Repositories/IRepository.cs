@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BulungurAcademy.Infrastructure.Repositories;
 
-public interface IRepository<TEntity, TKey>
+public interface IRepository<TEntity>
 {
     ValueTask<TEntity> InsertAsync(TEntity entity);
     IQueryable<TEntity> SelectAll();

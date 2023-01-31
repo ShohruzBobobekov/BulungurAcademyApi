@@ -2,6 +2,6 @@
 
 namespace BulungurAcademy.Infrastructure.Repositories.Exams;
 
-public interface IExamRepository : IRepository<Exam, Guid>
+public interface IExamRepository : IRepository<Exam>
 {
 }

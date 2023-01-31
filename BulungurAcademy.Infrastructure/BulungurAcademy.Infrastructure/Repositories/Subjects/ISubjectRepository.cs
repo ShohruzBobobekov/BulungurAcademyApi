@@ -2,6 +2,6 @@
 
 namespace BulungurAcademy.Infrastructure.Repositories.Subjects;
 
-public interface ISubjectRepository : IRepository<Subject, Guid>
+public interface ISubjectRepository : IRepository<Subject>
 {
 }
