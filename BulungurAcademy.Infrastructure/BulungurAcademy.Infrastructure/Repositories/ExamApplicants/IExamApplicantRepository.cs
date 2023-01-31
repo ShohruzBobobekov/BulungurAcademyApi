@@ -2,7 +2,7 @@
 
 namespace BulungurAcademy.Infrastructure.Repositories.ExamApplicants;
 
-public interface IExamApplicantRepository : IRepository<ExamApplicant, Guid>
+public interface IExamApplicantRepository : IRepository<ExamApplicant>
 {
 
 }

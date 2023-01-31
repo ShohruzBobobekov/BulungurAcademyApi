@@ -4,7 +4,7 @@ using System.Linq.Expressions;
 
 namespace BulungurAcademy.Infrastructure.Repositories;
 
-public class Repository<TEntity, TKey> : IRepository<TEntity, TKey> where TEntity : class
+public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
 {
     private readonly AppDbContext context;
 

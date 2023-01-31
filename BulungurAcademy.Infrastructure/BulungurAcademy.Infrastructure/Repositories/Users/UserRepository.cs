@@ -3,7 +3,7 @@ using BulungurAcademy.Infrastructure.Contexts;
 
 namespace BulungurAcademy.Infrastructure.Repositories.Users;
 
-public class UserRepository : Repository<User, Guid>, IUserRepository
+public class UserRepository : Repository<User>, IUserRepository
 {
 	public UserRepository(AppDbContext appDbContext)
 		: base(appDbContext)

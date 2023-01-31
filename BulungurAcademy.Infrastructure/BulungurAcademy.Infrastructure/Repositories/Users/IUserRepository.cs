@@ -2,6 +2,6 @@
 
 namespace BulungurAcademy.Infrastructure.Repositories.Users;
 
-public interface IUserRepository : IRepository<User, Guid>
+public interface IUserRepository : IRepository<User>
 {
 }
