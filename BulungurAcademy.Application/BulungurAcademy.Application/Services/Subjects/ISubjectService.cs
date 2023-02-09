@@ -1,11 +1,11 @@
-﻿using BulungurAcademy.Application.DataTranferObjects;
+﻿using BulungurAcademy.Domain.Entities.Subjects;
 
 namespace BulungurAcademy.Application.Services;
 public interface ISubjectService
 {
-    ValueTask<SubjectDto> CreateUserAsync(SubjectForCreationDto subjectForCreationDto);
-    IQueryable<SubjectDto> RetrieveUsers(/*QueryParameter queryParameter*/);
-    ValueTask<SubjectDto> RetrieveUserByIdAsync(Guid subjectId);
-    ValueTask<SubjectDto> ModifyUserAsync(SubjectForModificationDto subjectForModificationDto);
-    ValueTask<SubjectDto> RemoveUserAsync(Guid subrectId);
+    ValueTask<Subject> CreateSubjectAsync(Subject subjectForCreation);
+    IQueryable<Subject> RetrieveSubjects();
+    ValueTask<Subject> RetrieveSubjectByIdAsync(Guid subjectId);
+    ValueTask<Subject> ModifySubjectAsync(Subject subjectForModification);
+    ValueTask<Subject> RemoveSubjectAsync(Guid subjectId);
 }

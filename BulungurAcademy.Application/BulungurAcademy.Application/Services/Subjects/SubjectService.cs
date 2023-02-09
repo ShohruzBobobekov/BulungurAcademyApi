@@ -1,4 +1,4 @@
-﻿using BulungurAcademy.Application.DataTranferObjects;
+﻿using BulungurAcademy.Domain.Entities.Subjects;
 using BulungurAcademy.Infrastructure.Repositories.Subjects;
 
 namespace BulungurAcademy.Application.Services;
@@ -6,47 +6,69 @@ public partial class SubjectService : ISubjectService
 {
     private readonly ISubjectRepository subjectRepository;
     public SubjectService(ISubjectRepository subjectRepository)
+        => this.subjectRepository = subjectRepository;
+
+    public async ValueTask<Subject> CreateSubjectAsync(Subject subjectForCreation)
     {
-        this.subjectRepository = subjectRepository;
+        ValidateForCreation(subjectForCreation);
+
+        subjectForCreation.Name = subjectForCreation.Name.ToUpper();
+
+        var storageSubject = await this.subjectRepository
+            .InsertAsync(subjectForCreation);
+
+        ValidateStorageSubject(
+            storageSubject: storageSubject,
+            subjectId: subjectForCreation.Id);
+
+        return storageSubject;
     }
 
-    /// <summary>
-    /// C R E A T E 
-    /// </summary>
-    public async ValueTask<SubjectDto> CreateUserAsync(SubjectForCreationDto subjectForCreationDto)
+    public IQueryable<Subject> RetrieveSubjects()
+        => this.subjectRepository.SelectAll();
+
+    public async ValueTask<Subject> RetrieveSubjectByIdAsync(Guid subjectId)
     {
-        throw new NotImplementedException();
+        ValidateSubject(subjectId);
+
+        var storageSubject = await this.subjectRepository.SelectByIdAsync(subjectId);
+
+        ValidateStorageSubject(
+            storageSubject: storageSubject,
+            subjectId: subjectId);
+
+        return storageSubject;
     }
 
-    /// <summary>
-    ///  G E T all
-    /// </summary>
-    public IQueryable<SubjectDto> RetrieveUsers(/*QueryParameter queryParameter*/)
+    public async ValueTask<Subject> ModifySubjectAsync(Subject subjectForModification)
     {
-        throw new NotImplementedException();
+        ValidateStorageSubject(
+            storageSubject: subjectForModification, 
+            subjectId: subjectForModification.Id);
+
+        subjectForModification.Name = subjectForModification.Name.ToUpper();
+
+        var storageSubject = await this.ModifySubjectAsync(subjectForModification);
+
+        ValidateStorageSubject(
+            storageSubject: storageSubject,
+            subjectId: subjectForModification.Id);
+
+        return storageSubject;
     }
 
-    /// <summary>
-    ///  G E T byId
-    /// </summary>
-    public async ValueTask<SubjectDto> RetrieveUserByIdAsync(Guid subjectId)
+    public async ValueTask<Subject> RemoveSubjectAsync(Guid subjectId)
     {
-        throw new NotImplementedException();
-    }
+        ValidateSubject(subjectId: subjectId);
 
-    /// <summary>
-    /// U P D A T E
-    /// </summary>
-    public async ValueTask<SubjectDto> ModifyUserAsync(SubjectForModificationDto subjectForModificationDto)
-    {
-        throw new NotImplementedException();
-    }
+        var storageSubject = await this.RetrieveSubjectByIdAsync(subjectId);
 
-    /// <summary>
-    /// R E M O V E 
-    /// </summary>
-    public async ValueTask<SubjectDto> RemoveUserAsync(Guid subrectId)
-    {
-        throw new NotImplementedException();
+        ValidateStorageSubject(
+            storageSubject: storageSubject,
+            subjectId: subjectId);
+
+        var removeSubject = await this.subjectRepository.DeleteAsync(storageSubject);
+
+        return removeSubject;
     }
 }
