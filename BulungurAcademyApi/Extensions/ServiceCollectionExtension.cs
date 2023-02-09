@@ -1,4 +1,8 @@
-﻿using BulungurAcademy.Infrastructure.Contexts;
+﻿using BulungurAcademy.Application.Services;
+using BulungurAcademy.Application.Services.ExamApplicants;
+using BulungurAcademy.Application.Services.Exams;
+using BulungurAcademy.Application.Services.Users;
+using BulungurAcademy.Infrastructure.Contexts;
 using BulungurAcademy.Infrastructure.Repositories.ExamApplicants;
 using BulungurAcademy.Infrastructure.Repositories.Exams;
 using BulungurAcademy.Infrastructure.Repositories.ExamSubjects;
@@ -36,6 +40,16 @@ public static class ServiceCollectionExtension
         services.AddScoped<IExamRepository, ExamRepository>();
         services.AddScoped<IExamSubjectRepository, ExamSubjectRepository>();
 
+        return services;
+    }
+
+    public static IServiceCollection AddApplication(
+        this IServiceCollection services)
+    {
+        services.AddScoped<IExamApplicantService,ExamApplicantService>();
+        services.AddScoped<IExamService,ExamService>();
+        services.AddScoped<ISubjectService, SubjectService>();
+        //services.AddScoped<IUserService, UserService>();
         return services;
     }
 }

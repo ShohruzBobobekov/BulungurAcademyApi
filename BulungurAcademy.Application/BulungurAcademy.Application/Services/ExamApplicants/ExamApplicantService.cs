@@ -4,7 +4,7 @@ using BulungurAcademy.Infrastructure.Repositories.ExamApplicants;
 
 namespace BulungurAcademy.Application.Services.ExamApplicants;
 
-internal class ExamApplicantService : IExamApplicantService
+public class ExamApplicantService : IExamApplicantService
 {
     private readonly IExamApplicantRepository repository;
 
