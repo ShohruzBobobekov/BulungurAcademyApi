@@ -1,5 +1,6 @@
 ﻿using BulungurAcademy.Infrastructure.Contexts;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 using System.Linq.Expressions;
 
 namespace BulungurAcademy.Infrastructure.Repositories;
@@ -33,6 +34,20 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
         }
 
         return await entity.FirstOrDefaultAsync(expression);
+    }
+    public  IQueryable<TEntity> SelectAllWithDetailsAsync(
+        Expression<Func<TEntity, bool>> expression,
+        string[] includes)
+    {
+        IQueryable<TEntity> entity = context.Set<TEntity>();
+
+
+        foreach (var item in includes)
+        {
+            entity = entity.Include(item);
+        }
+
+        return entity.Where(expression);
     }
 
     public async ValueTask<TEntity> UpdateAsync(TEntity entity) =>
