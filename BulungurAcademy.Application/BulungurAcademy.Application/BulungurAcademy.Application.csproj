@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="DataTranferObjects\" />
     <Folder Include="Services\Users\" />
   </ItemGroup>
 
