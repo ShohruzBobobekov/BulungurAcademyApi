@@ -32,10 +32,15 @@ public class ExamApplicantService : IExamApplicantService
         return await repository.SelectByIdWithDetailsAsync(inserted.ExamId, inserted.UserId);
     }
 
+    public IQueryable<ExamApplicant> RetriveAllExamApplicants()
+    {
+        return repository.SelectAll();
+    }
+
     public IQueryable<ExamApplicant> RetriveExamApplicantByFirstSubjectId(Guid subjectId)
     {
-        return repository.SelectAllWithDetailsAsync(examApplicant=>
-        examApplicant.FirstSubjectId==subjectId,
+        return repository.SelectAllWithDetailsAsync(examApplicant =>
+        examApplicant.FirstSubjectId == subjectId,
         new string[] { "User", "Exam", "FirstSubject", "SecondSubject" });
     }
 

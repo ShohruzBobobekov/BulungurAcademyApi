@@ -5,6 +5,7 @@ namespace BulungurAcademy.Application.Services.ExamApplicants;
 public interface IExamApplicantService
 {
     ValueTask<ExamApplicant> CreateExamApplicant(ExamApplicant examApplicant);
+    IQueryable<ExamApplicant> RetriveAllExamApplicants();
     IQueryable<ExamApplicant> RetriveExamApplicantsByExamId(Guid examId);
     IQueryable<ExamApplicant> RetriveExamApplicantBySubjectId(Guid subjectId);
     IQueryable<ExamApplicant> RetriveExamApplicantByFirstSubjectId(Guid subjectId);
