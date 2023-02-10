@@ -8,6 +8,7 @@ public class UserValidator : AbstractValidator<User>
     public UserValidator()
     {
         RuleFor(user => user)
+            .NotNull()
             .NotEmpty();
         RuleFor(user => user.Id)
             .NotNull();

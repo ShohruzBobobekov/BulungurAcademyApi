@@ -47,7 +47,7 @@ public class UserService : IUserService
 
         var userValidator = new UserValidator().Validate(storageUser);
 
-        if (userValidator.IsValid)
+        if (!userValidator.IsValid)
         {
             string message = "";
             userValidator.Errors
@@ -103,7 +103,7 @@ public class UserService : IUserService
 
         var userValidator = new UserValidator().Validate(storageUser);
 
-        if (userValidator.IsValid)
+        if (!userValidator.IsValid)
         {
             string message = "";
             userValidator.Errors
