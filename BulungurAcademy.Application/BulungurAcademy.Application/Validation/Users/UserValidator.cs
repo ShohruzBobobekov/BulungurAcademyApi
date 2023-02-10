@@ -1,5 +1,5 @@
-﻿using FluentValidation;
-using Telegram.Bot.Types;
+﻿using BulungurAcademy.Domain.Entities.Users;
+using FluentValidation;
 
 namespace BulungurAcademy.Application.Validation.Users;
 
@@ -9,5 +9,7 @@ public class UserValidator : AbstractValidator<User>
     {
         RuleFor(user => user)
             .NotEmpty();
+        RuleFor(user => user.Id)
+            .NotNull();
     }
 }
