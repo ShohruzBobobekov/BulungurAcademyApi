@@ -40,7 +40,7 @@ using ADotNet.Models.Pipelines.GithubPipelines.DotNets.Tasks.SetupDotNetTaskV1s;
 
                       TargetDotNetVersion = new TargetDotNetVersion
                       {
-                          DotNetVersion = "7.0.100",
+                          DotNetVersion = "7.0.2",
                           IncludePrerelease = true
                       }
                   },
