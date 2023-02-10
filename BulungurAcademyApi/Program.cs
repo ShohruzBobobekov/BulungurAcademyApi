@@ -13,7 +13,9 @@ namespace BulungurAcademyApi
             builder.Services.AddDbContexts(builder.Configuration);
 
             builder.Services.AddControllers();
-            builder.Services.AddInfrastructure();
+            builder.Services
+                .AddApplication()
+                .AddInfrastructure();
             
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
