@@ -16,6 +16,9 @@ public interface IRepository<TEntity>
     ValueTask<TEntity> SelectByIdWithDetailsAsync(
         Expression<Func<TEntity, bool>> expression,
         string[] includes);
+    IQueryable<TEntity> SelectAllWithDetailsAsync(
+        Expression<Func<TEntity, bool>> expression,
+        string[] includes);
 
     ValueTask<TEntity> UpdateAsync(TEntity entity);
     ValueTask<TEntity> DeleteAsync(TEntity entity);

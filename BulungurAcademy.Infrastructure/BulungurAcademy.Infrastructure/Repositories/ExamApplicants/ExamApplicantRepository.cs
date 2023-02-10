@@ -10,4 +10,12 @@ public class ExamApplicantRepository : Repository<ExamApplicant>, IExamApplicant
 	{
 
 	}
+
+    public async ValueTask<ExamApplicant> SelectByIdWithDetailsAsync(Guid examId, Guid userId)
+    {
+      return await  SelectByIdWithDetailsAsync(examApplicant =>
+             examApplicant.UserId == userId
+                && examApplicant.ExamId == examId,
+                new string[] { "User", "Exam", "FirstSubject", "SecondSubject" });
+    }
 }
