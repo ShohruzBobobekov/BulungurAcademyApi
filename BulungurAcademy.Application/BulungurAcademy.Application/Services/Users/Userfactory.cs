@@ -14,11 +14,11 @@ public class Userfactory : IUserFactory
             Domain.Enum.UserRole.User);
     }
 
-    public void MapToUser(User storageUser, UserForModificationDto userForCreationDto)
+    public void MapToUser(User storageUser, UserForModificationDto userForModificationDto)
     {
-        storageUser.FirstName = userForCreationDto.firstName;
-        storageUser.LastName = userForCreationDto.lastName;
-        storageUser.Phone = userForCreationDto.phoneNumber;
+        storageUser.FirstName = userForModificationDto.firstName ?? storageUser.FirstName;
+        storageUser.LastName = userForModificationDto.lastName ?? storageUser.LastName;
+        storageUser.Phone = userForModificationDto.phoneNumber ?? storageUser.Phone;
     }
 
     public UserDto MapToUserDto(User user)
