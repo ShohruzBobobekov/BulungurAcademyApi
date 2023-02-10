@@ -14,8 +14,7 @@ public class UserService : IUserService
     private readonly IUserRepository userRepository;
     private readonly IUserFactory userFactory;
     public UserService(IUserRepository userRepository,
-        IUserFactory userFactory,
-        IHttpContextAccessor httpContextAccessor)
+        IUserFactory userFactory)
     {
         this.userRepository = userRepository;
         this.userFactory = userFactory;
