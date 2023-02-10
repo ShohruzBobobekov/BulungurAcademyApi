@@ -49,7 +49,8 @@ public static class ServiceCollectionExtension
         services.AddScoped<IExamApplicantService,ExamApplicantService>();
         services.AddScoped<IExamService,ExamService>();
         services.AddScoped<ISubjectService, SubjectService>();
-        //services.AddScoped<IUserService, UserService>();
+        services.AddScoped<IUserService, UserService>();
+        services.AddScoped<IUserFactory, Userfactory>();
         return services;
     }
 }
