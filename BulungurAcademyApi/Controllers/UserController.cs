@@ -6,4 +6,5 @@ namespace BulungurAcademy.Api.Controllers;
 [ApiController]
 public class UserController : Controller
 {
+
 }
