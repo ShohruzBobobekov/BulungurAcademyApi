@@ -40,18 +40,50 @@ public class UserService : IUserService
         return this.userFactory.MapToUserDto(addedUser);
     }
 
+    public async ValueTask<UserDto> RetrieveUserByIdAsync(Guid id)
+    {
+
+        var storageUser = await this.userRepository
+            .SelectByIdAsync(id);
+
+        var userValidator = new UserValidator().Validate(storageUser);
+
+        if (userValidator.IsValid)
+        {
+            string message = "";
+            userValidator.Errors
+                .ForEach(validation => { message += "\n" + validation.ErrorMessage; });
+            throw new Exception(message);
+        }
+
+        return this.userFactory.MapToUserDto(storageUser);
+    }
+
+    public  IQueryable<UserDto> RetrieveUsers()
+    {
+        var storageUsers =  this.userRepository
+            .SelectAll();
+
+        return storageUsers.Select(storageUser => this.userFactory.MapToUserDto(storageUser));
+    }
 
     public async ValueTask<UserDto> ModifyUserAsync(UserForModificationDto userForModificationDto)
     {
-        var storageUser = await this.userRepository
-            .SelectByIdAsync(userForModificationDto.id);
-
         var validatorModify = new UserModifictionValidator().Validate(userForModificationDto);
-        if(validatorModify.IsValid)
+        if (validatorModify.IsValid)
         {
             string message = "";
             validatorModify.Errors
                 .ForEach(validation => { message += "\n" + validation.ErrorMessage; });
+            throw new Exception(message);
+        }
+
+        var storageUser = await this.userRepository
+            .SelectByIdAsync(userForModificationDto.id);
+
+        if(storageUser is null)
+        {
+            string message = "Bunday foydalanuvchi yoq";
             throw new Exception(message);
         }
 
@@ -86,30 +118,4 @@ public class UserService : IUserService
         return this.userFactory.MapToUserDto(removedUser);
     }
 
-    public async ValueTask<UserDto> RetrieveUserByIdAsync(Guid id)
-    {
-
-        var storageUser = await this.userRepository
-            .SelectByIdAsync(id);
-
-        var userValidator = new UserValidator().Validate(storageUser);
-
-        if (userValidator.IsValid)
-        {
-            string message = "";
-            userValidator.Errors
-                .ForEach(validation => { message += "\n" + validation.ErrorMessage; });
-            throw new Exception(message);
-        }
-
-        return this.userFactory.MapToUserDto(storageUser);
-    }
-
-    public  IQueryable<UserDto> RetrieveUsers()
-    {
-        var storageUsers =  this.userRepository
-            .SelectAll();
-
-        return storageUsers.Select(storageUser => this.userFactory.MapToUserDto(storageUser));
-    }
 }
