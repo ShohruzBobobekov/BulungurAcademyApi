@@ -1,4 +1,5 @@
-﻿using BulungurAcademy.Application.Validation.ExamApplicants;
+﻿using BulungurAcademy.Application.DataTranferObjects.ExamApplicants;
+using BulungurAcademy.Application.Validation.ExamApplicants;
 using BulungurAcademy.Domain.Entities;
 using BulungurAcademy.Infrastructure.Repositories.ExamApplicants;
 
@@ -7,15 +8,19 @@ namespace BulungurAcademy.Application.Services.ExamApplicants;
 public class ExamApplicantService : IExamApplicantService
 {
     private readonly IExamApplicantRepository repository;
+    private readonly IExamApplicantFatory factory;
 
-    public ExamApplicantService(IExamApplicantRepository repository)
+    public ExamApplicantService(IExamApplicantRepository repository, IExamApplicantFatory factory)
     {
         this.repository = repository;
+        this.factory = factory;
     }
 
-    public async ValueTask<ExamApplicant> CreateExamApplicant(ExamApplicant examApplicant)
+    public async ValueTask<ExamApplicant> CreateExamApplicant(ExamApplicantDto examApplicantDto)
     {
-        var validationResult = new ExamApplicantValidator().Validate(examApplicant);
+        var validationResult = new ExamApplicantValidator().Validate(examApplicantDto);
+
+
         if (!validationResult.IsValid)
         {
             string message = "";
@@ -27,8 +32,10 @@ public class ExamApplicantService : IExamApplicantService
             throw new Exception(message);
         }
 
-        var inserted = await repository.InsertAsync(examApplicant);
+        var examApplicant = factory.MapToExamApplicant(examApplicantDto);
 
+        var inserted = await repository.InsertAsync(examApplicant);
+        await repository.SaveChangesAsync();
         return await repository.SelectByIdWithDetailsAsync(inserted.ExamId, inserted.UserId);
     }
 
@@ -65,13 +72,17 @@ public class ExamApplicantService : IExamApplicantService
             new string[] { "User", "Exam", "FirstSubject", "SecondSubject" });
     }
 
-    public async ValueTask<ExamApplicant> ModifyExamApplicant(ExamApplicant examApplicant)
+    public async ValueTask<ExamApplicant> ModifyExamApplicant(ExamApplicantDto examApplicantDto)
     {
-        return await repository.UpdateAsync(examApplicant);
+        var updated= await repository.UpdateAsync(factory.MapToExamApplicant(examApplicantDto));
+        await repository.SaveChangesAsync();
+        return updated;
     }
 
     public async ValueTask<ExamApplicant> RemoveExamApplicant(ExamApplicant examApplicant)
     {
-        return await repository.DeleteAsync(examApplicant);
+        var removed= await repository.DeleteAsync(examApplicant);
+        await repository.SaveChangesAsync();
+        return removed;
     }
 }

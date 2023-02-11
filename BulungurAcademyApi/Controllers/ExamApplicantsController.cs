@@ -1,4 +1,5 @@
-﻿using BulungurAcademy.Application.Services.ExamApplicants;
+﻿using BulungurAcademy.Application.DataTranferObjects.ExamApplicants;
+using BulungurAcademy.Application.Services.ExamApplicants;
 using BulungurAcademy.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,9 +18,9 @@ namespace BulungurAcademy.Api.Controllers
 
         [HttpPost]
         public async ValueTask<ActionResult<ExamApplicant>> Post(
-            ExamApplicant examApplicant)
+            ExamApplicantDto examApplicant)
         {
-            var posted=await service.CreateExamApplicant(examApplicant);
+            var posted = await service.CreateExamApplicant(examApplicant);
 
             return Ok(posted);
         }
@@ -28,6 +29,7 @@ namespace BulungurAcademy.Api.Controllers
         public IActionResult GetExamApplicants()
         {
             return Ok(service.RetriveAllExamApplicants());
-        }        
+        }
+
     }
 }
