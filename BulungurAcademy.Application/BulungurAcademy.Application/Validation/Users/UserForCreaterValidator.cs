@@ -16,7 +16,7 @@ public class UserForCreaterValidator : AbstractValidator<UserForCreaterDto>
             .NotEmpty();
 
         RuleFor(user => user.phoneNumber)
-            .Matches(new Regex(@"((\(\d{3}\) ?)|(\d{3}-))?\d{3}-\d{4}"))
+            .Matches(new Regex("^\\+?[1-9][0-9]{7,14}$"))
             .WithMessage("PhoneNumber not valid");
     }
 }

@@ -6,7 +6,6 @@ namespace BulungurAcademy.Api.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-
 public class UserController : ControllerBase
 {
     private readonly IUserService userService;
@@ -56,7 +55,6 @@ public class UserController : ControllerBase
 
         return Ok(modifiedUser);
     }
-
 
 
     [HttpDelete("{userId:guid}")]

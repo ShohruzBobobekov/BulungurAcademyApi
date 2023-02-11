@@ -46,6 +46,7 @@ public static class ServiceCollectionExtension
     public static IServiceCollection AddApplication(
         this IServiceCollection services)
     {
+        services.AddScoped<IExamApplicantFatory, ExamApplicantFatory>();
         services.AddScoped<IExamApplicantService,ExamApplicantService>();
         services.AddScoped<IExamService,ExamService>();
         services.AddScoped<ISubjectService, SubjectService>();

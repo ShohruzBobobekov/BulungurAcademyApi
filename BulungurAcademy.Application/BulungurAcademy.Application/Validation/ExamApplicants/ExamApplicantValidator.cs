@@ -1,9 +1,9 @@
-﻿using BulungurAcademy.Domain.Entities;
+﻿using BulungurAcademy.Application.DataTranferObjects.ExamApplicants;
 using FluentValidation;
 
 namespace BulungurAcademy.Application.Validation.ExamApplicants;
 
-public class ExamApplicantValidator : AbstractValidator<ExamApplicant>
+public class ExamApplicantValidator : AbstractValidator<ExamApplicantDto>
 {
     public ExamApplicantValidator()
     {
