@@ -1,11 +1,6 @@
 ﻿using BulungurAcademy.Application.DataTranferObjects.Users;
 using BulungurAcademy.Application.Validation.Users;
-using BulungurAcademy.Domain.Entities.Users;
 using BulungurAcademy.Infrastructure.Repositories.Users;
-using Microsoft.AspNetCore.Http;
-using System.Diagnostics.CodeAnalysis;
-using Telegram.Bot.Types;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace BulungurAcademy.Application.Services.Users;
 
@@ -22,7 +17,7 @@ public class UserService : IUserService
     public async ValueTask<UserDto> CreateUserAsync(UserForCreaterDto userForCreaterDto)
     {
         var validationResult = new UserForCreaterValidator().Validate(userForCreaterDto);
-        if (validationResult.IsValid)
+        if (!validationResult.IsValid)
         {
             string message = "";
             validationResult.Errors
@@ -35,6 +30,8 @@ public class UserService : IUserService
 
         var addedUser = await this.userRepository
             .InsertAsync(newUser);
+
+        await userRepository.SaveChangesAsync();
 
         return this.userFactory.MapToUserDto(addedUser);
     }
@@ -69,7 +66,7 @@ public class UserService : IUserService
     public async ValueTask<UserDto> ModifyUserAsync(UserForModificationDto userForModificationDto)
     {
         var validatorModify = new UserModifictionValidator().Validate(userForModificationDto);
-        if (validatorModify.IsValid)
+        if (!validatorModify.IsValid)
         {
             string message = "";
             validatorModify.Errors
@@ -91,6 +88,8 @@ public class UserService : IUserService
         var modifiedUser = await this.userRepository
             .UpdateAsync(storageUser);
 
+        await userRepository.SaveChangesAsync();
+
         return this.userFactory.MapToUserDto(modifiedUser);
     }
 
@@ -111,8 +110,11 @@ public class UserService : IUserService
             throw new Exception(message);
         }
 
+
         var removedUser = await this.userRepository
             .DeleteAsync(storageUser);
+
+        await userRepository.SaveChangesAsync();
 
         return this.userFactory.MapToUserDto(removedUser);
     }
