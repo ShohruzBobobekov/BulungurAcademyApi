@@ -48,7 +48,7 @@ public class UserController : ControllerBase
 
     [HttpPut]
     public async ValueTask<ActionResult<UserDto>> PutUserAsync(
-            UserForModificationDto userForModificationDto)
+           UserForModificationDto userForModificationDto)
     {
         var modifiedUser = await this.userService
             .ModifyUserAsync(userForModificationDto);
