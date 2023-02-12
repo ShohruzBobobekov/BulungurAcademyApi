@@ -1,6 +1,5 @@
 ﻿using BulungurAcademy.Application.DataTranferObjects.Users;
 using BulungurAcademy.Application.Services.Users;
-using BulungurAcademy.Domain.Entities.Subjects;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BulungurAcademy.Api.Controllers;
@@ -64,6 +63,9 @@ public class UserController : ControllerBase
         var removed = await this.userService
                 .RemoveUserAsync(userId);
 
+        
+
         return Ok(removed);
     }
+
 }
