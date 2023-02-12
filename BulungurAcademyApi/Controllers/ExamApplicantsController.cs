@@ -26,10 +26,44 @@ namespace BulungurAcademy.Api.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetExamApplicants()
+        public IActionResult GetAllExamApplicants()
         {
             return Ok(service.RetriveAllExamApplicants());
         }
 
+        [HttpGet("{examId:guid}")]
+        public IActionResult GetExamApplicantsByExamId(Guid examId)
+        {
+            return Ok(service.RetriveExamApplicantsByExamId(examId));
+        }
+        [HttpGet("{SubjectId:guid}")]
+         public IActionResult GetExamApplicantsBySubjectId(Guid subjectId)
+        {
+            return Ok(service.RetriveExamApplicantsBySubjectId(subjectId));
+        }
+
+        [HttpGet("{firstSubjectId:guid}")]
+        public IActionResult GetExamApplicantsByFirstSubject(Guid firstSubjectId)
+        {
+            return Ok(service.RetriveExamApplicantByFirstSubjectId(firstSubjectId));
+        }
+
+        [HttpGet("{secontSubject:guid}")]
+        public IActionResult GetExamApplicantsBySecondSubject(Guid secondSubjectId) 
+        {
+            return Ok(service.RetriveExamApplicantBySecondSubjectId(secondSubjectId));
+        }
+
+        [HttpPut]
+        public IActionResult PutExamApplicant(ExamApplicantDto examApplicantDto)
+        {
+            return Ok(service.ModifyExamApplicant(examApplicantDto));
+        }
+
+        [HttpDelete]
+        public IActionResult DeleteExamApplicant(ExamApplicantDto examApplicantDto)
+        {
+            return Ok(service.RemoveExamApplicant(examApplicantDto));
+        }
     }
 }
