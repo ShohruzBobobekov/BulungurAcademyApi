@@ -47,9 +47,19 @@ public class UserController : ControllerBase
         return Ok(user);
     }
 
+    [HttpPut]
+    public async ValueTask<ActionResult<UserDto>> PutUserAsync(
+           UserForModificationDto userForModificationDto)
+    {
+        var modifiedUser = await this.userService
+            .ModifyUserAsync(userForModificationDto);
+
+        return Ok(modifiedUser);
+    }
+
 
     [HttpDelete("{userId:guid}")]
-    public async ValueTask<ActionResult<Subject>> DeleteUserAsync(Guid userId)
+    public async ValueTask<ActionResult<UserDto>> DeleteUserAsync(Guid userId)
     {
         var removed = await this.userService
                 .RemoveUserAsync(userId);
