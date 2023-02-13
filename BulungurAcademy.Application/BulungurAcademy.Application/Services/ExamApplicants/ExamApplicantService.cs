@@ -58,7 +58,7 @@ public class ExamApplicantService : IExamApplicantService
         new string[] { "User", "Exam", "FirstSubject", "SecondSubject" });
     }
 
-    public IQueryable<ExamApplicant> RetriveExamApplicantBySubjectId(Guid subjectId)
+    public IQueryable<ExamApplicant> RetriveExamApplicantsBySubjectId(Guid subjectId)
     {
         return repository.SelectAllWithDetailsAsync(examApplicant =>
         examApplicant.FirstSubjectId == subjectId ||
@@ -79,9 +79,9 @@ public class ExamApplicantService : IExamApplicantService
         return updated;
     }
 
-    public async ValueTask<ExamApplicant> RemoveExamApplicant(ExamApplicant examApplicant)
+    public async ValueTask<ExamApplicant> RemoveExamApplicant(ExamApplicantDto examApplicantDto)
     {
-        var removed= await repository.DeleteAsync(examApplicant);
+        var removed= await repository.DeleteAsync(factory.MapToExamApplicant(examApplicantDto));
         await repository.SaveChangesAsync();
         return removed;
     }

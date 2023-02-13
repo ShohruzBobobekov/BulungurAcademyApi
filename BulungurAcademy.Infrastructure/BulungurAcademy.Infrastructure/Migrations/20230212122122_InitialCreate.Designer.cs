@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BulungurAcademy.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230130185853_InitialCreate")]
+    [Migration("20230212122122_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -100,8 +100,8 @@ namespace BulungurAcademy.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("24ff6d2f-5a91-4007-b88b-77603e0b2105"),
-                            CreatedAt = new DateTime(2023, 1, 30, 23, 58, 53, 168, DateTimeKind.Local).AddTicks(1940),
+                            Id = new Guid("5a55f8ff-f72c-4f48-b20a-d27bbbed9b71"),
+                            CreatedAt = new DateTime(2023, 2, 12, 17, 21, 22, 206, DateTimeKind.Local).AddTicks(4142),
                             ExamDate = new DateTime(2023, 4, 21, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ExamName = "Imtihon 1",
                             UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
@@ -128,6 +128,22 @@ namespace BulungurAcademy.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Subjects", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("be04ecde-1fc4-4716-be35-eef6d6d8e910"),
+                            CreatedAt = new DateTime(2023, 2, 12, 17, 21, 22, 207, DateTimeKind.Local).AddTicks(3738),
+                            Name = "Matematika",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = new Guid("c73b5db9-da88-45e9-8036-5db97202bd48"),
+                            CreatedAt = new DateTime(2023, 2, 12, 17, 21, 22, 207, DateTimeKind.Local).AddTicks(3750),
+                            Name = "Fizika",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        });
                 });
 
             modelBuilder.Entity("BulungurAcademy.Domain.Entities.Users.User", b =>
@@ -169,8 +185,8 @@ namespace BulungurAcademy.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("3d938834-4082-4881-be34-395d15d25dea"),
-                            CreatedAt = new DateTime(2023, 1, 30, 23, 58, 53, 170, DateTimeKind.Local).AddTicks(8778),
+                            Id = new Guid("baa9d7c1-9b8a-4f33-ba88-6d652f0651a1"),
+                            CreatedAt = new DateTime(2023, 2, 12, 17, 21, 22, 207, DateTimeKind.Local).AddTicks(7409),
                             FirstName = "Shohruz",
                             LastName = "Bobobekov",
                             Phone = "+998901033685",

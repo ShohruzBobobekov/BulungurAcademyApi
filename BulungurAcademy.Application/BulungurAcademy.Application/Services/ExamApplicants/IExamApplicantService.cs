@@ -8,9 +8,9 @@ public interface IExamApplicantService
     ValueTask<ExamApplicant> CreateExamApplicant(ExamApplicantDto examApplicantDto);
     IQueryable<ExamApplicant> RetriveAllExamApplicants();
     IQueryable<ExamApplicant> RetriveExamApplicantsByExamId(Guid examId);
-    IQueryable<ExamApplicant> RetriveExamApplicantBySubjectId(Guid subjectId);  
+    IQueryable<ExamApplicant> RetriveExamApplicantsBySubjectId(Guid subjectId);  
     IQueryable<ExamApplicant> RetriveExamApplicantByFirstSubjectId(Guid subjectId);
     IQueryable<ExamApplicant> RetriveExamApplicantBySecondSubjectId(Guid subjectId);
     ValueTask<ExamApplicant> ModifyExamApplicant(ExamApplicantDto examApplicantDto);
-    ValueTask<ExamApplicant> RemoveExamApplicant(ExamApplicant examApplicant);
+    ValueTask<ExamApplicant> RemoveExamApplicant(ExamApplicantDto examApplicant);
 }
