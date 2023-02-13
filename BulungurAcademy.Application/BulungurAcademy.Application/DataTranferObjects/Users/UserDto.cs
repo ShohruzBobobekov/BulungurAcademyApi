@@ -1,4 +1,6 @@
-﻿using BulungurAcademy.Domain.Enum;
+﻿using BulungurAcademy.Application.DataTranferObjects.ExamApplicants;
+using BulungurAcademy.Domain.Entities;
+using BulungurAcademy.Domain.Enum;
 using System.ComponentModel.DataAnnotations;
 
 namespace BulungurAcademy.Application.DataTranferObjects.Users;
@@ -8,5 +10,6 @@ public record UserDto(
     string firstName,
     string? lastName,
     string phoneNumber,
-    UserRole role 
+    UserRole role,
+    IEnumerable<ExamApplicantDto> examApplicants
     );

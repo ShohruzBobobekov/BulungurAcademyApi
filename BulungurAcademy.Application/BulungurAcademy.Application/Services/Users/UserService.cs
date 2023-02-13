@@ -58,7 +58,7 @@ public class UserService : IUserService
     public  IQueryable<UserDto> RetrieveUsers()
     {
         var storageUsers =  this.userRepository
-            .SelectAll();
+            .SelectAllWithDetailsAsync(x => true,new string[] { "ExamApplicants" });
 
         return storageUsers.Select(storageUser => this.userFactory.MapToUserDto(storageUser));
     }
