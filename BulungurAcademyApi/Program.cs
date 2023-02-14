@@ -1,5 +1,7 @@
 
 using BulungurAcademy.Api.Extensions;
+using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 namespace BulungurAcademyApi
 {
@@ -12,8 +14,14 @@ namespace BulungurAcademyApi
             // Add services to the container.
             builder.Services.AddDbContexts(builder.Configuration);
 
-            builder.Services.AddControllers();
             builder.Services
+                .AddControllers()
+                .AddJsonOptions(option =>
+                {
+                    option.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve;
+                   // option.JsonSerializerOptions.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+                });
+            builder.Services                
                 .AddApplication()
                 .AddInfrastructure();
             

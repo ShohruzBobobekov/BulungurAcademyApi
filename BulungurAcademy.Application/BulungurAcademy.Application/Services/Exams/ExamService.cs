@@ -1,4 +1,5 @@
-﻿using BulungurAcademy.Domain.Entities.Exams;
+﻿using BulungurAcademy.Application.DataTranferObjects.Exams;
+using BulungurAcademy.Domain.Entities.Exams;
 using BulungurAcademy.Infrastructure.Repositories.Exams;
 
 namespace BulungurAcademy.Application.Services.Exams;
@@ -6,15 +7,17 @@ namespace BulungurAcademy.Application.Services.Exams;
 public class ExamService : IExamService
 {
     private readonly IExamRepository examRepository;
+    private readonly IExamFactory factory;
 
-    public ExamService(IExamRepository examRepository)
+    public ExamService(IExamRepository examRepository, IExamFactory factory)
     {
         this.examRepository = examRepository;
+        this.factory = factory;
     }
 
-    public async ValueTask<Exam> CreateExamAsync(Exam exam)
+    public async ValueTask<Exam> CreateExamAsync(ExamForCreationDto exam)
     {
-        var  inserted= await examRepository.InsertAsync(exam);
+        var  inserted= await examRepository.InsertAsync(factory.MapToExam(exam));
         await examRepository.SaveChangesAsync();
         return inserted;
     }
@@ -43,7 +46,7 @@ public class ExamService : IExamService
         return storageExam;
     }
 
-    public async ValueTask<Exam> ModifyExamAsync(Exam exam)
+    public async ValueTask<Exam> ModifyExamAsync(ExamForModificationDto exam)
     {
         var storageExam = await examRepository.SelectByIdAsync(exam.Id);
 
@@ -53,8 +56,8 @@ public class ExamService : IExamService
         }
 
         storageExam.UpdatedAt = DateTime.Now;
-        storageExam.ExamDate = exam.ExamDate == null ? storageExam.ExamDate : exam.ExamDate;
-        storageExam.ExamName = exam.ExamName == null ? storageExam.ExamName : exam.ExamName;
+        storageExam.ExamDate = (DateTime)(exam.examDate == null ? storageExam.ExamDate : exam.examDate);
+        storageExam.ExamName = exam.name == null ? storageExam.ExamName : exam.name;
         
         var updated= await examRepository.UpdateAsync(storageExam);
         await examRepository.SaveChangesAsync();

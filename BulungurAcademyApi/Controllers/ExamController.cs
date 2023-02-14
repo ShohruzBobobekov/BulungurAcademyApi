@@ -1,4 +1,5 @@
-﻿using BulungurAcademy.Application.Services.Exams;
+﻿using BulungurAcademy.Application.DataTranferObjects.Exams;
+using BulungurAcademy.Application.Services.Exams;
 using BulungurAcademy.Domain.Entities.Exams;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,17 +9,23 @@ namespace BulungurAcademy.Api.Controllers;
 [Route("api/[controller]")]
 public class ExamController : ControllerBase
 {
-    private readonly IExamService examService;
+    private readonly IExamService service;
 
     public ExamController(IExamService examService)
     {
-        this.examService = examService;
+        this.service = examService;
+    }
+
+    [HttpPost]
+    IActionResult CreateExamAsync(ExamForCreationDto exam)
+    {
+        return Ok( service.CreateExamAsync(exam));
     }
 
     [HttpGet]
     public IActionResult GetExams()
     {
-        var exams = examService.RetrieveExams();
+        var exams = service.RetrieveExams();
 
         return Ok(exams);
     }
@@ -26,13 +33,8 @@ public class ExamController : ControllerBase
     [HttpGet("examId:Guid")]
     public async Task<IActionResult> GetExamByIdAsync(Guid examId)
     {
-        var exam = await examService.RetrieveExamByIdAsync(id: examId);
+        var exam = await service.RetrieveExamByIdAsync(id: examId);
 
         return Ok(exam);
-    }
-
-    [HttpPost] IActionResult CreateExamAsync(Exam exam)
-    {
-
     }
 }

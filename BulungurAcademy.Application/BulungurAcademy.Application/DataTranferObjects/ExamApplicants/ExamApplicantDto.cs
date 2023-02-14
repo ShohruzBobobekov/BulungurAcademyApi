@@ -1,4 +1,6 @@
-﻿using BulungurAcademy.Application.DataTranferObjects.Users;
+﻿using BulungurAcademy.Application.DataTranferObjects.Exams;
+using BulungurAcademy.Application.DataTranferObjects.Users;
+using BulungurAcademy.Domain.Entities.Subjects;
 
 namespace BulungurAcademy.Application.DataTranferObjects.ExamApplicants;
 
@@ -7,7 +9,8 @@ public record ExamApplicantDto(
      Guid ExamId,
      Guid? FirstSubjectId,
      Guid? SecondSubjectId,
-     UserDto UserDto
-     //SubjectDto FirstSubject,
-     //SubjectDto SecondSubject
+     UserDto UserDto,
+     ExamDto ExamDto,
+     Subject FirstSubject,
+     Subject SecondSubject
 );
