@@ -1,6 +1,5 @@
 ﻿using BulungurAcademy.Application.DataTranferObjects.Exams;
 using BulungurAcademy.Application.Services.Exams;
-using BulungurAcademy.Domain.Entities.Exams;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BulungurAcademy.Api.Controllers;
@@ -10,16 +9,13 @@ namespace BulungurAcademy.Api.Controllers;
 public class ExamController : ControllerBase
 {
     private readonly IExamService service;
-
     public ExamController(IExamService examService)
-    {
-        this.service = examService;
-    }
+        => this.service = examService;
 
     [HttpPost]
-    IActionResult CreateExamAsync(ExamForCreationDto exam)
+    public IActionResult CreateExamAsync(ExamForCreationDto exam)
     {
-        return Ok( service.CreateExamAsync(exam));
+        return Ok(service.CreateExamAsync(exam));
     }
 
     [HttpGet]
@@ -36,5 +32,27 @@ public class ExamController : ControllerBase
         var exam = await service.RetrieveExamByIdAsync(id: examId);
 
         return Ok(exam);
+    }
+
+    [HttpGet("examWithDetalias/{Id}:guid")]
+    public async Task<IActionResult> GetExamWithDetailsAsync(Guid id)
+    {
+        var examWithDetalias = await this.service.RetrieveExamWithDetailsAsync(id);
+
+        return Ok(examWithDetalias);
+    }
+    [HttpPut]
+    public async Task<IActionResult> PutExamAsync(ExamForModificationDto exam)
+    {
+        var modifyExam = await this.service.ModifyExamAsync(exam);
+
+        return Ok(modifyExam);
+    }
+    [HttpDelete]
+    public async Task<IActionResult> DeleteExamAsync(Guid id)
+    {
+        var deleteExam = await this.service.RemoveExamAsync(id);
+
+        return Ok(deleteExam);
     }
 }
