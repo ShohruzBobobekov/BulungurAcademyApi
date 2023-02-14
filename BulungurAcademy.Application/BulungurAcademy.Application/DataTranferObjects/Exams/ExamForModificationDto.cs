@@ -1,7 +1,7 @@
 ﻿namespace BulungurAcademy.Application.DataTranferObjects.Exams;
 
 public record ExamForModificationDto(
+    Guid Id,
     string? name,
-    DateTime? examDate,
-    IList<SubjectForCreationDto>? examSubjects,
-    DateTime updateAt);
+    DateTime? examDate
+    );

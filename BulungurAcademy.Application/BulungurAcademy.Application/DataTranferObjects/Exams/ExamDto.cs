@@ -1,4 +1,7 @@
 ﻿namespace BulungurAcademy.Application.DataTranferObjects.Exams;
 
-public class ExamDto(
-    )
+public record ExamDto(
+    Guid id,
+    string? ExamName,
+    DateTime ExamDate
+    );

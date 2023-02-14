@@ -2,5 +2,5 @@
 
 public record ExamForCreationDto(
     string name,
-    DateTime examDate,
-    DateTime CreatedAt);
+    DateTime examDate
+    );
