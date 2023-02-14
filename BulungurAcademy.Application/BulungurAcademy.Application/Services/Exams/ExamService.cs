@@ -14,7 +14,9 @@ public class ExamService : IExamService
 
     public async ValueTask<Exam> CreateExamAsync(Exam exam)
     {
-        return await examRepository.InsertAsync(exam);
+        var  inserted= await examRepository.InsertAsync(exam);
+        await examRepository.SaveChangesAsync();
+        return inserted;
     }
 
     public async ValueTask<Exam> RetrieveExamByIdAsync(Guid id)
@@ -54,7 +56,9 @@ public class ExamService : IExamService
         storageExam.ExamDate = exam.ExamDate == null ? storageExam.ExamDate : exam.ExamDate;
         storageExam.ExamName = exam.ExamName == null ? storageExam.ExamName : exam.ExamName;
         
-        return await examRepository.UpdateAsync(storageExam);
+        var updated= await examRepository.UpdateAsync(storageExam);
+        await examRepository.SaveChangesAsync();
+        return updated;
     }
 
     public async ValueTask<Exam> RemoveExamAsync(Guid id)
@@ -66,7 +70,9 @@ public class ExamService : IExamService
             throw new Exception("Exam not found");
         }
 
-        return await examRepository.DeleteAsync(storageExam);
+        var deleted= await examRepository.DeleteAsync(storageExam);
+        await examRepository.SaveChangesAsync();
+        return deleted;
     }
 
 }
