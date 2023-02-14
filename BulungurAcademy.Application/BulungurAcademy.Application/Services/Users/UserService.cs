@@ -40,7 +40,7 @@ public class UserService : IUserService
     {
 
         var storageUser = await this.userRepository
-            .SelectByIdAsync(id);
+            .SelectByIdWithDetailsAsync(x => true, new string[] { "ExamApplicants" });
 
         var userValidator = new UserValidator().Validate(storageUser);
 
@@ -55,13 +55,14 @@ public class UserService : IUserService
         return this.userFactory.MapToUserDto(storageUser);
     }
 
-    public  IQueryable<UserDto> RetrieveUsers()
+    public IQueryable<UserDto> RetrieveUsers()
     {
-        var storageUsers =  this.userRepository
-            .SelectAll();
+        var storageUsers = this.userRepository
+            .SelectAllWithDetailsAsync(x => true, new string[] { "ExamApplicants" });
 
         return storageUsers.Select(storageUser => this.userFactory.MapToUserDto(storageUser));
     }
+
 
     public async ValueTask<UserDto> ModifyUserAsync(UserForModificationDto userForModificationDto)
     {
@@ -77,7 +78,7 @@ public class UserService : IUserService
         var storageUser = await this.userRepository
             .SelectByIdAsync(userForModificationDto.id);
 
-        if(storageUser is null)
+        if (storageUser is null)
         {
             string message = "Bunday foydalanuvchi yoq";
             throw new Exception(message);
@@ -95,7 +96,7 @@ public class UserService : IUserService
 
     public async ValueTask<UserDto> RemoveUserAsync(Guid id)
     {
-        
+
 
         var storageUser = await this.userRepository
             .SelectByIdAsync(id);
