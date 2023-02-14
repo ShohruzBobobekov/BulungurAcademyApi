@@ -8,7 +8,6 @@ public class ExamService : IExamService
 {
     private readonly IExamRepository examRepository;
     private readonly IExamFactory factory;
-
     public ExamService(IExamRepository examRepository, IExamFactory factory)
     {
         this.examRepository = examRepository;
@@ -22,14 +21,14 @@ public class ExamService : IExamService
         return inserted;
     }
 
-    public async ValueTask<Exam> RetrieveExamByIdAsync(Guid id)
-    {
-        return await examRepository.SelectByIdAsync(id);
-    }
-
     public IQueryable<Exam> RetrieveExams()
     {
         return examRepository.SelectAll();
+    }
+
+    public async ValueTask<Exam> RetrieveExamByIdAsync(Guid id)
+    {
+        return await examRepository.SelectByIdAsync(id);
     }
 
     public async ValueTask<Exam> RetrieveExamWithDetailsAsync(Guid id)
@@ -42,7 +41,7 @@ public class ExamService : IExamService
         {
             throw new Exception("Exam not found");
         }
-
+        
         return storageExam;
     }
 
