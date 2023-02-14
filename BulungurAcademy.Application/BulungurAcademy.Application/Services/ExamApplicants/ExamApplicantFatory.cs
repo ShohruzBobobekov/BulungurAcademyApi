@@ -1,9 +1,12 @@
 ﻿using BulungurAcademy.Application.DataTranferObjects.ExamApplicants;
+using BulungurAcademy.Application.Services.Users;
 using BulungurAcademy.Domain.Entities;
 
 namespace BulungurAcademy.Application.Services.ExamApplicants;
 public class ExamApplicantFatory : IExamApplicantFatory
 {
+    private readonly IUserFactory factory;
+
     public ExamApplicant MapToExamApplicant(ExamApplicantDto examApplicantDto)
     {
         return new ExamApplicant()
@@ -21,7 +24,8 @@ public class ExamApplicantFatory : IExamApplicantFatory
             examApplican.UserId,
             examApplican.ExamId,
             examApplican.FirstSubjectId,
-            examApplican.SecondSubjectId
+            examApplican.SecondSubjectId,
+            factory.MapToUserDto(examApplican.User)
             );
     }
 }
