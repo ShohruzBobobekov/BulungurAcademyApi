@@ -21,6 +21,8 @@ public partial class SubjectService : ISubjectService
             storageSubject: storageSubject,
             subjectId: subjectForCreation.Id);
 
+        await this.subjectRepository.SaveChangesAsync();
+
         return storageSubject;
     }
 
@@ -54,6 +56,8 @@ public partial class SubjectService : ISubjectService
             storageSubject: storageSubject,
             subjectId: subjectForModification.Id);
 
+        await this.subjectRepository.SaveChangesAsync();
+
         return storageSubject;
     }
 
@@ -68,6 +72,8 @@ public partial class SubjectService : ISubjectService
             subjectId: subjectId);
 
         var removeSubject = await this.subjectRepository.DeleteAsync(storageSubject);
+        
+        await this.subjectRepository.SaveChangesAsync();
 
         return removeSubject;
     }
