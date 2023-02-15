@@ -39,6 +39,6 @@ public class Userfactory : IUserFactory
             user.Phone,
             user.UserRole,
             user.ExamApplicants.Select(eas => fatory.MapToExamApplicantDto(eas))
-            ) ;
+            );
     }
 }
