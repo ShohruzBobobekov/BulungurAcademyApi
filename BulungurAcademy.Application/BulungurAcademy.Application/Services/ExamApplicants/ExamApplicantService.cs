@@ -74,14 +74,14 @@ public class ExamApplicantService : IExamApplicantService
 
     public async ValueTask<ExamApplicant> ModifyExamApplicant(ExamApplicantDto examApplicantDto)
     {
-        var updated= await repository.UpdateAsync(factory.MapToExamApplicant(examApplicantDto));
+        var updated = await repository.UpdateAsync(factory.MapToExamApplicant(examApplicantDto));
         await repository.SaveChangesAsync();
         return updated;
     }
 
     public async ValueTask<ExamApplicant> RemoveExamApplicant(ExamApplicantDto examApplicantDto)
     {
-        var removed= await repository.DeleteAsync(factory.MapToExamApplicant(examApplicantDto));
+        var removed = await repository.DeleteAsync(factory.MapToExamApplicant(examApplicantDto));
         await repository.SaveChangesAsync();
         return removed;
     }

@@ -31,27 +31,27 @@ namespace BulungurAcademy.Api.Controllers
             return Ok(service.RetriveAllExamApplicants());
         }
 
-        [HttpGet("{examId:guid}")]
-        public IActionResult GetExamApplicantsByExamId(Guid examId)
+        [HttpGet("exam/{Id}:guid")]
+        public IActionResult GetExamApplicantsByExamId(Guid Id)
         {
-            return Ok(service.RetriveExamApplicantsByExamId(examId));
+            return Ok(service.RetriveExamApplicantsByExamId(Id));
         }
-        [HttpGet("{SubjectId:guid}")]
-         public IActionResult GetExamApplicantsBySubjectId(Guid subjectId)
+        [HttpGet("Subject/{Id}:guid")]
+         public IActionResult GetExamApplicantsBySubjectId(Guid Id)
         {
-            return Ok(service.RetriveExamApplicantsBySubjectId(subjectId));
-        }
-
-        [HttpGet("{firstSubjectId:guid}")]
-        public IActionResult GetExamApplicantsByFirstSubject(Guid firstSubjectId)
-        {
-            return Ok(service.RetriveExamApplicantByFirstSubjectId(firstSubjectId));
+            return Ok(service.RetriveExamApplicantsBySubjectId(Id));
         }
 
-        [HttpGet("{secontSubject:guid}")]
-        public IActionResult GetExamApplicantsBySecondSubject(Guid secondSubjectId) 
+        [HttpGet("firstSubject/{Id}:guid")]
+        public IActionResult GetExamApplicantsByFirstSubject(Guid Id)
         {
-            return Ok(service.RetriveExamApplicantBySecondSubjectId(secondSubjectId));
+            return Ok(service.RetriveExamApplicantByFirstSubjectId(Id));
+        }
+
+        [HttpGet("secondSubject/{Id}:guid")]
+        public IActionResult GetExamApplicantsBySecondSubject(Guid Id) 
+        {
+            return Ok(service.RetriveExamApplicantBySecondSubjectId(Id));
         }
 
         [HttpPut]

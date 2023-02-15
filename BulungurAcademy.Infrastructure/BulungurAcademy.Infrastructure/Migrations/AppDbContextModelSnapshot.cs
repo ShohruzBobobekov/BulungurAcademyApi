@@ -97,7 +97,7 @@ namespace BulungurAcademy.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("5a55f8ff-f72c-4f48-b20a-d27bbbed9b71"),
+                            Id = new Guid("be04ecde-1fc4-4716-be35-eef6d6d8e910"),
                             CreatedAt = new DateTime(2023, 2, 12, 17, 21, 22, 206, DateTimeKind.Local).AddTicks(4142),
                             ExamDate = new DateTime(2023, 4, 21, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ExamName = "Imtihon 1",
