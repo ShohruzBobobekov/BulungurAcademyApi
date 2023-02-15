@@ -36,9 +36,9 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
             new User( firstName : "Shohruz",
             lastName : "Bobobekov",
             phone : "+998901033685",
+            telegramId: 1035640073,
             userRole : UserRole.Admin)
-            {
-                TelegramId = 1035640073,
+            {                
                 CreatedAt = DateTime.Now
             }
         };

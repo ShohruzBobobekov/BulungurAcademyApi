@@ -1,5 +1,6 @@
 ﻿using BulungurAcademy.Application.DataTranferObjects.Users;
 using BulungurAcademy.Application.Validation.Users;
+using BulungurAcademy.Domain.Entities.Users;
 using BulungurAcademy.Infrastructure.Repositories.Users;
 
 namespace BulungurAcademy.Application.Services.Users;
@@ -14,9 +15,10 @@ public class UserService : IUserService
         this.userRepository = userRepository;
         this.userFactory = userFactory;
     }
-    public async ValueTask<UserDto> CreateUserAsync(UserForCreaterDto userForCreaterDto)
+    public async ValueTask<User> CreateUserAsync(UserForCreaterDto userForCreaterDto)
     {
         var validationResult = new UserForCreaterValidator().Validate(userForCreaterDto);
+
         if (!validationResult.IsValid)
         {
             string message = "";
@@ -33,14 +35,14 @@ public class UserService : IUserService
 
         await userRepository.SaveChangesAsync();
 
-        return this.userFactory.MapToUserDto(addedUser);
+        return addedUser;
     }
 
-    public async ValueTask<UserDto> RetrieveUserByIdAsync(Guid id)
+    public async ValueTask<User> RetrieveUserByIdAsync(Guid id)
     {
 
         var storageUser = await this.userRepository
-            .SelectByIdWithDetailsAsync(x => true, new string[] { "ExamApplicants" });
+            .SelectByIdWithDetailsAsync(x => x.Id==id, new string[] { "ExamApplicants" });
 
         var userValidator = new UserValidator().Validate(storageUser);
 
@@ -52,7 +54,7 @@ public class UserService : IUserService
             throw new Exception(message);
         }
 
-        return this.userFactory.MapToUserDto(storageUser);
+        return storageUser;
     }
 
     public IQueryable<UserDto> RetrieveUsers()
@@ -64,7 +66,7 @@ public class UserService : IUserService
     }
 
 
-    public async ValueTask<UserDto> ModifyUserAsync(UserForModificationDto userForModificationDto)
+    public async ValueTask<User> ModifyUserAsync(UserForModificationDto userForModificationDto)
     {
         var validatorModify = new UserModifictionValidator().Validate(userForModificationDto);
         if (!validatorModify.IsValid)
@@ -91,10 +93,10 @@ public class UserService : IUserService
 
         await userRepository.SaveChangesAsync();
 
-        return this.userFactory.MapToUserDto(modifiedUser);
+        return modifiedUser;
     }
 
-    public async ValueTask<UserDto> RemoveUserAsync(Guid id)
+    public async ValueTask<User> RemoveUserAsync(Guid id)
     {
 
 
@@ -117,7 +119,7 @@ public class UserService : IUserService
 
         await userRepository.SaveChangesAsync();
 
-        return this.userFactory.MapToUserDto(removedUser);
+        return removedUser;
     }
 
 }
