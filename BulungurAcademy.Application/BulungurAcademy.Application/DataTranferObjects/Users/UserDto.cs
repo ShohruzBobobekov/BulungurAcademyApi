@@ -11,5 +11,5 @@ public record UserDto(
     string? lastName,
     string phoneNumber,
     UserRole role,
-    IEnumerable<ExamApplicantDto> examApplicants
+    IEnumerable<ExamApplicantDto>? examApplicants
     );

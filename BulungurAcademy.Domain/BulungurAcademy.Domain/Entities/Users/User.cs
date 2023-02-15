@@ -13,8 +13,9 @@ public class User : Auditable
 
     public ICollection<ExamApplicant>? ExamApplicants { get; set; }
 
-    public User(string firstName, string lastName, string phone, UserRole userRole)
+    public User(string firstName, string lastName, string phone, UserRole userRole,long? telegramId)
     {
+        TelegramId = telegramId;
         Id = Guid.NewGuid();
         FirstName = firstName;
         LastName = lastName;

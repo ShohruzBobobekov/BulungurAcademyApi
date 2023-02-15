@@ -1,5 +1,6 @@
 ﻿using BulungurAcademy.Application.DataTranferObjects.Users;
 using BulungurAcademy.Application.Services.Users;
+using BulungurAcademy.Domain.Entities.Users;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BulungurAcademy.Api.Controllers;
@@ -17,7 +18,7 @@ public class UserController : ControllerBase
     }
 
     [HttpPost]
-    public async ValueTask<ActionResult<UserDto>> PostUserAsync(
+    public async ValueTask<ActionResult<User>> PostUserAsync(
            UserForCreaterDto userForCreationDto)
     {
         var createdUser = await this.userService
@@ -47,7 +48,7 @@ public class UserController : ControllerBase
     }
 
     [HttpPut]
-    public async ValueTask<ActionResult<UserDto>> PutUserAsync(
+    public async ValueTask<ActionResult<User>> PutUserAsync(
            UserForModificationDto userForModificationDto)
     {
         var modifiedUser = await this.userService
@@ -62,8 +63,6 @@ public class UserController : ControllerBase
     {
         var removed = await this.userService
                 .RemoveUserAsync(userId);
-
-        
 
         return Ok(removed);
     }

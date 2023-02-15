@@ -19,7 +19,8 @@ public class Userfactory : IUserFactory
             userForCreationDto.firstName,
             userForCreationDto.lastName,
             userForCreationDto.phoneNumber,
-            Domain.Enum.UserRole.User);
+            Domain.Enum.UserRole.User,
+            userForCreationDto.telegramId);
     }
 
     public void MapToUser(User storageUser, UserForModificationDto userForModificationDto)

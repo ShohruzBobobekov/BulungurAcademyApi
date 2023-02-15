@@ -3,6 +3,7 @@
 public record UserForCreaterDto(
     string firstName,
     string? lastName,
-    string phoneNumber
+    string phoneNumber,
+    long? telegramId
     );
 
