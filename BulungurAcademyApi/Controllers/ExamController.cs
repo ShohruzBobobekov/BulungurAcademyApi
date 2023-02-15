@@ -13,9 +13,11 @@ public class ExamController : ControllerBase
         => this.service = examService;
 
     [HttpPost]
-    public IActionResult CreateExamAsync(ExamForCreationDto exam)
+    public async Task<IActionResult> CreateExamsAsync(ExamForCreationDto exam)
     {
-        return Ok(service.CreateExamAsync(exam));
+        var creationExam = await this.service.CreateExamAsync(exam);
+
+        return Ok(creationExam);
     }
 
     [HttpGet]
@@ -25,7 +27,7 @@ public class ExamController : ControllerBase
 
         return Ok(exams);
     }
-
+      
     [HttpGet("examId:Guid")]
     public async Task<IActionResult> GetExamByIdAsync(Guid examId)
     {
