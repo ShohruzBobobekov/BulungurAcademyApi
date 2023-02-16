@@ -50,7 +50,7 @@ public partial class SubjectService : ISubjectService
 
         subjectForModification.Name = subjectForModification.Name.ToUpper();
 
-        var storageSubject = await this.ModifySubjectAsync(subjectForModification);
+        var storageSubject = await this.subjectRepository.UpdateAsync(subjectForModification);
 
         ValidateStorageSubject(
             storageSubject: storageSubject,

@@ -4,7 +4,7 @@ using BulungurAcademy.Infrastructure.Repositories.Exams;
 
 namespace BulungurAcademy.Application.Services.Exams;
 
-public class ExamService : IExamService
+public partial class ExamService : IExamService
 {
     private readonly IExamRepository examRepository;
     private readonly IExamFactory factory;
@@ -16,64 +16,69 @@ public class ExamService : IExamService
 
     public async ValueTask<Exam> CreateExamAsync(ExamForCreationDto exam)
     {
+        ValidationForCreation(exam: exam);
+
         var  inserted= await examRepository.InsertAsync(factory.MapToExam(exam));
-        await examRepository.SaveChangesAsync();
+
+        await this.examRepository.SaveChangesAsync();
+
         return inserted;
     }
 
     public IQueryable<Exam> RetrieveExams()
-    {
-        return examRepository.SelectAll();
-    }
+        => this.examRepository.SelectAll();
 
     public async ValueTask<Exam> RetrieveExamByIdAsync(Guid id)
     {
+        ValidationExam(examId: id);
+
         return await examRepository.SelectByIdAsync(id);
     }
 
     public async ValueTask<Exam> RetrieveExamWithDetailsAsync(Guid id)
     {
+        ValidationExam(examId: id);
+
         var storageExam = await examRepository
             .SelectByIdWithDetailsAsync(exam => exam.Id == id,
             new string[] { "ExamSubject" });
 
-        if (storageExam is null)
-        {
-            throw new Exception("Exam not found");
-        }
+        ValidationStrageExam(storageExam: storageExam, examId: id);
         
         return storageExam;
     }
 
     public async ValueTask<Exam> ModifyExamAsync(ExamForModificationDto exam)
     {
+        ValidationForModify(exam: exam);
+
         var storageExam = await examRepository.SelectByIdAsync(exam.Id);
 
-        if (storageExam == null)
-        {
-            throw new Exception("Exam not found");
-        }
+        ValidationStrageExam(storageExam: storageExam, examId: exam.Id);
 
         storageExam.UpdatedAt = DateTime.Now;
         storageExam.ExamDate = (DateTime)(exam.examDate == null ? storageExam.ExamDate : exam.examDate);
         storageExam.ExamName = exam.name == null ? storageExam.ExamName : exam.name;
         
         var updated= await examRepository.UpdateAsync(storageExam);
+
         await examRepository.SaveChangesAsync();
+
         return updated;
     }
 
     public async ValueTask<Exam> RemoveExamAsync(Guid id)
     {
+        ValidationExam(examId: id);
+
         var storageExam = await examRepository.SelectByIdAsync(id);
 
-        if (storageExam is null)
-        {
-            throw new Exception("Exam not found");
-        }
+        ValidationStrageExam(storageExam: storageExam, examId: id);
 
         var deleted= await examRepository.DeleteAsync(storageExam);
+
         await examRepository.SaveChangesAsync();
+
         return deleted;
     }
 
