@@ -6,13 +6,6 @@ namespace BulungurAcademy.Application.Services.Users;
 
 public class Userfactory : IUserFactory
 {
-    private readonly IExamApplicantFatory fatory;
-
-    public Userfactory(IExamApplicantFatory fatory)
-    {
-        this.fatory = fatory;
-    }
-
     public User MapToUser(UserForCreaterDto userForCreationDto)
     {
         return new User(
@@ -38,7 +31,7 @@ public class Userfactory : IUserFactory
             user.LastName,
             user.Phone,
             user.UserRole,
-            user.ExamApplicants.Select(eas => fatory.MapToExamApplicantDto(eas))
+            user.ExamApplicants
             );
     }
 }
