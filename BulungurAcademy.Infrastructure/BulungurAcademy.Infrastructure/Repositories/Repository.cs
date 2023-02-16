@@ -52,6 +52,7 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
 
     public async ValueTask<TEntity> UpdateAsync(TEntity entity) =>
             context.Update(entity).Entity;
+
     public async ValueTask<TEntity> DeleteAsync(TEntity entity)=>
         context.Remove(entity).Entity;
     public async ValueTask<int> SaveChangesAsync()=>

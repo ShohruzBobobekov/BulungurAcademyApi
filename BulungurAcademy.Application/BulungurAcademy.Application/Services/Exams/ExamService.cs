@@ -41,7 +41,7 @@ public partial class ExamService : IExamService
 
         var storageExam = await examRepository
             .SelectByIdWithDetailsAsync(exam => exam.Id == id,
-            new string[] { "ExamSubject" });
+            new string[] { "ExamSubjects", "ExamApplicants" });
 
         ValidationStrageExam(storageExam: storageExam, examId: id);
         
