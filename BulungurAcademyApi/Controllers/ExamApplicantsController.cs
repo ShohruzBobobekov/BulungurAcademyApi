@@ -10,11 +10,8 @@ namespace BulungurAcademy.Api.Controllers
     public class ExamApplicantsController : ControllerBase
     {
         private readonly IExamApplicantService service;
-
         public ExamApplicantsController(IExamApplicantService service)
-        {
-            this.service = service;
-        }
+            => this.service = service;
 
         [HttpPost]
         public async ValueTask<ActionResult<ExamApplicant>> Post(
