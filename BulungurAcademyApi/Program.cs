@@ -11,7 +11,6 @@ namespace BulungurAcademyApi
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
             builder.Services.AddDbContexts(builder.Configuration);
 
             builder.Services
@@ -20,6 +19,7 @@ namespace BulungurAcademyApi
                 {
                     option.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
                 });
+
             builder.Services
                 .AddApplication()
                 .AddInfrastructure();
@@ -29,7 +29,6 @@ namespace BulungurAcademyApi
 
             var app = builder.Build();
 
-            // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();
@@ -39,7 +38,6 @@ namespace BulungurAcademyApi
             app.UseHttpsRedirection();
 
             app.UseAuthorization();
-
 
             app.MapControllers();
 
