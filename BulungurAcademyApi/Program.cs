@@ -18,7 +18,7 @@ namespace BulungurAcademyApi
                 .AddControllers()
                 .AddJsonOptions(option =>
                 {
-                    option.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve;
+                    option.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
                 });
             builder.Services
                 .AddApplication()

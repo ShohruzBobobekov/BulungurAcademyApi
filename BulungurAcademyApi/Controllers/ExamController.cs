@@ -36,13 +36,15 @@ public class ExamController : ControllerBase
         return Ok(exam);
     }
 
-    [HttpGet("examWithDetalias/{Id}:guid")]
+    [HttpGet("examWithDetalias:Guid")]
     public async Task<IActionResult> GetExamWithDetailsAsync(Guid id)
     {
         var examWithDetalias = await this.service.RetrieveExamWithDetailsAsync(id);
 
         return Ok(examWithDetalias);
     }
+
+
     [HttpPut]
     public async Task<IActionResult> PutExamAsync(ExamForModificationDto exam)
     {
