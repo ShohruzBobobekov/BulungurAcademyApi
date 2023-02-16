@@ -10,12 +10,8 @@ namespace BulungurAcademy.Api.Controllers;
 public class UserController : ControllerBase
 {
     private readonly IUserService userService;
-
-    public UserController(
-        IUserService userService)
-    {
-        this.userService = userService;
-    }
+    public UserController(IUserService userService)
+        => this.userService = userService;
 
     [HttpPost]
     public async ValueTask<ActionResult<User>> PostUserAsync(
@@ -35,7 +31,6 @@ public class UserController : ControllerBase
 
         return Ok(users);
     }
-
 
     [HttpGet("{userId:guid}")]
     public async ValueTask<ActionResult<UserDto>> GetUserByIdAsync(
@@ -57,7 +52,6 @@ public class UserController : ControllerBase
         return Ok(modifiedUser);
     }
 
-
     [HttpDelete("{userId:guid}")]
     public async ValueTask<ActionResult<UserDto>> DeleteUserAsync(Guid userId)
     {
@@ -66,5 +60,4 @@ public class UserController : ControllerBase
 
         return Ok(removed);
     }
-
 }
