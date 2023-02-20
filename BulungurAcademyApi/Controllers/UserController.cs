@@ -46,6 +46,16 @@ public class UserController : ControllerBase
 
         return Ok(user);
     }
+    [HttpGet("{telegramId:long}")]
+    public async ValueTask<ActionResult<User>> GerUserByTelegramIdAsync(
+        long telegramId)
+    {
+        var user = await this.userService
+            .RetrieveUserByTelegramIdAsync(telegramId);
+
+        return Ok(user);
+    }
+
 
     [HttpPut]
     public async ValueTask<ActionResult<User>> PutUserAsync(
