@@ -57,6 +57,24 @@ public class UserService : IUserService
         return storageUser;
     }
 
+    public async ValueTask<User> RetrieveUserByTelegramIdAsync(long telegramId)
+    {
+        var storageUser = await this.userRepository
+            .SelectByIdWithDetailsAsync(x => x.TelegramId == telegramId, new string[] { "ExamApplicants" });
+
+        var userValidator = new UserValidator().Validate(storageUser);
+
+        if (!userValidator.IsValid)
+        {
+            string message = "";
+            userValidator.Errors
+                .ForEach(validation => { message += "\n" + validation.ErrorMessage; });
+            throw new Exception(message);
+        }
+
+        return storageUser;
+    }
+
     public IQueryable<UserDto> RetrieveUsers()
     {
         var storageUsers = this.userRepository
