@@ -13,7 +13,7 @@ public partial class ExamService
             throw new ArgumentNullException($"The given subjectId: {examId} is invalid.");
         }
     }
-    public void ValidationStrageExam(Exam storageExam, Guid examId)
+    public void ValidationStorageExam(Exam storageExam, Guid examId)
     {
         if(storageExam == null)
         {
