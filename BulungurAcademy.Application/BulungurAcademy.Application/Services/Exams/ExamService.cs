@@ -32,7 +32,11 @@ public partial class ExamService : IExamService
     {
         ValidationExam(examId: id);
 
-        return await examRepository.SelectByIdAsync(id);
+        var storageExam = await examRepository.SelectByIdAsync(id);
+
+        ValidationStorageExam(storageExam: storageExam, examId: id);
+
+        return storageExam; 
     }
 
     public async ValueTask<Exam> RetrieveExamWithDetailsAsync(Guid id)
