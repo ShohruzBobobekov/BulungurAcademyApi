@@ -32,7 +32,11 @@ public partial class ExamService : IExamService
     {
         ValidationExam(examId: id);
 
-        return await examRepository.SelectByIdAsync(id);
+        var storageExam = await examRepository.SelectByIdAsync(id);
+
+        ValidationStorageExam(storageExam: storageExam, examId: id);
+
+        return storageExam; 
     }
 
     public async ValueTask<Exam> RetrieveExamWithDetailsAsync(Guid id)
@@ -43,7 +47,7 @@ public partial class ExamService : IExamService
             .SelectByIdWithDetailsAsync(exam => exam.Id == id,
             new string[] { "ExamSubjects", "ExamApplicants" });
 
-        ValidationStrageExam(storageExam: storageExam, examId: id);
+        ValidationStorageExam(storageExam: storageExam, examId: id);
         
         return storageExam;
     }
@@ -54,7 +58,7 @@ public partial class ExamService : IExamService
 
         var storageExam = await examRepository.SelectByIdAsync(exam.Id);
 
-        ValidationStrageExam(storageExam: storageExam, examId: exam.Id);
+        ValidationStorageExam(storageExam: storageExam, examId: exam.Id);
 
         storageExam.UpdatedAt = DateTime.Now;
         storageExam.ExamDate = (DateTime)(exam.examDate == null ? storageExam.ExamDate : exam.examDate);
@@ -73,7 +77,7 @@ public partial class ExamService : IExamService
 
         var storageExam = await examRepository.SelectByIdAsync(id);
 
-        ValidationStrageExam(storageExam: storageExam, examId: id);
+        ValidationStorageExam(storageExam: storageExam, examId: id);
 
         var deleted= await examRepository.DeleteAsync(storageExam);
 

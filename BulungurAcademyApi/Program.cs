@@ -1,6 +1,6 @@
 
 using BulungurAcademy.Api.Extensions;
-using Newtonsoft.Json;
+using BulungurAcademy.Api.Middlewares;
 using System.Text.Json.Serialization;
 
 namespace BulungurAcademyApi
@@ -38,6 +38,8 @@ namespace BulungurAcademyApi
             app.UseHttpsRedirection();
 
             app.UseAuthorization();
+
+            app.UseMiddleware<GlobalExceptionHandlerMiddleware>();
 
             app.MapControllers();
 

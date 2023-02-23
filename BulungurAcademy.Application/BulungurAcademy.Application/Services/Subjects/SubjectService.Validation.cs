@@ -1,4 +1,5 @@
 ﻿using BulungurAcademy.Domain.Entities.Subjects;
+using BulungurAcademy.Domain.Exceptions;
 
 namespace BulungurAcademy.Application.Services;
 public partial class SubjectService
@@ -7,14 +8,14 @@ public partial class SubjectService
     {
         if (subjectId == default)
         {
-            throw new ArgumentNullException($"The given subjectId: {subjectId} is invalid.");
+            throw new ValidationException($"The given subjectId: {subjectId} is invalid.");
         }
     }
     public void ValidateStorageSubject(Subject storageSubject, Guid subjectId)
     {
         if(storageSubject == null)
         {
-            throw new ArgumentNullException($"Couldn't find subject with given id: {subjectId}.");
+            throw new NotFoundException($"Couldn't find subject with given id: {subjectId}.");
         }
     }
     public void ValidateForCreation(Subject forCreationSubject)
@@ -26,7 +27,7 @@ public partial class SubjectService
         {
             if(subjectName == subject.Name)
             {
-                throw new Exception($"This subject which {subject.Name} already exists in Database.");
+                throw new ValidationException($"This subject which {subject.Name} already exists in Database.");
             }
         }
     }

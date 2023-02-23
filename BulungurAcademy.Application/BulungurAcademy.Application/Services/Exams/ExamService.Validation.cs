@@ -1,7 +1,6 @@
 ﻿using BulungurAcademy.Application.DataTranferObjects.Exams;
 using BulungurAcademy.Domain.Entities.Exams;
-using BulungurAcademy.Domain.Entities.Subjects;
-using Telegram.Bot.Types.InlineQueryResults;
+using BulungurAcademy.Domain.Exceptions;
 
 namespace BulungurAcademy.Application.Services.Exams;
 public partial class ExamService
@@ -10,28 +9,28 @@ public partial class ExamService
     {
         if (examId == default)
         {
-            throw new ArgumentNullException($"The given subjectId: {examId} is invalid.");
+            throw new ValidationException($"The given subjectId: {examId} is invalid.");
         }
     }
-    public void ValidationStrageExam(Exam storageExam, Guid examId)
+    public void ValidationStorageExam(Exam storageExam, Guid examId)
     {
         if(storageExam == null)
         {
-            throw new ArgumentNullException($"Couldn't find subject with given id: {examId}.");
+            throw new NotFoundException($"Couldn't find subject with given id: {examId}.");
         }
     }
     public void ValidationForCreation(ExamForCreationDto exam)
     {
         if (exam == null)
         {
-            throw new ArgumentNullException($"The given {exam} is invalid.");
+            throw new ValidationException($"The given {exam} is invalid.");
         }
     }
     public void ValidationForModify(ExamForModificationDto exam)
     {
         if (exam == null)
         {
-            throw new ArgumentNullException($"The given {exam} is invalid.");
+            throw new ValidationException($"The given {exam} is invalid.");
         }
     }
 }
