@@ -26,6 +26,9 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
         builder.Property(user => user.TelegramId)
             .IsRequired(false);
 
+        builder.HasIndex(x => x.TelegramId)
+            .IsUnique();
+
         builder.HasData(GenerateData());
 
     }
@@ -38,7 +41,7 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
             phone : "+998901033685",
             telegramId: 1035640073,
             userRole : UserRole.Admin)
-            {                
+            {
                 CreatedAt = DateTime.Now
             }
         };
