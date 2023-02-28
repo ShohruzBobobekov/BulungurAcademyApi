@@ -52,13 +52,8 @@ public partial class UserService : IUserService
         return storageUser;
     }
 
-    public IQueryable<UserDto> RetrieveUsers()
-    {
-        var storageUsers = this.userRepository
+    public IQueryable<User> RetrieveUsers()=> this.userRepository
             .SelectAllWithDetailsAsync(x => true, new string[] { "ExamApplicants" });
-
-        return storageUsers.Select(storageUser => this.userFactory.MapToUserDto(storageUser));
-    }
 
     public async ValueTask<User> ModifyUserAsync(UserForModificationDto userForModificationDto)
     {

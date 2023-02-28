@@ -98,7 +98,7 @@ namespace BulungurAcademy.Infrastructure.Migrations
                         new
                         {
                             Id = new Guid("be04ecde-1fc4-4716-be35-eef6d6d8e910"),
-                            CreatedAt = new DateTime(2023, 2, 12, 17, 21, 22, 206, DateTimeKind.Local).AddTicks(4142),
+                            CreatedAt = new DateTime(2023, 2, 28, 19, 45, 38, 736, DateTimeKind.Local).AddTicks(9650),
                             ExamDate = new DateTime(2023, 4, 21, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ExamName = "Imtihon 1",
                             UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
@@ -129,15 +129,15 @@ namespace BulungurAcademy.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("be04ecde-1fc4-4716-be35-eef6d6d8e910"),
-                            CreatedAt = new DateTime(2023, 2, 12, 17, 21, 22, 207, DateTimeKind.Local).AddTicks(3738),
+                            Id = new Guid("57208275-ff06-4986-8929-24aa5d9de6cc"),
+                            CreatedAt = new DateTime(2023, 2, 28, 19, 45, 38, 737, DateTimeKind.Local).AddTicks(9905),
                             Name = "Matematika",
                             UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = new Guid("c73b5db9-da88-45e9-8036-5db97202bd48"),
-                            CreatedAt = new DateTime(2023, 2, 12, 17, 21, 22, 207, DateTimeKind.Local).AddTicks(3750),
+                            Id = new Guid("5435ae21-249f-478b-9025-921038560579"),
+                            CreatedAt = new DateTime(2023, 2, 28, 19, 45, 38, 737, DateTimeKind.Local).AddTicks(9918),
                             Name = "Fizika",
                             UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         });
@@ -166,6 +166,9 @@ namespace BulungurAcademy.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
                     b.Property<long?>("TelegramId")
                         .HasColumnType("bigint");
 
@@ -177,16 +180,21 @@ namespace BulungurAcademy.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("TelegramId")
+                        .IsUnique()
+                        .HasFilter("[TelegramId] IS NOT NULL");
+
                     b.ToTable("Users", (string)null);
 
                     b.HasData(
                         new
                         {
-                            Id = new Guid("baa9d7c1-9b8a-4f33-ba88-6d652f0651a1"),
-                            CreatedAt = new DateTime(2023, 2, 12, 17, 21, 22, 207, DateTimeKind.Local).AddTicks(7409),
+                            Id = new Guid("d0f61a40-70c5-427d-bd11-b3b371865e59"),
+                            CreatedAt = new DateTime(2023, 2, 28, 19, 45, 38, 738, DateTimeKind.Local).AddTicks(5449),
                             FirstName = "Shohruz",
                             LastName = "Bobobekov",
                             Phone = "+998901033685",
+                            Status = 1,
                             TelegramId = 1035640073L,
                             UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             UserRole = 2

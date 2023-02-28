@@ -51,6 +51,7 @@ namespace BulungurAcademy.Infrastructure.Migrations
                     FirstName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     LastName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Phone = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Status = table.Column<int>(type: "int", nullable: false),
                     UserRole = table.Column<int>(type: "int", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
@@ -127,21 +128,21 @@ namespace BulungurAcademy.Infrastructure.Migrations
             migrationBuilder.InsertData(
                 table: "Exams",
                 columns: new[] { "Id", "CreatedAt", "ExamDate", "ExamName", "UpdatedAt" },
-                values: new object[] { new Guid("5a55f8ff-f72c-4f48-b20a-d27bbbed9b71"), new DateTime(2023, 2, 12, 17, 21, 22, 206, DateTimeKind.Local).AddTicks(4142), new DateTime(2023, 4, 21, 0, 0, 0, 0, DateTimeKind.Unspecified), "Imtihon 1", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) });
+                values: new object[] { new Guid("be04ecde-1fc4-4716-be35-eef6d6d8e910"), new DateTime(2023, 2, 28, 19, 45, 38, 736, DateTimeKind.Local).AddTicks(9650), new DateTime(2023, 4, 21, 0, 0, 0, 0, DateTimeKind.Unspecified), "Imtihon 1", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) });
 
             migrationBuilder.InsertData(
                 table: "Subjects",
                 columns: new[] { "Id", "CreatedAt", "Name", "UpdatedAt" },
                 values: new object[,]
                 {
-                    { new Guid("be04ecde-1fc4-4716-be35-eef6d6d8e910"), new DateTime(2023, 2, 12, 17, 21, 22, 207, DateTimeKind.Local).AddTicks(3738), "Matematika", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                    { new Guid("c73b5db9-da88-45e9-8036-5db97202bd48"), new DateTime(2023, 2, 12, 17, 21, 22, 207, DateTimeKind.Local).AddTicks(3750), "Fizika", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) }
+                    { new Guid("5435ae21-249f-478b-9025-921038560579"), new DateTime(2023, 2, 28, 19, 45, 38, 737, DateTimeKind.Local).AddTicks(9918), "Fizika", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { new Guid("57208275-ff06-4986-8929-24aa5d9de6cc"), new DateTime(2023, 2, 28, 19, 45, 38, 737, DateTimeKind.Local).AddTicks(9905), "Matematika", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) }
                 });
 
             migrationBuilder.InsertData(
                 table: "Users",
-                columns: new[] { "Id", "CreatedAt", "FirstName", "LastName", "Phone", "TelegramId", "UpdatedAt", "UserRole" },
-                values: new object[] { new Guid("baa9d7c1-9b8a-4f33-ba88-6d652f0651a1"), new DateTime(2023, 2, 12, 17, 21, 22, 207, DateTimeKind.Local).AddTicks(7409), "Shohruz", "Bobobekov", "+998901033685", 1035640073L, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 2 });
+                columns: new[] { "Id", "CreatedAt", "FirstName", "LastName", "Phone", "Status", "TelegramId", "UpdatedAt", "UserRole" },
+                values: new object[] { new Guid("d0f61a40-70c5-427d-bd11-b3b371865e59"), new DateTime(2023, 2, 28, 19, 45, 38, 738, DateTimeKind.Local).AddTicks(5449), "Shohruz", "Bobobekov", "+998901033685", 1, 1035640073L, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 2 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_ExamApplicant_ExamId",
@@ -162,6 +163,13 @@ namespace BulungurAcademy.Infrastructure.Migrations
                 name: "IX_ExamsSubjects_ExamId",
                 table: "ExamsSubjects",
                 column: "ExamId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Users_TelegramId",
+                table: "Users",
+                column: "TelegramId",
+                unique: true,
+                filter: "[TelegramId] IS NOT NULL");
         }
 
         /// <inheritdoc />

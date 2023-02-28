@@ -8,7 +8,7 @@ public interface IUserService
     ValueTask<User> CreateUserAsync(UserForCreaterDto userForCreaterDto);
     ValueTask<User> RetrieveUserByIdAsync(Guid id);
     ValueTask<User> RetrieveUserByTelegramIdAsync(long telegramId);
-    IQueryable<UserDto> RetrieveUsers();
+    IQueryable<User> RetrieveUsers();
     ValueTask<User> ModifyUserAsync(UserForModificationDto userForModificationDto);
     ValueTask<User> RemoveUserAsync(Guid id);
 }

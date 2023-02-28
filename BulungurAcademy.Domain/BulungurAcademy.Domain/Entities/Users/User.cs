@@ -9,11 +9,12 @@ public class User : Auditable
     public string FirstName { get; set; }
     public string LastName { get; set; }
     public string Phone { get; set; }
+    public UserStatus Status { get; set; }
     public UserRole UserRole { get; set; }
 
     public ICollection<ExamApplicant>? ExamApplicants { get; set; }
 
-    public User(string firstName, string lastName, string phone, UserRole userRole,long? telegramId)
+    public User(string firstName, string lastName, string phone, long? telegramId, UserRole userRole,UserStatus status=UserStatus.Inactive )
     {
         TelegramId = telegramId;
         Id = Guid.NewGuid();
@@ -21,5 +22,6 @@ public class User : Auditable
         LastName = lastName;
         Phone = phone;
         UserRole = userRole;
+        Status = status;
     }
 }
