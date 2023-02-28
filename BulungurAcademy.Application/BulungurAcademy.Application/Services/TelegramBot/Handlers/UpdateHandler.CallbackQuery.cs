@@ -20,15 +20,6 @@ public partial class UpdateHandler
         await handler;
     }
 
-    private async Task HandleSubjectCallbackQueryAsync(
-        CallbackQuery callbackQuery,
-        Guid subjectId)
-    {
-        
-        
-
-    }
-
     private async Task HandleExamCallbackQueryAsync(
         CallbackQuery callbackQuery,
         Guid examId)
@@ -44,4 +35,14 @@ public partial class UpdateHandler
 
 
     }
+
+    private async Task HandleSubjectCallbackQueryAsync(
+        CallbackQuery callbackQuery,
+        Guid subjectId)
+    {
+        
+        
+
+    }
+
 }
