@@ -12,8 +12,9 @@ public class Userfactory : IUserFactory
             userForCreationDto.firstName,
             userForCreationDto.lastName,
             userForCreationDto.phoneNumber,
-            Domain.Enum.UserRole.User,
-            userForCreationDto.telegramId);
+            userForCreationDto.telegramId,
+            Domain.Enum.UserRole.User
+            );
     }
 
     public void MapToUser(User storageUser, UserForModificationDto userForModificationDto)
@@ -21,17 +22,7 @@ public class Userfactory : IUserFactory
         storageUser.FirstName = userForModificationDto.firstName ?? storageUser.FirstName;
         storageUser.LastName = userForModificationDto.lastName ?? storageUser.LastName;
         storageUser.Phone = userForModificationDto.phoneNumber ?? storageUser.Phone;
+        storageUser.Status = userForModificationDto.status ?? storageUser.Status;
     }
 
-    public UserDto MapToUserDto(User user)
-    {
-        return new UserDto(
-            user.Id,
-            user.FirstName,
-            user.LastName,
-            user.Phone,
-            user.UserRole,
-            user.ExamApplicants
-            );
-    }
 }

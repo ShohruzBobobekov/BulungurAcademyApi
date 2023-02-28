@@ -33,7 +33,7 @@ public class UserController : ControllerBase
     }
 
     [HttpGet("{userId:guid}")]
-    public async ValueTask<ActionResult<UserDto>> GetUserByIdAsync(
+    public async ValueTask<ActionResult<User>> GetUserByIdAsync(
             Guid userId)
     {
         var user = await this.userService
@@ -63,7 +63,7 @@ public class UserController : ControllerBase
     }
 
     [HttpDelete("{userId:guid}")]
-    public async ValueTask<ActionResult<UserDto>> DeleteUserAsync(Guid userId)
+    public async ValueTask<ActionResult<User>> DeleteUserAsync(Guid userId)
     {
         var removed = await this.userService
                 .RemoveUserAsync(userId);
