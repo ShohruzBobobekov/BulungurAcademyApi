@@ -12,8 +12,13 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
     public Repository(AppDbContext appDbContext) =>
         this.context = appDbContext;
 
-    public async ValueTask<TEntity> InsertAsync(TEntity entity) =>
-         (await context.Set<TEntity>().AddAsync(entity)).Entity;
+    public async ValueTask<TEntity> InsertAsync(TEntity entity)
+    {
+        var entityEntry = await context.Set<TEntity>().AddAsync(entity);
+        await context.SaveChangesAsync();
+
+        return entityEntry.Entity;
+    }
 
     public IQueryable<TEntity> SelectAll() =>
         context.Set<TEntity>().AsNoTracking();
@@ -50,11 +55,21 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
         return entity.Where(expression);
     }
 
-    public async ValueTask<TEntity> UpdateAsync(TEntity entity) =>
-            context.Update(entity).Entity;
+    public async ValueTask<TEntity> UpdateAsync(TEntity entity)
+    {
+        var entityEntry = context.Update(entity);
+        await context.SaveChangesAsync();
 
-    public async ValueTask<TEntity> DeleteAsync(TEntity entity)=>
-        context.Remove(entity).Entity;
-    public async ValueTask<int> SaveChangesAsync()=>
+        return entityEntry.Entity;
+    }
+
+    public async ValueTask<TEntity> DeleteAsync(TEntity entity)
+    {
+        var entityEntry = context.Remove(entity);
+        await context.SaveChangesAsync();
+
+        return entityEntry.Entity;
+    }
+    private async ValueTask<int> SaveChangesAsync()=>
        await context.SaveChangesAsync();
 }

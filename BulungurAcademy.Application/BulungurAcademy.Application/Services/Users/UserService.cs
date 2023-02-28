@@ -25,8 +25,6 @@ public partial class UserService : IUserService
         var addedUser = await this.userRepository
             .InsertAsync(newUser);
 
-        await userRepository.SaveChangesAsync();
-
         return addedUser;
     }
 
@@ -76,7 +74,6 @@ public partial class UserService : IUserService
         var modifiedUser = await this.userRepository
             .UpdateAsync(storageUser);
 
-        await userRepository.SaveChangesAsync();
 
         return modifiedUser;
     }
@@ -102,8 +99,6 @@ public partial class UserService : IUserService
 
         var removedUser = await this.userRepository
             .DeleteAsync(storageUser);
-
-        await userRepository.SaveChangesAsync();
 
         return removedUser;
     }

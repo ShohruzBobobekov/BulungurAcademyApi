@@ -79,7 +79,6 @@ public partial class UpdateHandler
         user.CreatedAt = DateTime.UtcNow;
 
         await userRepository.InsertAsync(user);
-        await userRepository.SaveChangesAsync();
 
         var markup = new ReplyKeyboardMarkup(
                 KeyboardButton.WithRequestContact("Tel raqami"));
@@ -109,7 +108,6 @@ public partial class UpdateHandler
         storageUser.UpdatedAt = DateTime.UtcNow;
 
         await userRepository.UpdateAsync(storageUser);
-        await userRepository.SaveChangesAsync();
 
         var markup = new ReplyKeyboardMarkup(
             new KeyboardButton("Imtihonlar ro'yxati"));

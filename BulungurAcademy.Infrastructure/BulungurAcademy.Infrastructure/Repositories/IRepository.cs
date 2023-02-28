@@ -17,5 +17,4 @@ public interface IRepository<TEntity>
 
     ValueTask<TEntity> UpdateAsync(TEntity entity);
     ValueTask<TEntity> DeleteAsync(TEntity entity);
-    ValueTask<int> SaveChangesAsync();
 }

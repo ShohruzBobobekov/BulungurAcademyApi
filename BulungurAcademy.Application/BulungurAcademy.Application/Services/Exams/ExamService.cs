@@ -20,8 +20,6 @@ public partial class ExamService : IExamService
 
         var  inserted= await examRepository.InsertAsync(factory.MapToExam(exam));
 
-        await this.examRepository.SaveChangesAsync();
-
         return inserted;
     }
 
@@ -66,8 +64,6 @@ public partial class ExamService : IExamService
         
         var updated= await examRepository.UpdateAsync(storageExam);
 
-        await examRepository.SaveChangesAsync();
-
         return updated;
     }
 
@@ -80,8 +76,6 @@ public partial class ExamService : IExamService
         ValidationStorageExam(storageExam: storageExam, examId: id);
 
         var deleted= await examRepository.DeleteAsync(storageExam);
-
-        await examRepository.SaveChangesAsync();
 
         return deleted;
     }
