@@ -35,7 +35,6 @@ public class ExamApplicantService : IExamApplicantService
         var examApplicant = factory.MapToExamApplicant(examApplicantDto);
 
         var inserted = await repository.InsertAsync(examApplicant);
-        await repository.SaveChangesAsync();
         return await repository.SelectByIdWithDetailsAsync(inserted.ExamId, inserted.UserId);
     }
 
@@ -75,14 +74,12 @@ public class ExamApplicantService : IExamApplicantService
     public async ValueTask<ExamApplicant> ModifyExamApplicant(ExamApplicantDto examApplicantDto)
     {
         var updated = await repository.UpdateAsync(factory.MapToExamApplicant(examApplicantDto));
-        await repository.SaveChangesAsync();
         return updated;
     }
 
     public async ValueTask<ExamApplicant> RemoveExamApplicant(ExamApplicantDto examApplicantDto)
     {
         var removed = await repository.DeleteAsync(factory.MapToExamApplicant(examApplicantDto));
-        await repository.SaveChangesAsync();
         return removed;
     }
 }
