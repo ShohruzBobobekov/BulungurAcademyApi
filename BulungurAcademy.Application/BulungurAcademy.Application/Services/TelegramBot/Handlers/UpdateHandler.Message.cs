@@ -76,6 +76,7 @@ public partial class UpdateHandler
         var user = MessageFactory.MapToUserInfo(message.Text);
 
         user.TelegramId = message.From.Id;
+        user.CreatedAt = DateTime.UtcNow;
 
         await userRepository.InsertAsync(user);
         await userRepository.SaveChangesAsync();
@@ -105,6 +106,7 @@ public partial class UpdateHandler
         }
 
         storageUser.Phone = contact.PhoneNumber;
+        storageUser.UpdatedAt = DateTime.UtcNow;
 
         await userRepository.UpdateAsync(storageUser);
         await userRepository.SaveChangesAsync();
