@@ -25,7 +25,7 @@ public class ExamConfiguration : IEntityTypeConfiguration<Exam>
                 Id=new Guid("be04ecde-1fc4-4716-be35-eef6d6d8e910"),
                 ExamName="Imtihon 1",
                 ExamDate=new DateTime(year:2023,month:4,day:21),
-                CreatedAt= DateTime.Now
+                CreatedAt= DateTime.Now,
             }
         };
         return data;

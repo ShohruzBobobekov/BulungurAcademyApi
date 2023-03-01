@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace BulungurAcademy.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class Initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -62,24 +62,24 @@ namespace BulungurAcademy.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ExamsSubjects",
+                name: "ExamSubject",
                 columns: table => new
                 {
-                    ExamId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    SubjectId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    ExamsId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    SubjectsId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ExamsSubjects", x => new { x.SubjectId, x.ExamId });
+                    table.PrimaryKey("PK_ExamSubject", x => new { x.ExamsId, x.SubjectsId });
                     table.ForeignKey(
-                        name: "FK_ExamsSubjects_Exams_ExamId",
-                        column: x => x.ExamId,
+                        name: "FK_ExamSubject_Exams_ExamsId",
+                        column: x => x.ExamsId,
                         principalTable: "Exams",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_ExamsSubjects_Subjects_SubjectId",
-                        column: x => x.SubjectId,
+                        name: "FK_ExamSubject_Subjects_SubjectsId",
+                        column: x => x.SubjectsId,
                         principalTable: "Subjects",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -128,21 +128,21 @@ namespace BulungurAcademy.Infrastructure.Migrations
             migrationBuilder.InsertData(
                 table: "Exams",
                 columns: new[] { "Id", "CreatedAt", "ExamDate", "ExamName", "UpdatedAt" },
-                values: new object[] { new Guid("be04ecde-1fc4-4716-be35-eef6d6d8e910"), new DateTime(2023, 2, 28, 19, 45, 38, 736, DateTimeKind.Local).AddTicks(9650), new DateTime(2023, 4, 21, 0, 0, 0, 0, DateTimeKind.Unspecified), "Imtihon 1", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) });
+                values: new object[] { new Guid("be04ecde-1fc4-4716-be35-eef6d6d8e910"), new DateTime(2023, 3, 1, 9, 38, 2, 486, DateTimeKind.Local).AddTicks(5004), new DateTime(2023, 4, 21, 0, 0, 0, 0, DateTimeKind.Unspecified), "Imtihon 1", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) });
 
             migrationBuilder.InsertData(
                 table: "Subjects",
                 columns: new[] { "Id", "CreatedAt", "Name", "UpdatedAt" },
                 values: new object[,]
                 {
-                    { new Guid("5435ae21-249f-478b-9025-921038560579"), new DateTime(2023, 2, 28, 19, 45, 38, 737, DateTimeKind.Local).AddTicks(9918), "Fizika", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                    { new Guid("57208275-ff06-4986-8929-24aa5d9de6cc"), new DateTime(2023, 2, 28, 19, 45, 38, 737, DateTimeKind.Local).AddTicks(9905), "Matematika", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) }
+                    { new Guid("23031fbb-2088-47f6-95fa-559dced77024"), new DateTime(2023, 3, 1, 9, 38, 2, 486, DateTimeKind.Local).AddTicks(8004), "Matematika", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { new Guid("aba64762-9931-495a-9f8b-62bcbb2de5e2"), new DateTime(2023, 3, 1, 9, 38, 2, 486, DateTimeKind.Local).AddTicks(8010), "Fizika", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) }
                 });
 
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "CreatedAt", "FirstName", "LastName", "Phone", "Status", "TelegramId", "UpdatedAt", "UserRole" },
-                values: new object[] { new Guid("d0f61a40-70c5-427d-bd11-b3b371865e59"), new DateTime(2023, 2, 28, 19, 45, 38, 738, DateTimeKind.Local).AddTicks(5449), "Shohruz", "Bobobekov", "+998901033685", 1, 1035640073L, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 2 });
+                values: new object[] { new Guid("092de88e-3ec1-463d-ba68-f4dcc63b39fe"), new DateTime(2023, 3, 1, 9, 38, 2, 487, DateTimeKind.Local).AddTicks(2104), "Shohruz", "Bobobekov", "+998901033685", 1, 1035640073L, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 2 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_ExamApplicant_ExamId",
@@ -160,9 +160,9 @@ namespace BulungurAcademy.Infrastructure.Migrations
                 column: "SecondSubjectId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ExamsSubjects_ExamId",
-                table: "ExamsSubjects",
-                column: "ExamId");
+                name: "IX_ExamSubject_SubjectsId",
+                table: "ExamSubject",
+                column: "SubjectsId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Users_TelegramId",
@@ -179,7 +179,7 @@ namespace BulungurAcademy.Infrastructure.Migrations
                 name: "ExamApplicant");
 
             migrationBuilder.DropTable(
-                name: "ExamsSubjects");
+                name: "ExamSubject");
 
             migrationBuilder.DropTable(
                 name: "Users");
