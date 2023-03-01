@@ -22,17 +22,17 @@ public class SubjectConfuguration : IEntityTypeConfiguration<Subject>
         {
             new Subject
             {
-                Id=Guid.NewGuid(),
-                Name="Matematika",
-                UpdatedAt=new DateTime(),
-                CreatedAt= DateTime.Now
+                Id = Guid.NewGuid(),
+                Name = "Matematika",
+                UpdatedAt = new DateTime(),
+                CreatedAt = DateTime.Now
             },
             new Subject
             {
-                Id=Guid.NewGuid(),
-                Name="Fizika",
-                UpdatedAt=new DateTime(),
-                CreatedAt= DateTime.Now
+                Id = Guid.NewGuid(),
+                Name = "Fizika",
+                UpdatedAt = new DateTime(),
+                CreatedAt = DateTime.Now
             }
         };
         return data;

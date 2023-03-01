@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BulungurAcademy.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230228144538_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20230301043802_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -59,21 +59,6 @@ namespace BulungurAcademy.Infrastructure.Migrations
                     b.ToTable("ExamApplicant");
                 });
 
-            modelBuilder.Entity("BulungurAcademy.Domain.Entities.ExamSubjects.ExamSubject", b =>
-                {
-                    b.Property<Guid>("SubjectId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("ExamId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("SubjectId", "ExamId");
-
-                    b.HasIndex("ExamId");
-
-                    b.ToTable("ExamsSubjects", (string)null);
-                });
-
             modelBuilder.Entity("BulungurAcademy.Domain.Entities.Exams.Exam", b =>
                 {
                     b.Property<Guid>("Id")
@@ -101,7 +86,7 @@ namespace BulungurAcademy.Infrastructure.Migrations
                         new
                         {
                             Id = new Guid("be04ecde-1fc4-4716-be35-eef6d6d8e910"),
-                            CreatedAt = new DateTime(2023, 2, 28, 19, 45, 38, 736, DateTimeKind.Local).AddTicks(9650),
+                            CreatedAt = new DateTime(2023, 3, 1, 9, 38, 2, 486, DateTimeKind.Local).AddTicks(5004),
                             ExamDate = new DateTime(2023, 4, 21, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ExamName = "Imtihon 1",
                             UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
@@ -132,15 +117,15 @@ namespace BulungurAcademy.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("57208275-ff06-4986-8929-24aa5d9de6cc"),
-                            CreatedAt = new DateTime(2023, 2, 28, 19, 45, 38, 737, DateTimeKind.Local).AddTicks(9905),
+                            Id = new Guid("23031fbb-2088-47f6-95fa-559dced77024"),
+                            CreatedAt = new DateTime(2023, 3, 1, 9, 38, 2, 486, DateTimeKind.Local).AddTicks(8004),
                             Name = "Matematika",
                             UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = new Guid("5435ae21-249f-478b-9025-921038560579"),
-                            CreatedAt = new DateTime(2023, 2, 28, 19, 45, 38, 737, DateTimeKind.Local).AddTicks(9918),
+                            Id = new Guid("aba64762-9931-495a-9f8b-62bcbb2de5e2"),
+                            CreatedAt = new DateTime(2023, 3, 1, 9, 38, 2, 486, DateTimeKind.Local).AddTicks(8010),
                             Name = "Fizika",
                             UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         });
@@ -192,8 +177,8 @@ namespace BulungurAcademy.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("d0f61a40-70c5-427d-bd11-b3b371865e59"),
-                            CreatedAt = new DateTime(2023, 2, 28, 19, 45, 38, 738, DateTimeKind.Local).AddTicks(5449),
+                            Id = new Guid("092de88e-3ec1-463d-ba68-f4dcc63b39fe"),
+                            CreatedAt = new DateTime(2023, 3, 1, 9, 38, 2, 487, DateTimeKind.Local).AddTicks(2104),
                             FirstName = "Shohruz",
                             LastName = "Bobobekov",
                             Phone = "+998901033685",
@@ -202,6 +187,21 @@ namespace BulungurAcademy.Infrastructure.Migrations
                             UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             UserRole = 2
                         });
+                });
+
+            modelBuilder.Entity("ExamSubject", b =>
+                {
+                    b.Property<Guid>("ExamsId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("SubjectsId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("ExamsId", "SubjectsId");
+
+                    b.HasIndex("SubjectsId");
+
+                    b.ToTable("ExamSubject");
                 });
 
             modelBuilder.Entity("BulungurAcademy.Domain.Entities.ExamApplicant", b =>
@@ -237,30 +237,24 @@ namespace BulungurAcademy.Infrastructure.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("BulungurAcademy.Domain.Entities.ExamSubjects.ExamSubject", b =>
+            modelBuilder.Entity("ExamSubject", b =>
                 {
-                    b.HasOne("BulungurAcademy.Domain.Entities.Exams.Exam", "Exam")
-                        .WithMany("ExamSubjects")
-                        .HasForeignKey("ExamId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("BulungurAcademy.Domain.Entities.Subjects.Subject", "Subject")
+                    b.HasOne("BulungurAcademy.Domain.Entities.Exams.Exam", null)
                         .WithMany()
-                        .HasForeignKey("SubjectId")
+                        .HasForeignKey("ExamsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Exam");
-
-                    b.Navigation("Subject");
+                    b.HasOne("BulungurAcademy.Domain.Entities.Subjects.Subject", null)
+                        .WithMany()
+                        .HasForeignKey("SubjectsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("BulungurAcademy.Domain.Entities.Exams.Exam", b =>
                 {
                     b.Navigation("ExamApplicants");
-
-                    b.Navigation("ExamSubjects");
                 });
 
             modelBuilder.Entity("BulungurAcademy.Domain.Entities.Users.User", b =>

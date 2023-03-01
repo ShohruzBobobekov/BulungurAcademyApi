@@ -6,7 +6,6 @@ using BulungurAcademy.Core.Services;
 using BulungurAcademy.Infrastructure.Contexts;
 using BulungurAcademy.Infrastructure.Repositories.ExamApplicants;
 using BulungurAcademy.Infrastructure.Repositories.Exams;
-using BulungurAcademy.Infrastructure.Repositories.ExamSubjects;
 using BulungurAcademy.Infrastructure.Repositories.Subjects;
 using BulungurAcademy.Infrastructure.Repositories.Users;
 using Microsoft.EntityFrameworkCore;
@@ -40,7 +39,6 @@ public static class ServiceCollectionExtension
         services.AddScoped<IExamApplicantRepository, ExamApplicantRepository>();
         services.AddScoped<ISubjectRepository, SubjectRepository>();
         services.AddScoped<IExamRepository, ExamRepository>();
-        services.AddScoped<IExamSubjectRepository, ExamSubjectRepository>();
 
         return services;
     }

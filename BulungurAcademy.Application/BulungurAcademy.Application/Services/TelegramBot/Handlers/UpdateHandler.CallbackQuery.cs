@@ -1,4 +1,5 @@
-﻿using BulungurAcademy.Domain.Entities.ExamSubjects;
+﻿using BulungurAcademy.Domain.Entities.Subjects;
+using Telegram.Bot;
 using Telegram.Bot.Types;
 
 namespace BulungurAcademy.Core.Services;
@@ -28,12 +29,17 @@ public partial class UpdateHandler
             .SelectByIdWithDetailsAsync(exam => exam.Id == examId,
             new string[]
             {
-                nameof(ExamSubject)
+                "Subjects"
             });
 
-        //var inlineMarkup = ServiceHelper.GenerateSubjectButttons(subjects);
+        var inlineMarkup = ServiceHelper
+            .GenerateSubjectButttons(exam.Subjects.ToList());
 
-
+        await telegramBotClient.EditMessageTextAsync(
+            chatId: callbackQuery.From.Id,
+            messageId: callbackQuery.Message.MessageId,
+            text: "Birinchi va ikkinchi fanlaringizni tanlang",
+            replyMarkup: inlineMarkup);
     }
 
     private async Task HandleSubjectCallbackQueryAsync(
