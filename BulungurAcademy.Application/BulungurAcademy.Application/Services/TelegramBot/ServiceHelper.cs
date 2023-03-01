@@ -64,15 +64,21 @@ public static class ServiceHelper
 
     public static InlineKeyboardMarkup GenerateSubjectButttons(List<Subject> subjects)
     {
-        var buttons = new List<InlineKeyboardButton>();
+        var buttons = new List<List<InlineKeyboardButton>>();
 
-        foreach (var subject in subjects)
+        for (int index = 0; index < subjects.Count; index++)
         {
-            new InlineKeyboardButton($"{subject.Name}")
-            {
-                CallbackData = "subject " + subject.Id.ToString()
-            };
+            if (index % 2 == 0)
+                buttons.Add(new List<InlineKeyboardButton>());
+
+            buttons[index / 3].Add(
+                new InlineKeyboardButton($"{subjects[index].Name}")
+                {
+                    CallbackData = "subject " + subjects[index].Id.ToString()
+                }
+            );
         }
+
         return new InlineKeyboardMarkup(buttons);
     }
 }
