@@ -1,4 +1,4 @@
-﻿using BulungurAcademy.Domain.Entities.ExamSubjects;
+﻿using BulungurAcademy.Domain.Entities.Subjects;
 using Telegram.Bot.Types;
 
 namespace BulungurAcademy.Core.Services;
@@ -28,7 +28,7 @@ public partial class UpdateHandler
             .SelectByIdWithDetailsAsync(exam => exam.Id == examId,
             new string[]
             {
-                nameof(ExamSubject)
+                "Subjects"
             });
 
         //var inlineMarkup = ServiceHelper.GenerateSubjectButttons(subjects);
