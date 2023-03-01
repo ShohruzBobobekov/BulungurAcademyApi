@@ -1,5 +1,5 @@
 ﻿using BulungurAcademy.Domain.Entities.Common;
-using BulungurAcademy.Domain.Entities.ExamSubjects;
+using BulungurAcademy.Domain.Entities.Subjects;
 
 namespace BulungurAcademy.Domain.Entities.Exams;
 
@@ -15,5 +15,5 @@ public class Exam : Auditable
     }
 
     public ICollection<ExamApplicant>? ExamApplicants { get; set; }
-    public ICollection<ExamSubject>? ExamSubjects { get; set; }
+    public ICollection<Subject>? Subjects { get; set; }
 }
