@@ -1,4 +1,3 @@
-
 using BulungurAcademy.Api.Extensions;
 using BulungurAcademy.Api.Middlewares;
 using System.Text.Json.Serialization;
