@@ -80,8 +80,7 @@ public static class ServiceCollectionExtension
        this IServiceCollection services)
     {
         services
-            .AddControllers()
-            .AddNewtonsoftJson();
+            .AddControllers();
 
         services.AddEndpointsApiExplorer();
 
