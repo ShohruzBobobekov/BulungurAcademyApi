@@ -11,8 +11,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BulungurAcademy.Domain", "B
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BulungurAcademy.Infrastructure", "BulungurAcademy.Infrastructure\BulungurAcademy.Infrastructure\BulungurAcademy.Infrastructure.csproj", "{B8F202AF-46D4-488E-8631-5394F3A0B89E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bulungur.Build", "Bulungur.Build\Bulungur.Build.csproj", "{F0401AC2-C39B-4F25-B7B9-988F7DA5FDF2}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,10 +33,6 @@ Global
 		{B8F202AF-46D4-488E-8631-5394F3A0B89E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B8F202AF-46D4-488E-8631-5394F3A0B89E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B8F202AF-46D4-488E-8631-5394F3A0B89E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F0401AC2-C39B-4F25-B7B9-988F7DA5FDF2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F0401AC2-C39B-4F25-B7B9-988F7DA5FDF2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F0401AC2-C39B-4F25-B7B9-988F7DA5FDF2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F0401AC2-C39B-4F25-B7B9-988F7DA5FDF2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
