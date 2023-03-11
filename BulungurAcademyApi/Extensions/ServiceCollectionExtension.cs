@@ -19,11 +19,11 @@ public static class ServiceCollectionExtension
         this IServiceCollection services,
         IConfiguration configuration)
     {
-        var connectionString=configuration.GetConnectionString("SqlServer");
+        var connectionString=configuration.GetConnectionString("Postgres");
 
         services.AddDbContextPool<AppDbContext>(options =>
         {
-            options.UseSqlServer(connectionString, sqlServerOptions =>
+            options.UseNpgsql(connectionString, sqlServerOptions =>
             {
                 sqlServerOptions.EnableRetryOnFailure();
             });
