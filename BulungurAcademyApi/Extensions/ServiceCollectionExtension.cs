@@ -19,7 +19,7 @@ public static class ServiceCollectionExtension
         this IServiceCollection services,
         IConfiguration configuration)
     {
-        var connectionString=configuration.GetConnectionString("Postgres");
+        var connectionString = configuration.GetConnectionString("Postgres");
 
         services.AddDbContextPool<AppDbContext>(options =>
         {
@@ -47,9 +47,9 @@ public static class ServiceCollectionExtension
         this IServiceCollection services)
     {
         services.AddScoped<IExamApplicantFatory, ExamApplicantFatory>();
-        services.AddScoped<IExamApplicantService,ExamApplicantService>();
+        services.AddScoped<IExamApplicantService, ExamApplicantService>();
         services.AddScoped<IExamFactory, ExamFactory>();
-        services.AddScoped<IExamService,ExamService>();
+        services.AddScoped<IExamService, ExamService>();
         services.AddScoped<ISubjectService, SubjectService>();
         services.AddScoped<IUserFactory, Userfactory>();
         services.AddScoped<IUserService, UserService>();
