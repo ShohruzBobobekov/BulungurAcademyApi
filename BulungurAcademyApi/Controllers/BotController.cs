@@ -4,8 +4,8 @@ using Telegram.Bot.Types;
 
 namespace BulungurAcademy.Core.Controllers;
 
-[ApiController]
 [Route("bot")]
+[ApiController]
 public class BotController : ControllerBase
 {
     [HttpPost]

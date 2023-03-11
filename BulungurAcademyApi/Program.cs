@@ -49,12 +49,12 @@ namespace BulungurAcademyApi
 
             app.MapControllers();
 
-            SetWebHook(app, builder.Configuration);
-
+            var task=SetWebHookAsync(app, builder.Configuration);
+                   task.Wait();
             app.Run();
         }
 
-        public static void SetWebHook(
+        public static async Task SetWebHookAsync(
         IApplicationBuilder builder,
         IConfiguration configuration)
         {
@@ -68,7 +68,7 @@ namespace BulungurAcademyApi
 
                 if (webhookInfo is null || webhookInfo.Url != webHookUrl)
                 {
-                    botClient.SetWebhookAsync(webHookUrl).Wait();
+                   await botClient.SetWebhookAsync(webHookUrl);
                 }
             }
         }
