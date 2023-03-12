@@ -35,11 +35,11 @@ namespace BulungurAcademyApi
 
             var app = builder.Build();
 
-            //if (app.Environment.IsDevelopment())
-            //{
+            if (app.Environment.IsDevelopment())
+            {
                 app.UseSwagger();
                 app.UseSwaggerUI();
-            //}
+            }
 
             app.UseHttpsRedirection();
 
@@ -49,26 +49,26 @@ namespace BulungurAcademyApi
 
             app.MapControllers();
 
-            var task=SetWebHookAsync(app, builder.Configuration);
-                   task.Wait();
+            SetWebHook(app, builder.Configuration);
+
             app.Run();
         }
 
-        public static async Task SetWebHookAsync(
-        IApplicationBuilder builder,
-        IConfiguration configuration)
+        private static void SetWebHook(
+            IApplicationBuilder builder,
+            IConfiguration configuration)
         {
             using (var scope = builder.ApplicationServices.CreateScope())
             {
                 var botClient = scope.ServiceProvider.GetRequiredService<ITelegramBotClient>();
                 var baseUrl = configuration.GetSection("TelegramBot:BaseAddress").Value;
-                var webHookUrl = $"{baseUrl}/bot";
+                var webhookUrl = $"{baseUrl}/bot";
 
                 var webhookInfo = botClient.GetWebhookInfoAsync().Result;
 
-                if (webhookInfo is null || webhookInfo.Url != webHookUrl)
+                if (webhookInfo is null || webhookInfo.Url != webhookUrl)
                 {
-                   await botClient.SetWebhookAsync(webHookUrl);
+                    botClient.SetWebhookAsync(webhookUrl).Wait();
                 }
             }
         }
