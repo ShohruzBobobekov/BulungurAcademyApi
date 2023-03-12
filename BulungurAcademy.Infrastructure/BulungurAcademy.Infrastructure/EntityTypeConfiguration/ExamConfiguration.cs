@@ -13,7 +13,7 @@ public class ExamConfiguration : IEntityTypeConfiguration<Exam>
 
         builder.Property(exam => exam.ExamName)
             .HasMaxLength(256);
-        builder.HasData(GenerateData());
+        //builder.HasData(GenerateData());
     }
 
     private List<Exam> GenerateData()
