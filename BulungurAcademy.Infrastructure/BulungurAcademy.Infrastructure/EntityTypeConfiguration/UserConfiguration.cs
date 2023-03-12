@@ -29,7 +29,7 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
         builder.HasIndex(x => x.TelegramId)
             .IsUnique();
 
-        builder.HasData(GenerateData());
+        //builder.HasData(GenerateData());
 
     }
     private List<User> GenerateData()

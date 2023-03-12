@@ -32,9 +32,9 @@ public static class ServiceCollectionExtension
             }
             else
             {
-                options.UseSqlServer(connectionString, sqlServerOptions =>
+                options.UseNpgsql(connectionString, npgsqlOptions =>
                 {
-                    sqlServerOptions.EnableRetryOnFailure();
+                    npgsqlOptions.EnableRetryOnFailure();
                 });
             }
         });
@@ -90,7 +90,8 @@ public static class ServiceCollectionExtension
        this IServiceCollection services)
     {
         services
-            .AddControllers();
+            .AddControllers()
+            .AddNewtonsoftJson();
 
         services.AddEndpointsApiExplorer();
 

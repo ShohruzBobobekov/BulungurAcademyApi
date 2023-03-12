@@ -13,7 +13,7 @@ public class SubjectConfuguration : IEntityTypeConfiguration<Subject>
 
         builder.Property(subject => subject.Name)
             .HasMaxLength(100);
-        builder.HasData(GenerateData());
+        //builder.HasData(GenerateData());
     }
 
     private List<Subject> GenerateData()
