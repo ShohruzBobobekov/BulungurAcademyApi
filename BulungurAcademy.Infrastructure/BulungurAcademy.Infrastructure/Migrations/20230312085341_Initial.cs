@@ -3,25 +3,21 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
-
 namespace BulungurAcademy.Infrastructure.Migrations
 {
-    /// <inheritdoc />
     public partial class Initial : Migration
     {
-        /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
                 name: "Exams",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    ExamName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
-                    ExamDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    ExamName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
+                    ExamDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -32,10 +28,10 @@ namespace BulungurAcademy.Infrastructure.Migrations
                 name: "Subjects",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Name = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -46,15 +42,15 @@ namespace BulungurAcademy.Infrastructure.Migrations
                 name: "Users",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
                     TelegramId = table.Column<long>(type: "bigint", nullable: true),
-                    FirstName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    LastName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    Phone = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Status = table.Column<int>(type: "int", nullable: false),
-                    UserRole = table.Column<int>(type: "int", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    FirstName = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
+                    LastName = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
+                    Phone = table.Column<string>(type: "text", nullable: false),
+                    Status = table.Column<int>(type: "integer", nullable: false),
+                    UserRole = table.Column<int>(type: "integer", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -65,8 +61,8 @@ namespace BulungurAcademy.Infrastructure.Migrations
                 name: "ExamSubject",
                 columns: table => new
                 {
-                    ExamsId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    SubjectsId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    ExamsId = table.Column<Guid>(type: "uuid", nullable: false),
+                    SubjectsId = table.Column<Guid>(type: "uuid", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -89,13 +85,13 @@ namespace BulungurAcademy.Infrastructure.Migrations
                 name: "ExamApplicant",
                 columns: table => new
                 {
-                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    ExamId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    FirstSubjectId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    SecondSubjectId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    UserId = table.Column<Guid>(type: "uuid", nullable: false),
+                    ExamId = table.Column<Guid>(type: "uuid", nullable: false),
+                    FirstSubjectId = table.Column<Guid>(type: "uuid", nullable: true),
+                    SecondSubjectId = table.Column<Guid>(type: "uuid", nullable: true),
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -125,25 +121,6 @@ namespace BulungurAcademy.Infrastructure.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.InsertData(
-                table: "Exams",
-                columns: new[] { "Id", "CreatedAt", "ExamDate", "ExamName", "UpdatedAt" },
-                values: new object[] { new Guid("be04ecde-1fc4-4716-be35-eef6d6d8e910"), new DateTime(2023, 3, 1, 9, 38, 2, 486, DateTimeKind.Local).AddTicks(5004), new DateTime(2023, 4, 21, 0, 0, 0, 0, DateTimeKind.Unspecified), "Imtihon 1", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) });
-
-            migrationBuilder.InsertData(
-                table: "Subjects",
-                columns: new[] { "Id", "CreatedAt", "Name", "UpdatedAt" },
-                values: new object[,]
-                {
-                    { new Guid("23031fbb-2088-47f6-95fa-559dced77024"), new DateTime(2023, 3, 1, 9, 38, 2, 486, DateTimeKind.Local).AddTicks(8004), "Matematika", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                    { new Guid("aba64762-9931-495a-9f8b-62bcbb2de5e2"), new DateTime(2023, 3, 1, 9, 38, 2, 486, DateTimeKind.Local).AddTicks(8010), "Fizika", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) }
-                });
-
-            migrationBuilder.InsertData(
-                table: "Users",
-                columns: new[] { "Id", "CreatedAt", "FirstName", "LastName", "Phone", "Status", "TelegramId", "UpdatedAt", "UserRole" },
-                values: new object[] { new Guid("092de88e-3ec1-463d-ba68-f4dcc63b39fe"), new DateTime(2023, 3, 1, 9, 38, 2, 487, DateTimeKind.Local).AddTicks(2104), "Shohruz", "Bobobekov", "+998901033685", 1, 1035640073L, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 2 });
-
             migrationBuilder.CreateIndex(
                 name: "IX_ExamApplicant_ExamId",
                 table: "ExamApplicant",
@@ -168,11 +145,9 @@ namespace BulungurAcademy.Infrastructure.Migrations
                 name: "IX_Users_TelegramId",
                 table: "Users",
                 column: "TelegramId",
-                unique: true,
-                filter: "[TelegramId] IS NOT NULL");
+                unique: true);
         }
 
-        /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
