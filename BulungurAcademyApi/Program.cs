@@ -11,7 +11,7 @@ namespace BulungurAcademyApi
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            builder.Services.AddDbContexts(builder.Configuration);
+            builder.Services.AddDbContexts(builder);
 
             builder.Services
                 .AddControllers()

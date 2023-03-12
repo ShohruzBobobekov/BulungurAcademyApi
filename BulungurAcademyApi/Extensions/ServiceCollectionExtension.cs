@@ -17,16 +17,26 @@ public static class ServiceCollectionExtension
 {
     public static IServiceCollection AddDbContexts(
         this IServiceCollection services,
-        IConfiguration configuration)
+        WebApplicationBuilder builder)
     {
-        var connectionString = configuration.GetConnectionString("Postgres");
+        var connectionString = builder.Configuration.GetConnectionString("DefaultConnectionString");
 
         services.AddDbContextPool<AppDbContext>(options =>
         {
-            options.UseNpgsql(connectionString, sqlServerOptions =>
+            if (builder.Environment.IsProduction())
             {
-                sqlServerOptions.EnableRetryOnFailure();
-            });
+                options.UseNpgsql(connectionString, npgsqlOptions =>
+                {
+                    npgsqlOptions.EnableRetryOnFailure();
+                });
+            }
+            else
+            {
+                options.UseSqlServer(connectionString, sqlServerOptions =>
+                {
+                    sqlServerOptions.EnableRetryOnFailure();
+                });
+            }
         });
 
         return services;

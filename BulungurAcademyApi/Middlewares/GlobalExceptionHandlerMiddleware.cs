@@ -20,12 +20,16 @@ public class GlobalExceptionHandlerMiddleware
         }
         catch (ValidationException validationException)
         {
+            logger.LogError(validationException,validationException.Message);
+
             context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
 
             await HandleException(context: context, message: validationException.Message);
         }
         catch (NotFoundException notFoundException)
         {
+            logger.LogError(notFoundException,notFoundException.Message);
+
             context.Response.StatusCode = (int)HttpStatusCode.NotFound;
 
             var serilizedMessage = JsonSerializer.Serialize(new
@@ -37,6 +41,8 @@ public class GlobalExceptionHandlerMiddleware
         }
         catch (Exception globaleException)
         {
+            logger.LogError(globaleException,globaleException.Message);
+
             await HandleException(context: context, message: globaleException.Message);
         }
     }
