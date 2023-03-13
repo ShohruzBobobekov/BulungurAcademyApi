@@ -11,6 +11,8 @@ namespace BulungurAcademyApi
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+
             builder.Services.AddDbContexts(builder);
 
             builder.Services
