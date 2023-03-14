@@ -1,6 +1,7 @@
 ﻿using BulungurAcademy.Application.Services;
 using BulungurAcademy.Application.Services.ExamApplicants;
 using BulungurAcademy.Application.Services.Exams;
+using BulungurAcademy.Application.Services.Subjects;
 using BulungurAcademy.Application.Services.Users;
 using BulungurAcademy.Core.Services;
 using BulungurAcademy.Infrastructure.Contexts;
@@ -60,6 +61,7 @@ public static class ServiceCollectionExtension
         services.AddScoped<IExamApplicantService, ExamApplicantService>();
         services.AddScoped<IExamFactory, ExamFactory>();
         services.AddScoped<IExamService, ExamService>();
+        services.AddScoped<ISubjectFactory, SubjectFactory>();
         services.AddScoped<ISubjectService, SubjectService>();
         services.AddScoped<IUserFactory, Userfactory>();
         services.AddScoped<IUserService, UserService>();

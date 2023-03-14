@@ -1,4 +1,5 @@
-﻿using BulungurAcademy.Application.Services;
+﻿using BulungurAcademy.Application.DataTranferObjects;
+using BulungurAcademy.Application.Services;
 using BulungurAcademy.Domain.Entities.Subjects;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -14,7 +15,7 @@ public class SubjectController : ControllerBase
         => this.subjectService = subjectService;
 
     [HttpPost]
-    public async ValueTask<ActionResult<Subject>> PostSubjectAsync(Subject subject)
+    public async ValueTask<ActionResult<Subject>> PostSubjectAsync(SubjectForCreationDto subject)
     {
         var createSubject = await this.subjectService
             .CreateSubjectAsync(subjectForCreation: subject);

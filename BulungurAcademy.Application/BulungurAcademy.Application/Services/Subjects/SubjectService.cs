@@ -1,25 +1,31 @@
-﻿using BulungurAcademy.Domain.Entities.Subjects;
+﻿using BulungurAcademy.Application.DataTranferObjects;
+using BulungurAcademy.Application.Services.Subjects;
+using BulungurAcademy.Domain.Entities.Subjects;
 using BulungurAcademy.Infrastructure.Repositories.Subjects;
 
 namespace BulungurAcademy.Application.Services;
 public partial class SubjectService : ISubjectService
 {
     private readonly ISubjectRepository subjectRepository;
-    public SubjectService(ISubjectRepository subjectRepository)
-        => this.subjectRepository = subjectRepository;
-
-    public async ValueTask<Subject> CreateSubjectAsync(Subject subjectForCreation)
+    private readonly ISubjectFactory factory;
+    public SubjectService(ISubjectRepository subjectRepository, ISubjectFactory factory)
     {
-        ValidateForCreation(subjectForCreation);
+        this.subjectRepository = subjectRepository;
+        this.factory = factory;
+    }
 
-        subjectForCreation.Name = subjectForCreation.Name.ToUpper();
+    public async ValueTask<Subject> CreateSubjectAsync(SubjectForCreationDto subjectForCreationDto)
+    {
+        // ValidateForCreation(subjectForCreation);
 
+        //subjectForCreationDto.name = subjectForCreationDto.name.ToUpper();
+        var subject = factory.MapToSubject(subjectForCreationDto);
         var storageSubject = await this.subjectRepository
-            .InsertAsync(subjectForCreation);
+            .InsertAsync(subject);
 
         ValidateStorageSubject(
             storageSubject: storageSubject,
-            subjectId: subjectForCreation.Id);
+            subjectId: subject.Id);
 
         return storageSubject;
     }
@@ -43,7 +49,7 @@ public partial class SubjectService : ISubjectService
     public async ValueTask<Subject> ModifySubjectAsync(Subject subjectForModification)
     {
         ValidateStorageSubject(
-            storageSubject: subjectForModification, 
+            storageSubject: subjectForModification,
             subjectId: subjectForModification.Id);
 
         subjectForModification.Name = subjectForModification.Name.ToUpper();
