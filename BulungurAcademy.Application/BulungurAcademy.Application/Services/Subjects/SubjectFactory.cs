@@ -7,8 +7,8 @@ public class SubjectFactory : ISubjectFactory
 {
     public Subject MapToSubject(SubjectForCreationDto subjectDto)
     {
-        var subject = new Subject();
-        subject.Name = subjectDto.name.ToUpper();
+        var subject = new Subject(subjectDto.name.ToUpper());
+        
         subject.CreatedAt = DateTime.Now;
         return subject;
     }

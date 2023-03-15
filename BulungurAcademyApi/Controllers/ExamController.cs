@@ -19,7 +19,11 @@ public class ExamController : ControllerBase
 
         return Ok(creationExam);
     }
-
+    [HttpPost]
+    public async Task<IActionResult> AddExamSubjec(Guid examId,Guid subjectId)
+    {
+        return Ok(service.CreateExamSubject(examId, subjectId));
+    }
     [HttpGet]
     public IActionResult GetExams()
     {

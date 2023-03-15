@@ -8,7 +8,12 @@ namespace BulungurAcademy.Domain.Entities.Subjects
     {
         public string Name { get; set; }
 
+        public Subject(string name)
+        {
+            Name = name;
+        }
+
         [JsonIgnore]
-        public ICollection<Exam> Exams { get; set; }
+        public ICollection<Exam>? Exams { get; set; }
     }
 }

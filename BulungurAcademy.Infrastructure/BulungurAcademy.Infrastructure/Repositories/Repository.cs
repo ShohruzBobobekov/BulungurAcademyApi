@@ -70,6 +70,6 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
 
         return entityEntry.Entity;
     }
-    private async ValueTask<int> SaveChangesAsync()=>
+    public async ValueTask<int> SaveChangesAsync()=>
        await context.SaveChangesAsync();
 }

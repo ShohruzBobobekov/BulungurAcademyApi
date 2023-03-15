@@ -20,17 +20,15 @@ public class SubjectConfuguration : IEntityTypeConfiguration<Subject>
     {
         var data = new List<Subject>()
         {
-            new Subject
+            new Subject("Matematika")
             {
                 Id = Guid.NewGuid(),
-                Name = "Matematika",
                 UpdatedAt = new DateTime(),
                 CreatedAt = DateTime.Now
             },
-            new Subject
+            new Subject ("Fizika")
             {
                 Id = Guid.NewGuid(),
-                Name = "Fizika",
                 UpdatedAt = new DateTime(),
                 CreatedAt = DateTime.Now
             }

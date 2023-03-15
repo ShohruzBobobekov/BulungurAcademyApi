@@ -1,6 +1,8 @@
 ﻿using BulungurAcademy.Application.DataTranferObjects.Exams;
 using BulungurAcademy.Domain.Entities.Exams;
+using BulungurAcademy.Domain.Entities.Subjects;
 using BulungurAcademy.Infrastructure.Repositories.Exams;
+using BulungurAcademy.Infrastructure.Repositories.Subjects;
 
 namespace BulungurAcademy.Application.Services.Exams;
 
@@ -8,10 +10,15 @@ public partial class ExamService : IExamService
 {
     private readonly IExamRepository examRepository;
     private readonly IExamFactory factory;
-    public ExamService(IExamRepository examRepository, IExamFactory factory)
+    private readonly ISubjectRepository subjectRepository;
+    public ExamService(
+        IExamRepository examRepository,
+        IExamFactory factory  ,
+        ISubjectRepository subjectRepozitory)
     {
         this.examRepository = examRepository;
         this.factory = factory;
+        this.subjectRepository = subjectRepozitory;
     }
 
     public async ValueTask<Exam> CreateExamAsync(ExamForCreationDto exam)
@@ -21,6 +28,25 @@ public partial class ExamService : IExamService
         var  inserted= await examRepository.InsertAsync(factory.MapToExam(exam));
 
         return inserted;
+    }
+
+    public async ValueTask<Exam> CreateExamSubject(Guid examId, Guid subjectId)
+    {
+        var subject=await subjectRepository.SelectByIdAsync(subjectId);
+        if (subject == null)
+            throw new Exception("Subject not found");
+        var storageExam = await examRepository
+            .SelectByIdWithDetailsAsync(exam => exam.Id == examId,
+            new string[] { "Subjects", "ExamApplicants" });
+
+        ValidationStorageExam(storageExam: storageExam, examId: examId);
+
+        if (storageExam.Subjects is null)
+            storageExam.Subjects = new List<Subject>();
+
+        storageExam.Subjects.Add(subject);
+        await examRepository.SaveChangesAsync();
+        return storageExam;
     }
 
     public IQueryable<Exam> RetrieveExams()
@@ -79,5 +105,4 @@ public partial class ExamService : IExamService
 
         return deleted;
     }
-
 }
