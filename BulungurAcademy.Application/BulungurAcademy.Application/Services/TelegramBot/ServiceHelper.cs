@@ -73,7 +73,7 @@ public static class ServiceHelper
             buttons[index / 2].Add(
                 new InlineKeyboardButton($"{subjects[index].Name}")
                 {
-                    CallbackData = $"subject {examId} {subjects[index].Id}"
+                    CallbackData = $"subject {examId} {subjects[index].Name}"
                 }
             );
         }
