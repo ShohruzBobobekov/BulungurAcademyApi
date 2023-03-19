@@ -70,7 +70,7 @@ public static class ServiceHelper
             if (index % 2 == 0)
                 buttons.Add(new List<InlineKeyboardButton>());
 
-            buttons[index / 3].Add(
+            buttons[index / 2].Add(
                 new InlineKeyboardButton($"{subjects[index].Name}")
                 {
                     CallbackData = $"subject {examId} {subjects[index].Id}"
