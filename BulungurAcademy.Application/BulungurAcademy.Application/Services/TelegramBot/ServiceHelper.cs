@@ -1,8 +1,5 @@
-﻿
-using BulungurAcademy.Domain.Entities;
-using BulungurAcademy.Domain.Entities.Exams;
+﻿using BulungurAcademy.Domain.Entities.Exams;
 using BulungurAcademy.Domain.Entities.Subjects;
-using System;
 using System.Text;
 using Telegram.Bot.Types.ReplyMarkups;
 
@@ -39,7 +36,7 @@ public static class ServiceHelper
             buttons[index / 3].Add(
                 new InlineKeyboardButton($"{index + 1}")
                 {
-                    CallbackData = "exam " + examIds[index].ToString()
+                    CallbackData = $"exam {examIds[index]}"
                 }
             );
         }
@@ -62,7 +59,9 @@ public static class ServiceHelper
         return builder.ToString() + "</b>";
     }
 
-    public static InlineKeyboardMarkup GenerateSubjectButttons(List<Subject> subjects)
+    public static InlineKeyboardMarkup GenerateSubjectButttons(
+        List<Subject> subjects,
+        Guid examId)
     {
         var buttons = new List<List<InlineKeyboardButton>>();
 
@@ -74,7 +73,7 @@ public static class ServiceHelper
             buttons[index / 3].Add(
                 new InlineKeyboardButton($"{subjects[index].Name}")
                 {
-                    CallbackData = "subject " + subjects[index].Id.ToString()
+                    CallbackData = $"subject {examId} {subjects[index].Id}"
                 }
             );
         }

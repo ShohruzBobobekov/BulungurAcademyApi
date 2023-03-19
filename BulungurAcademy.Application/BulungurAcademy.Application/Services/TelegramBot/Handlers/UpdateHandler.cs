@@ -1,4 +1,5 @@
-﻿using BulungurAcademy.Infrastructure.Repositories.Exams;
+﻿using BulungurAcademy.Infrastructure.Repositories.ExamApplicants;
+using BulungurAcademy.Infrastructure.Repositories.Exams;
 using BulungurAcademy.Infrastructure.Repositories.Subjects;
 using BulungurAcademy.Infrastructure.Repositories.Users;
 using Microsoft.Extensions.Logging;
@@ -15,19 +16,22 @@ public partial class UpdateHandler
     private readonly IUserRepository userRepository;
     private readonly IExamRepository examRepository;
     private readonly ISubjectRepository subjectRepository;
+    private readonly IExamApplicantRepository examApplicantRepository;
 
     public UpdateHandler(
         ITelegramBotClient telegramBotClient,
         ILogger<UpdateHandler> logger,
         ISubjectRepository subjectRepository,
         IExamRepository examRepository,
-        IUserRepository userRepository)
+        IUserRepository userRepository,
+        IExamApplicantRepository examApplicantRepository)
     {
         this.telegramBotClient = telegramBotClient;
         this.logger = logger;
         this.subjectRepository = subjectRepository;
         this.examRepository = examRepository;
         this.userRepository = userRepository;
+        this.examApplicantRepository = examApplicantRepository;
     }
 
     public async Task UpdateHandlerAsync(Update update)
