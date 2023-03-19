@@ -1,5 +1,4 @@
 ﻿using BulungurAcademy.Application.DataTranferObjects.Users;
-using BulungurAcademy.Application.Validation.Users;
 using BulungurAcademy.Domain.Entities.Users;
 using BulungurAcademy.Infrastructure.Repositories.Users;
 
@@ -33,7 +32,7 @@ public partial class UserService : IUserService
         ValidationUserId(userId: id);
 
         var storageUser = await this.userRepository
-            .SelectByIdWithDetailsAsync(x => x.Id==id, new string[] { "ExamApplicants" });
+            .SelectByIdAsync(id);
 
         ValidationStorageUser(storageUser: storageUser, userId: id);
 
@@ -45,15 +44,15 @@ public partial class UserService : IUserService
         ValidationTelegramId(telegramId: telegramId);
 
         var storageUser = await this.userRepository
-            .SelectByIdWithDetailsAsync(x => x.TelegramId == telegramId, new string[] { "ExamApplicants" });
+            .SelectByIdWithDetailsAsync(x => x.TelegramId == telegramId, new string[] { });
 
         ValidationStorageUserWithTelegramId(storageUser: storageUser, telegramId: telegramId);
 
         return storageUser;
     }
 
-    public IQueryable<User> RetrieveUsers()=> this.userRepository
-            .SelectAllWithDetailsAsync(x => true, new string[] { "ExamApplicants" });
+    public IQueryable<User> RetrieveUsers() => this.userRepository
+            .SelectAll();
 
     public async ValueTask<User> ModifyUserAsync(UserForModificationDto userForModificationDto)
     {
@@ -81,17 +80,6 @@ public partial class UserService : IUserService
             .SelectByIdAsync(id);
 
         ValidationStorageUser(storageUser: storageUser, userId: id);
-
-        /*var userValidator = new UserValidator().Validate(storageUser);
-
-        if (!userValidator.IsValid)
-        {
-            string message = "";
-            userValidator.Errors
-                .ForEach(validation => { message += "\n" + validation.ErrorMessage; });
-            throw new Exception(message);
-        }*/
-
         var removedUser = await this.userRepository
             .DeleteAsync(storageUser);
 

@@ -40,7 +40,9 @@ public class ExamApplicantService : IExamApplicantService
 
     public IQueryable<ExamApplicant> RetriveAllExamApplicants()
     {
-        return repository.SelectAll();
+        return repository.SelectAllWithDetailsAsync(
+            ea=>true,
+            new string[] { "User","Exam","FirstSubject","SecondSubject" });
     }
 
     public IQueryable<ExamApplicant> RetriveExamApplicantByFirstSubjectId(Guid subjectId)

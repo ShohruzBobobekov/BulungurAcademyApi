@@ -12,6 +12,8 @@ public class User : Auditable
     public UserStatus Status { get; set; }
     public UserRole UserRole { get; set; }
 
+    [System.Text.Json.Serialization.JsonIgnore]
+    [Newtonsoft.Json.JsonIgnore]
     public ICollection<ExamApplicant>? ExamApplicants { get; set; }
 
     public User(string firstName, string lastName, string phone, long? telegramId, UserRole userRole,UserStatus status=UserStatus.Inactive )

@@ -13,7 +13,8 @@ public class Exam : Auditable
         ExamName = examName;
         ExamDate = examDate;
     }
-
+    [System.Text.Json.Serialization.JsonIgnore]
+    [Newtonsoft.Json.JsonIgnore]
     public ICollection<ExamApplicant>? ExamApplicants { get; set; }
     public ICollection<Subject>? Subjects { get; set; }
 }
