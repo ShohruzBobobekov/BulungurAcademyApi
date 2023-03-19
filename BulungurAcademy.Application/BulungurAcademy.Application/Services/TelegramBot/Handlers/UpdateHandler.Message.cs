@@ -1,5 +1,4 @@
-﻿using BulungurAcademy.Domain.Enum;
-using BulungurAcademy.Domain.Exceptions;
+﻿using BulungurAcademy.Domain.Exceptions;
 using Microsoft.Extensions.Logging;
 using Telegram.Bot;
 using Telegram.Bot.Types;
@@ -127,8 +126,9 @@ public partial class UpdateHandler
         var data = ServiceHelper
             .TableBuilder(exams.ToList());
 
-        var buttons = ServiceHelper
-            .GenerateExamsButtons(exams.Select(exam => exam.Id).ToList());
+        var list = exams.Select(exam => exam.Id).ToList();
+
+        var buttons = ServiceHelper.GenerateExamsButtons(list);
 
         await telegramBotClient.SendTextMessageAsync(
             chatId: message.From.Id,
