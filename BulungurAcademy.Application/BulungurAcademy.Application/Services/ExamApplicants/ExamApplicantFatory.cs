@@ -11,7 +11,9 @@ public class ExamApplicantFatory : IExamApplicantFatory
             UserId = examApplicantDto.UserId,
             ExamId = examApplicantDto.ExamId,
             FirstSubjectId = examApplicantDto.FirstSubjectId,
-            SecondSubjectId = examApplicantDto.SecondSubjectId
+            SecondSubjectId = examApplicantDto.SecondSubjectId,
+            PaymentStatus = examApplicantDto.PaymentStatus,
+            AttendanceStatus = examApplicantDto.AttendanceStatus
         };
     }
 
@@ -21,7 +23,9 @@ public class ExamApplicantFatory : IExamApplicantFatory
             examApplicant.UserId,
             examApplicant.ExamId,
             examApplicant.FirstSubjectId,
-            examApplicant.SecondSubjectId
+            examApplicant.SecondSubjectId,
+            examApplicant.PaymentStatus,
+            examApplicant.AttendanceStatus
             );
     }
 }

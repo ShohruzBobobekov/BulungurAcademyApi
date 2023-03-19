@@ -1,6 +1,8 @@
 ﻿using BulungurAcademy.Domain.Entities;
+using BulungurAcademy.Domain.Entities.Subjects;
 using Telegram.Bot;
 using Telegram.Bot.Types;
+using Telegram.Bot.Types.Enums;
 using Telegram.Bot.Types.ReplyMarkups;
 
 namespace BulungurAcademy.Core.Services;
@@ -14,8 +16,15 @@ public partial class UpdateHandler
         var examId = Guid.Parse(callDatas[1]);
         Guid subjectId = new Guid();
 
-        if (callDatas.Length > 2 )
-            subjectId = Guid.Parse(callDatas[2]);
+        if (callDatas.Length > 2)
+        {
+            var subjectName = callDatas[2];
+
+            Subject? subject = subjectRepository.SelectAll()
+                .FirstOrDefault(subject => subject.Name == subjectName);
+
+            subjectId = subject.Id;
+        }
 
         var handler = callDatas[0] switch
         {
@@ -38,6 +47,20 @@ public partial class UpdateHandler
             {
                 "Subjects"
             });
+
+        var storageUserId = userRepository.SelectAll()
+            .FirstOrDefault(user => user.TelegramId == callbackQuery.From.Id).Id;
+
+        if (await examApplicantRepository
+            .SelectByIdWithDetailsAsync(examId, storageUserId) != null)
+        {
+            await telegramBotClient.EditMessageTextAsync(
+                chatId: callbackQuery.From.Id,
+                text: "Siz oldin ro'yxatdan o'tgansiz!",
+                messageId: callbackQuery.Message.MessageId);
+
+            return;
+        }
 
         var inlineMarkup = ServiceHelper.GenerateSubjectButttons(
             exam.Subjects.ToList(), examId);
@@ -105,11 +128,11 @@ public partial class UpdateHandler
                 {
                     CallbackData = $"confirm {examId}"
                 });
-            
+
 
             await telegramBotClient.EditMessageTextAsync(
                 chatId: callbackQuery.From.Id,
-                text: "",
+                text: "Tasdiqlash uchun bosing 👇",
                 messageId: callbackQuery.Message.MessageId,
                 replyMarkup: inlineMarkup);
         }
@@ -122,11 +145,18 @@ public partial class UpdateHandler
                 chatId: callbackQuery.From.Id,
                 messageId: callbackQuery.Message.MessageId);
 
-        var exam = await examRepository.SelectByIdAsync(examId);
+        var userId = userRepository.SelectAll()
+            .FirstOrDefault(user => user.TelegramId == callbackQuery.From.Id).Id;
+
+        var examApplicant = await examApplicantRepository
+            .SelectByIdWithDetailsAsync(examId, userId);
 
         await telegramBotClient.SendTextMessageAsync(
             chatId: callbackQuery.From.Id,
-            text: "Muvaffaqiyatli");
+            text: "Imtihonga muvaffaqiyatli ro'yxatdan o'tdingiz.\n\n" +
+            $"<pre>Imtihon: {examApplicant.Exam.ExamName}, Imtihon Vaqti: {examApplicant.Exam.ExamDate},\n" +
+            $"Fanlaringiz: {examApplicant.FirstSubject.Name}, {examApplicant.SecondSubject.Name}</pre>",
+            parseMode: ParseMode.Html);
     }
 
 }
