@@ -3,6 +3,7 @@ using System;
 using BulungurAcademy.Infrastructure.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace BulungurAcademy.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230320061821_Update")]
+    partial class Update
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -29,9 +32,6 @@ namespace BulungurAcademy.Infrastructure.Migrations
 
                     b.Property<Guid>("ExamId")
                         .HasColumnType("uuid");
-
-                    b.Property<int?>("AttendanceStatus")
-                        .HasColumnType("integer");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp without time zone");
