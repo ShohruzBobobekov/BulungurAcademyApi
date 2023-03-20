@@ -7,6 +7,6 @@ public record ExamApplicantDto(
      Guid ExamId,
      Guid? FirstSubjectId,
      Guid? SecondSubjectId,
-     bool? IsPayed,
-     bool? IsArrived
+     bool? IsPayed = false,
+     bool? IsArrived = false
 );

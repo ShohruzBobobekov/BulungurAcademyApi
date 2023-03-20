@@ -12,8 +12,8 @@ public class ExamApplicant : Auditable
     public Guid ExamId { get; set; }
     public Guid? FirstSubjectId { get; set; }
     public Guid? SecondSubjectId { get; set;}
-    public bool? IsArrived { get; set; }
-    public bool? IsPayed { get; set; }
+    public bool? IsArrived { get; set; } = false;
+    public bool? IsPayed { get; set; } = false;
     public User User { get; set; }
     public Exam Exam { get; set; }
     public Subject FirstSubject { get; set; }
