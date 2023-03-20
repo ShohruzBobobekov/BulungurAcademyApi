@@ -7,6 +7,6 @@ public record ExamApplicantDto(
      Guid ExamId,
      Guid? FirstSubjectId,
      Guid? SecondSubjectId,
-     PaymentStatus? PaymentStatus,
-     AttendanceStatus? AttendanceStatus
+     bool? IsPayed,
+     bool? IsArrived
 );

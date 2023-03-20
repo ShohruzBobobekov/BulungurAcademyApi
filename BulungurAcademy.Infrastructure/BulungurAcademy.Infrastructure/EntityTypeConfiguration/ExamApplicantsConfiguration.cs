@@ -10,12 +10,6 @@ public class ExamApplicantsConfiguration : IEntityTypeConfiguration<ExamApplican
     {
         builder.HasKey(ea => new { ea.UserId, ea.ExamId });
 
-        builder.Property(exApp => exApp.PaymentStatus)
-            .IsRequired(false);
-
-        builder.Property(exApp => exApp.AttendanceStatus)
-            .IsRequired(false);
-
         builder
             .HasOne(ea => ea.User)
             .WithMany(user => user.ExamApplicants)
