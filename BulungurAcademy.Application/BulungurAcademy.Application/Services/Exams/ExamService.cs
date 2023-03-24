@@ -13,7 +13,7 @@ public partial class ExamService : IExamService
     private readonly ISubjectRepository subjectRepository;
     public ExamService(
         IExamRepository examRepository,
-        IExamFactory factory  ,
+        IExamFactory factory,
         ISubjectRepository subjectRepozitory)
     {
         this.examRepository = examRepository;
@@ -25,14 +25,14 @@ public partial class ExamService : IExamService
     {
         ValidationForCreation(exam: exam);
 
-        var  inserted= await examRepository.InsertAsync(factory.MapToExam(exam));
+        var inserted = await examRepository.InsertAsync(factory.MapToExam(exam));
 
         return inserted;
     }
 
     public async ValueTask<Exam> CreateExamSubject(Guid examId, Guid subjectId)
     {
-        var subject=await subjectRepository.SelectByIdAsync(subjectId);
+        var subject = await subjectRepository.SelectByIdAsync(subjectId);
         if (subject == null)
             throw new Exception("Subject not found");
         var storageExam = await examRepository
@@ -50,7 +50,7 @@ public partial class ExamService : IExamService
     }
 
     public IQueryable<Exam> RetrieveExams()
-        => this.examRepository.SelectAll();
+        => this.examRepository.SelectAllWithDetailsAsync(e => true, new string[] { "Subjects" });
 
     public async ValueTask<Exam> RetrieveExamByIdAsync(Guid id)
     {
@@ -60,7 +60,7 @@ public partial class ExamService : IExamService
 
         ValidationStorageExam(storageExam: storageExam, examId: id);
 
-        return storageExam; 
+        return storageExam;
     }
 
     public async ValueTask<Exam> RetrieveExamWithDetailsAsync(Guid id)
@@ -72,7 +72,7 @@ public partial class ExamService : IExamService
             new string[] { "Subjects", "ExamApplicants" });
 
         ValidationStorageExam(storageExam: storageExam, examId: id);
-        
+
         return storageExam;
     }
 
@@ -87,8 +87,8 @@ public partial class ExamService : IExamService
         storageExam.UpdatedAt = DateTime.Now;
         storageExam.ExamDate = (DateTime)(exam.examDate == null ? storageExam.ExamDate : exam.examDate);
         storageExam.ExamName = exam.name == null ? storageExam.ExamName : exam.name;
-        
-        var updated= await examRepository.UpdateAsync(storageExam);
+
+        var updated = await examRepository.UpdateAsync(storageExam);
 
         return updated;
     }
@@ -101,7 +101,7 @@ public partial class ExamService : IExamService
 
         ValidationStorageExam(storageExam: storageExam, examId: id);
 
-        var deleted= await examRepository.DeleteAsync(storageExam);
+        var deleted = await examRepository.DeleteAsync(storageExam);
 
         return deleted;
     }
