@@ -53,7 +53,7 @@ public partial class SubjectService : ISubjectService
             subjectId: subjectForModification.Id);
 
         subjectForModification.Name = subjectForModification.Name.ToUpper();
-
+        subjectForModification.UpdatedAt = DateTime.UtcNow.AddHours(5);
         var storageSubject = await this.subjectRepository.UpdateAsync(subjectForModification);
 
         ValidateStorageSubject(

@@ -33,7 +33,7 @@ public class ExamApplicantService : IExamApplicantService
         }
 
         var examApplicant = factory.MapToExamApplicant(examApplicantDto);
-
+        examApplicant.CreatedAt = DateTime.Now;
         var inserted = await repository.InsertAsync(examApplicant);
         return await repository.SelectByIdWithDetailsAsync(inserted.ExamId, inserted.UserId);
     }
@@ -41,8 +41,8 @@ public class ExamApplicantService : IExamApplicantService
     public IQueryable<ExamApplicant> RetriveAllExamApplicants()
     {
         return repository.SelectAllWithDetailsAsync(
-            ea=>true,
-            new string[] { "User","Exam","FirstSubject","SecondSubject" });
+            ea => true,
+            new string[] { "User", "Exam", "FirstSubject", "SecondSubject" });
     }
 
     public IQueryable<ExamApplicant> RetriveExamApplicantByFirstSubjectId(Guid subjectId)
@@ -75,7 +75,9 @@ public class ExamApplicantService : IExamApplicantService
 
     public async ValueTask<ExamApplicant> ModifyExamApplicant(ExamApplicantDto examApplicantDto)
     {
-        var updated = await repository.UpdateAsync(factory.MapToExamApplicant(examApplicantDto));
+        var examApplicant = factory.MapToExamApplicant(examApplicantDto);
+        examApplicant.UpdatedAt = DateTime.Now;
+        var updated = await repository.UpdateAsync(examApplicant);
         return updated;
     }
 

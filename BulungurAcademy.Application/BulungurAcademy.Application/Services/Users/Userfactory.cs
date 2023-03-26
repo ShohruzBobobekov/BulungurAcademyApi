@@ -13,8 +13,10 @@ public class Userfactory : IUserFactory
             userForCreationDto.lastName,
             userForCreationDto.phoneNumber,
             userForCreationDto.telegramId,
-            Domain.Enum.UserRole.User
-            );
+            Domain.Enum.UserRole.User)
+        {
+            CreatedAt = DateTime.Now
+        };
     }
 
     public void MapToUser(User storageUser, UserForModificationDto userForModificationDto)
@@ -23,6 +25,7 @@ public class Userfactory : IUserFactory
         storageUser.LastName = userForModificationDto.lastName ?? storageUser.LastName;
         storageUser.Phone = userForModificationDto.phoneNumber ?? storageUser.Phone;
         storageUser.Status = userForModificationDto.status ?? storageUser.Status;
+        storageUser.UpdatedAt = DateTime.Now;
     }
 
 }

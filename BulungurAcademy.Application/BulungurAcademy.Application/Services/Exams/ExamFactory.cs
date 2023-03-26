@@ -9,7 +9,10 @@ public class ExamFactory : IExamFactory
     {
         return new Exam(
             examName: creationDto.name,
-            examDate: creationDto.examDate);
+            examDate: creationDto.examDate)
+        { 
+            CreatedAt = DateTime.UtcNow.AddHours(5)
+        };
     }
 
     /// <summary>
@@ -26,7 +29,7 @@ public class ExamFactory : IExamFactory
     public ExamDto MapToExamDto(Exam exam)
     {
         return new ExamDto(
-            id: exam.Id, 
+            id: exam.Id,
             ExamName: exam.ExamName, exam.ExamDate);
     }
 }

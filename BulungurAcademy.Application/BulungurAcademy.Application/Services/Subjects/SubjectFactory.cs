@@ -9,7 +9,7 @@ public class SubjectFactory : ISubjectFactory
     {
         var subject = new Subject(subjectDto.name.ToUpper());
         
-        subject.CreatedAt = DateTime.Now;
+        subject.CreatedAt = DateTime.UtcNow.AddHours(5);
         return subject;
     }
 }
