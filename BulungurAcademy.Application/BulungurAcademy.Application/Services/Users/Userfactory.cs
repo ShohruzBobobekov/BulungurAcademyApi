@@ -15,7 +15,7 @@ public class Userfactory : IUserFactory
             userForCreationDto.telegramId,
             Domain.Enum.UserRole.User)
         {
-            CreatedAt = DateTime.Now
+            CreatedAt = DateTime.UtcNow.AddHours(5)
         };
     }
 

@@ -33,7 +33,7 @@ public class ExamApplicantService : IExamApplicantService
         }
 
         var examApplicant = factory.MapToExamApplicant(examApplicantDto);
-        examApplicant.CreatedAt = DateTime.Now;
+        examApplicant.CreatedAt = DateTime.UtcNow.AddHours(5);
         var inserted = await repository.InsertAsync(examApplicant);
         return await repository.SelectByIdWithDetailsAsync(inserted.ExamId, inserted.UserId);
     }
@@ -76,7 +76,7 @@ public class ExamApplicantService : IExamApplicantService
     public async ValueTask<ExamApplicant> ModifyExamApplicant(ExamApplicantDto examApplicantDto)
     {
         var examApplicant = factory.MapToExamApplicant(examApplicantDto);
-        examApplicant.UpdatedAt = DateTime.Now;
+        examApplicant.UpdatedAt = DateTime.UtcNow.AddHours(5);
         var updated = await repository.UpdateAsync(examApplicant);
         return updated;
     }
