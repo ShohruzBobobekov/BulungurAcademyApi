@@ -59,10 +59,10 @@ public class ExamController : ControllerBase
 
         return Ok(modifyExam);
     }
-    [HttpDelete]
-    public async Task<IActionResult> DeleteExamAsync(Guid id)
+    [HttpDelete("{examId:guid}")]
+    public async Task<IActionResult> DeleteExamAsync(Guid examId)
     {
-        var deleteExam = await this.service.RemoveExamAsync(id);
+        var deleteExam = await this.service.RemoveExamAsync(examId);
 
         return Ok(deleteExam);
     }
