@@ -50,7 +50,7 @@ public partial class UpdateHandler
     {
         await this.telegramBotClient.SendTextMessageAsync(
                 chatId: message.From.Id,
-                text: "Mavjud bo'lmagan komanda kiritildi. " +
+                text: "Mavjud bo'lmagan komanda kiritildi.\n " +
                 "Tekshirib ko'ring.");
     } 
 }

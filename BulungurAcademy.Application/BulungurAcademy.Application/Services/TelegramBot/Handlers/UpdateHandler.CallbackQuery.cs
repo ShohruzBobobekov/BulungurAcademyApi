@@ -48,19 +48,19 @@ public partial class UpdateHandler
                 "Subjects"
             });
 
-        var storageUserId = userRepository.SelectAll()
-            .FirstOrDefault(user => user.TelegramId == callbackQuery.From.Id).Id;
+        //var storageUserId = userRepository.SelectAll()
+        //    .FirstOrDefault(user => user.TelegramId == callbackQuery.From.Id).Id;
 
-        if (await examApplicantRepository
-            .SelectByIdWithDetailsAsync(examId, storageUserId) != null)
-        {
-            await telegramBotClient.EditMessageTextAsync(
-                chatId: callbackQuery.From.Id,
-                text: "Siz oldin ro'yxatdan o'tgansiz!",
-                messageId: callbackQuery.Message.MessageId);
+        //if (await examApplicantRepository
+        //    .SelectByIdWithDetailsAsync(examId, storageUserId) != null)
+        //{
+        //    await telegramBotClient.EditMessageTextAsync(
+        //        chatId: callbackQuery.From.Id,
+        //        text: "Siz oldin ro'yxatdan o'tgansiz!",
+        //        messageId: callbackQuery.Message.MessageId);
 
-            return;
-        }
+        //    return;
+        //}
 
         var inlineMarkup = ServiceHelper.GenerateSubjectButttons(
             exam.Subjects.ToList(), examId);
@@ -82,9 +82,14 @@ public partial class UpdateHandler
             .FirstOrDefault(user => user.TelegramId == callbackQuery.From.Id);
 
         ExamApplicant? examApplicant = examApplicantRepository
-            .SelectAll()
-            .FirstOrDefault(examApplicant =>
-                examApplicant.UserId == storageUser.Id && examApplicant.ExamId == examId);
+            .SelectAllWithDetailsAsync(examApplicant =>
+                examApplicant.UserId == storageUser.Id
+                && examApplicant.ExamId == examId,
+                new string[]
+                {
+                    "FirstSubject","SecondSubject","Exam"
+                })
+            .FirstOrDefault();
 
 
         if (callbackQuery.Message.Text.StartsWith("1"))
@@ -95,15 +100,21 @@ public partial class UpdateHandler
             {
                 "Subjects"
             });
-
-            examApplicant = new ExamApplicant()
+            if (examApplicant is not null)
             {
-                UserId = storageUser.Id,
-                ExamId = examId,
-                FirstSubjectId = subjectId
-            };
-            await examApplicantRepository.InsertAsync(examApplicant);
-
+                examApplicant.FirstSubjectId = subjectId;
+                await examApplicantRepository.UpdateAsync(examApplicant);
+            }
+            else
+            {
+                examApplicant = new ExamApplicant()
+                {
+                    UserId = storageUser.Id,
+                    ExamId = examId,
+                    FirstSubjectId = subjectId
+                };
+                await examApplicantRepository.InsertAsync(examApplicant);
+            }
             var subjects = exam.Subjects
                 .SkipWhile(subject => subject.Id == subjectId)
                 .ToList();
@@ -132,7 +143,11 @@ public partial class UpdateHandler
 
             await telegramBotClient.EditMessageTextAsync(
                 chatId: callbackQuery.From.Id,
-                text: "Tasdiqlash uchun bosing 👇",
+                text: $" Imtihon: {examApplicant.Exam.ExamName}\n" +
+                $" Vaqti: {examApplicant.Exam.ExamDate}\n" +
+                $" Birinchi fan: {examApplicant.FirstSubject.Name}\n" +
+                $" Ikkinchi fan: {examApplicant.SecondSubject.Name}\n" +
+                $"\n  Tasdiqlash uchun bosing 👇",
                 messageId: callbackQuery.Message.MessageId,
                 replyMarkup: inlineMarkup);
         }

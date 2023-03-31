@@ -53,7 +53,7 @@ public partial class UpdateHandler
 
             await this.telegramBotClient.SendTextMessageAsync(
                 chatId: message.From.Id,
-                text: "Failed to handle your request. Please try again");
+                text: exception.Message);
 
             return;
         }
@@ -61,7 +61,7 @@ public partial class UpdateHandler
 
     private async Task HandleStartCommandAsync(Message message)
     {
-        await this.telegramBotClient.SendTextMessageAsync(
+        await SendTextMessageToClient(
                 chatId: message.From.Id,
                 text: "Bulung'ur academy botiga xush kelibsiz! " +
                 "Botdan foydlanish uchun ro'yxatdan o'ting. " +
@@ -84,10 +84,10 @@ public partial class UpdateHandler
 
         markup.ResizeKeyboard = true;
 
-        await this.telegramBotClient.SendTextMessageAsync(
-        chatId: message.From.Id,
-            text: "Kontaktingizni yuboring!",
-            replyMarkup: markup);
+        await SendTextMessageToClient(
+             message.From.Id,
+             text: "Kontaktingizni yuboring!",
+             replyMarkup: markup);
     }
 
     private async Task HandleContactMessageAsync(Message message)
@@ -100,7 +100,7 @@ public partial class UpdateHandler
 
         if (storageUser == null)
         {
-            throw new NotFoundException("User not found");
+            throw new NotFoundException("Ro'yhatda sizning malumotlaringiz topilmadi");
         }
 
         storageUser.Phone = contact.PhoneNumber;
@@ -112,12 +112,11 @@ public partial class UpdateHandler
             new KeyboardButton("Imtihonlar ro'yxati"));
         markup.ResizeKeyboard = true;
 
-        await telegramBotClient.SendTextMessageAsync(
-            chatId: contact.UserId,
+        await SendTextMessageToClient(
+            chatId: message.From.Id,
             text: "Ro'yxatdan o'tish muvaffaqiyatli yakunlandi",
-        replyMarkup: markup);
+            replyMarkup: markup);
     }
-
 
     private async Task HandleExamCommandAsync(Message message)
     {
@@ -130,11 +129,24 @@ public partial class UpdateHandler
 
         var buttons = ServiceHelper.GenerateExamsButtons(list);
 
-        await telegramBotClient.SendTextMessageAsync(
+        await SendTextMessageToClient(
             chatId: message.From.Id,
             text: data,
-            replyMarkup: buttons,
-            parseMode: ParseMode.Html);
+            replyMarkup: buttons);
+    }
+
+    private async Task SendTextMessageToClient(
+        long chatId,
+        string text,
+        IReplyMarkup? replyMarkup = null,
+        ParseMode? parseMode = ParseMode.Html
+        )
+    {
+        await telegramBotClient.SendTextMessageAsync(
+             chatId: chatId,
+             text: text,
+             replyMarkup: replyMarkup,
+             parseMode: parseMode);
     }
 }
 
