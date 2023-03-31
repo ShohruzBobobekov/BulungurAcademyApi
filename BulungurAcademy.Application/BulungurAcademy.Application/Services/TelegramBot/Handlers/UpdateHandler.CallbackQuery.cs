@@ -135,11 +135,11 @@ public partial class UpdateHandler
 
             await examApplicantRepository.UpdateAsync(examApplicant);
 
-            //var inlineMarkup = new InlineKeyboardMarkup(
-            //    new InlineKeyboardButton("Tasdiqlash✅")
-            //    {
-            //        CallbackData = $"confirm {examId}"
-            //    });
+            var inlineMarkup = new InlineKeyboardMarkup(
+                new InlineKeyboardButton("Tasdiqlash ✅")
+                {
+                    CallbackData = $"confirm {examId}"
+                });
 
 
             await telegramBotClient.EditMessageTextAsync(
@@ -148,7 +148,8 @@ public partial class UpdateHandler
                 $" Vaqti: {examApplicant.Exam.ExamDate}\n" +
                 $" Birinchi fan: {examApplicant.FirstSubject.Name}\n" +
                 $" Ikkinchi fan: {examApplicant.SecondSubject.Name}\n",
-                messageId: callbackQuery.Message.MessageId);
+                messageId: callbackQuery.Message.MessageId,
+                replyMarkup:inlineMarkup);
         }
     }
     private async Task HandleConfirmCallbackQueryAsync(
