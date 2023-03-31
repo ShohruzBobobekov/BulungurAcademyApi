@@ -9,6 +9,7 @@ namespace BulungurAcademy.Core.Services;
 
 public partial class UpdateHandler
 {
+#pragma warning disable
     private async Task HandleCallbackQueryAsync(CallbackQuery callbackQuery)
     {
         var callDatas = callbackQuery.Data.Split(' ');
@@ -134,11 +135,11 @@ public partial class UpdateHandler
 
             await examApplicantRepository.UpdateAsync(examApplicant);
 
-            var inlineMarkup = new InlineKeyboardMarkup(
-                new InlineKeyboardButton("Tasdiqlash✅")
-                {
-                    CallbackData = $"confirm {examId}"
-                });
+            //var inlineMarkup = new InlineKeyboardMarkup(
+            //    new InlineKeyboardButton("Tasdiqlash✅")
+            //    {
+            //        CallbackData = $"confirm {examId}"
+            //    });
 
 
             await telegramBotClient.EditMessageTextAsync(
@@ -146,10 +147,8 @@ public partial class UpdateHandler
                 text: $" Imtihon: {examApplicant.Exam.ExamName}\n" +
                 $" Vaqti: {examApplicant.Exam.ExamDate}\n" +
                 $" Birinchi fan: {examApplicant.FirstSubject.Name}\n" +
-                $" Ikkinchi fan: {examApplicant.SecondSubject.Name}\n" +
-                $"\n  Tasdiqlash uchun bosing 👇",
-                messageId: callbackQuery.Message.MessageId,
-                replyMarkup: inlineMarkup);
+                $" Ikkinchi fan: {examApplicant.SecondSubject.Name}\n",
+                messageId: callbackQuery.Message.MessageId);
         }
     }
     private async Task HandleConfirmCallbackQueryAsync(
