@@ -52,5 +52,5 @@ public partial class UpdateHandler
                 chatId: message.From.Id,
                 text: "Mavjud bo'lmagan komanda kiritildi.\n " +
                 "Tekshirib ko'ring.");
-    } 
+    }
 }

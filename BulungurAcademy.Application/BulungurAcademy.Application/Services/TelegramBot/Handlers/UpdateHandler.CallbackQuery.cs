@@ -22,7 +22,7 @@ public partial class UpdateHandler
             var subjectName = callDatas[2];
 
             Subject? subject = subjectRepository.SelectAll()
-                .FirstOrDefault(subject => subject.Name == subjectName);
+                .FirstOrDefault(subject => subject.Name.Contains(subjectName));
 
             subjectId = subject.Id;
         }
@@ -133,8 +133,16 @@ public partial class UpdateHandler
         {
             examApplicant.SecondSubjectId = subjectId;
 
-            await examApplicantRepository.UpdateAsync(examApplicant);
-
+            examApplicant = await examApplicantRepository.UpdateAsync(examApplicant);
+            examApplicant = examApplicantRepository
+           .SelectAllWithDetailsAsync(examApplicant =>
+               examApplicant.UserId == storageUser.Id
+               && examApplicant.ExamId == examId,
+               new string[]
+               {
+                    "FirstSubject","SecondSubject","Exam"
+               })
+           .FirstOrDefault();
             var inlineMarkup = new InlineKeyboardMarkup(
                 new InlineKeyboardButton("Tasdiqlash ✅")
                 {
@@ -149,7 +157,7 @@ public partial class UpdateHandler
                 $" Birinchi fan: {examApplicant.FirstSubject.Name}\n" +
                 $" Ikkinchi fan: {examApplicant.SecondSubject.Name}\n",
                 messageId: callbackQuery.Message.MessageId,
-                replyMarkup:inlineMarkup);
+                replyMarkup: inlineMarkup);
         }
     }
     private async Task HandleConfirmCallbackQueryAsync(
