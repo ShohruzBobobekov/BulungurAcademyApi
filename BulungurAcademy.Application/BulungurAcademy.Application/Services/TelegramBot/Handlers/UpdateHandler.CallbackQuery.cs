@@ -1,12 +1,7 @@
 ﻿using BulungurAcademy.Domain.Entities;
-using BulungurAcademy.Domain.Entities.Exams;
 using BulungurAcademy.Domain.Entities.Subjects;
-using Microsoft.VisualBasic;
-using System.Globalization;
-using System.Runtime.Serialization;
 using Telegram.Bot;
 using Telegram.Bot.Types;
-using Telegram.Bot.Types.Enums;
 using Telegram.Bot.Types.ReplyMarkups;
 
 namespace BulungurAcademy.Core.Services;
@@ -53,20 +48,6 @@ public partial class UpdateHandler
                 "Subjects"
             });
 
-        //var storageUserId = userRepository.SelectAll()
-        //    .FirstOrDefault(user => user.TelegramId == callbackQuery.From.Id).Id;
-
-        //if (await examApplicantRepository
-        //    .SelectByIdWithDetailsAsync(examId, storageUserId) != null)
-        //{
-        //    await telegramBotClient.EditMessageTextAsync(
-        //        chatId: callbackQuery.From.Id,
-        //        text: "Siz oldin ro'yxatdan o'tgansiz!",
-        //        messageId: callbackQuery.Message.MessageId);
-
-        //    return;
-        //}
-
         var inlineMarkup = ServiceHelper.GenerateSubjectButttons(
             exam.Subjects.ToList(), examId);
 
@@ -95,7 +76,6 @@ public partial class UpdateHandler
                     "FirstSubject","SecondSubject","Exam"
                 })
             .FirstOrDefault();
-
 
         if (callbackQuery.Message.Text.StartsWith("1"))
         {
@@ -153,7 +133,6 @@ public partial class UpdateHandler
                     CallbackData = $"confirm {examId}"
                 });
 
-
             await telegramBotClient.EditMessageTextAsync(
                 chatId: callbackQuery.From.Id,
                 text: $" Imtihon: {examApplicant.Exam.ExamName}\n" +
@@ -182,9 +161,8 @@ public partial class UpdateHandler
             chatId: callbackQuery.From.Id,
             text: "Imtihonga muvaffaqiyatli ro'yxatdan o'tdingiz.\n\n" +
             $"Imtihon: {examApplicant.Exam.ExamName}," +
-            examApplicant.Exam.GetExamDateToString()+
+            examApplicant.Exam.GetExamDateToString() +
             $"Fanlaringiz: {examApplicant.FirstSubject.Name}, {examApplicant.SecondSubject.Name}"
             );
     }
-
 }
