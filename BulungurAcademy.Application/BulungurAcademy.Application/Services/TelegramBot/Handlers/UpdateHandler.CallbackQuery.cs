@@ -157,7 +157,7 @@ public partial class UpdateHandler
             await telegramBotClient.EditMessageTextAsync(
                 chatId: callbackQuery.From.Id,
                 text: $" Imtihon: {examApplicant.Exam.ExamName}\n" +
-                $" Vaqti: {examApplicant.Exam.ExamDate}\n" +
+                $" Vaqti: {examApplicant.Exam.GetExamDateToString()}\n" +
                 $" Birinchi fan: {examApplicant.FirstSubject.Name}\n" +
                 $" Ikkinchi fan: {examApplicant.SecondSubject.Name}\n",
                 messageId: callbackQuery.Message.MessageId,
@@ -178,15 +178,11 @@ public partial class UpdateHandler
         var examApplicant = await examApplicantRepository
             .SelectByIdWithDetailsAsync(examId, userId);
 
-        //DateTimeFormat format = new DateTimeFormat();
         await telegramBotClient.SendTextMessageAsync(
             chatId: callbackQuery.From.Id,
             text: "Imtihonga muvaffaqiyatli ro'yxatdan o'tdingiz.\n\n" +
             $"Imtihon: {examApplicant.Exam.ExamName}," +
-            $"Imtihon kuni: {examApplicant.Exam.ExamDate.Year}-yil, " +
-            $"{examApplicant.Exam.ExamDate.ToString("MMMM")} " +
-            $"{examApplicant.Exam.ExamDate.Day},\n" +
-            $"Imtihon vaqti:  {examApplicant.Exam.ExamDate.ToString("HH:MM")}\n\n" +
+            examApplicant.Exam.GetExamDateToString()+
             $"Fanlaringiz: {examApplicant.FirstSubject.Name}, {examApplicant.SecondSubject.Name}",
             parseMode: ParseMode.MarkdownV2);
     }

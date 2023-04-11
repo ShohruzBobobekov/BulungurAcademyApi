@@ -17,4 +17,11 @@ public class Exam : Auditable
     [Newtonsoft.Json.JsonIgnore]
     public ICollection<ExamApplicant>? ExamApplicants { get; set; }
     public ICollection<Subject>? Subjects { get; set; }
+    public string GetExamDateToString()
+    {
+        return $"Imtihon kuni: {ExamDate.Year}-yil, " +
+            $"{ExamDate.ToString("MMMM")} " +
+            $"{ExamDate.Day},\n" +
+            $"Imtihon vaqti:  {ExamDate.ToString("HH:MM")}\n\n";
+    }
 }

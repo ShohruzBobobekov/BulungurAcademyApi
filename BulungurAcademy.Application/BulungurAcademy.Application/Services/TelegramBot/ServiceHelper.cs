@@ -54,11 +54,7 @@ public static class ServiceHelper
         foreach (var exam in exams)
         {
             builder.AppendLine($"\n{index++}. Imtihon nomi: {exam.ExamName}");
-            builder.AppendLine(
-                $"Imtihon kuni: {exam.ExamDate.Year}-yil, " +
-            $"{exam.ExamDate.ToString("MMMM")} " +
-            $"{exam.ExamDate.Day},\n" +
-            $"Imtihon vaqti:  {exam.ExamDate.ToString("HH:MM")}\n\n");
+            builder.AppendLine(exam.GetExamDateToString());
         }
 
         return builder.ToString() + "</b>";
