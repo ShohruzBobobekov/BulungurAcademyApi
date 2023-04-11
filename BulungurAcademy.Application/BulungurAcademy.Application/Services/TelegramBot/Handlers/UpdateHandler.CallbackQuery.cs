@@ -1,4 +1,5 @@
 ﻿using BulungurAcademy.Domain.Entities;
+using BulungurAcademy.Domain.Entities.Exams;
 using BulungurAcademy.Domain.Entities.Subjects;
 using Microsoft.VisualBasic;
 using System.Globalization;
@@ -185,8 +186,7 @@ public partial class UpdateHandler
             $"Imtihon kuni: {examApplicant.Exam.ExamDate.Year}-yil, " +
             $"{examApplicant.Exam.ExamDate.ToString("MMMM")} " +
             $"{examApplicant.Exam.ExamDate.Day},\n" +
-            $"Imtihon vaqti:  {examApplicant.Exam.ExamDate.Hour}:" +
-            $"{examApplicant.Exam.ExamDate.Minute}" +
+            $"Imtihon vaqti:  {examApplicant.Exam.ExamDate.ToString("HH:MM")}\n\n" +
             $"Fanlaringiz: {examApplicant.FirstSubject.Name}, {examApplicant.SecondSubject.Name}",
             parseMode: ParseMode.MarkdownV2);
     }

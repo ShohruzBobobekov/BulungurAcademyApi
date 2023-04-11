@@ -58,8 +58,7 @@ public static class ServiceHelper
                 $"Imtihon kuni: {exam.ExamDate.Year}-yil, " +
             $"{exam.ExamDate.ToString("MMMM")} " +
             $"{exam.ExamDate.Day},\n" +
-            $"Imtihon vaqti:  {exam.ExamDate.Hour}:" +
-            $"{exam.ExamDate.Minute}\n\n");
+            $"Imtihon vaqti:  {exam.ExamDate.ToString("HH:MM")}\n\n");
         }
 
         return builder.ToString() + "</b>";
