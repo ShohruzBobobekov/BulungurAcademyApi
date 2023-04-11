@@ -1,4 +1,5 @@
-﻿using BulungurAcademy.Domain.Entities.Exams;
+﻿using BulungurAcademy.Domain.Entities;
+using BulungurAcademy.Domain.Entities.Exams;
 using BulungurAcademy.Domain.Entities.Subjects;
 using System.Text;
 using Telegram.Bot.Types.ReplyMarkups;
@@ -53,7 +54,12 @@ public static class ServiceHelper
         foreach (var exam in exams)
         {
             builder.AppendLine($"\n{index++}. Imtihon nomi: {exam.ExamName}");
-            builder.AppendLine($"Imtihon vaqti: {exam.ExamDate}");
+            builder.AppendLine(
+                $"Imtihon kuni: {exam.ExamDate.Year}-yil, " +
+            $"{exam.ExamDate.ToString("MMMM")} " +
+            $"{exam.ExamDate.Day},\n" +
+            $"Imtihon vaqti:  {exam.ExamDate.Hour}:" +
+            $"{exam.ExamDate.Minute}");
         }
 
         return builder.ToString() + "</b>";

@@ -185,6 +185,8 @@ public partial class UpdateHandler
             $"Imtihon kuni: {examApplicant.Exam.ExamDate.Year}-yil, " +
             $"{examApplicant.Exam.ExamDate.ToString("MMMM")} " +
             $"{examApplicant.Exam.ExamDate.Day},\n" +
+            $"Imtihon vaqti:  {examApplicant.Exam.ExamDate.Hour}:" +
+            $"{examApplicant.Exam.ExamDate.Minute}" +
             $"Fanlaringiz: {examApplicant.FirstSubject.Name}, {examApplicant.SecondSubject.Name}",
             parseMode: ParseMode.MarkdownV2);
     }
