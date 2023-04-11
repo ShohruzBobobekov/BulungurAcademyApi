@@ -183,8 +183,8 @@ public partial class UpdateHandler
             text: "Imtihonga muvaffaqiyatli ro'yxatdan o'tdingiz.\n\n" +
             $"Imtihon: {examApplicant.Exam.ExamName}," +
             examApplicant.Exam.GetExamDateToString()+
-            $"Fanlaringiz: {examApplicant.FirstSubject.Name}, {examApplicant.SecondSubject.Name}",
-            parseMode: ParseMode.MarkdownV2);
+            $"Fanlaringiz: {examApplicant.FirstSubject.Name}, {examApplicant.SecondSubject.Name}"
+            );
     }
 
 }
