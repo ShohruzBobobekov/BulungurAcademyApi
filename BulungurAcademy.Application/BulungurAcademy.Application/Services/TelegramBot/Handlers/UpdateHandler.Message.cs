@@ -10,6 +10,7 @@ namespace BulungurAcademy.Core.Services;
 
 public partial class UpdateHandler
 {
+    private const long AdminId = 5722560663;
 
     public async Task HandleCommandAsync(Message message)
     {
@@ -31,6 +32,7 @@ public partial class UpdateHandler
                 "/start" => HandleStartCommandAsync(message),
                 "/register" => HandleRegisterCommandAsync(message),
                 "Imtihonlar" => HandleExamCommandAsync(message),
+                "#Diqqat" => HandleAnnouncement(message),
                 _ => HandleNotAvailableCommandAsync(message)
             };
 
@@ -56,6 +58,24 @@ public partial class UpdateHandler
                 text: exception.Message);
 
             return;
+        }
+    }
+
+    private async Task HandleAnnouncement(Message message)
+    {
+        if (message.Chat.Id != AdminId)
+            return;
+
+        var users = userRepository.SelectAll();
+        foreach (var user in users)
+        {
+            if (user.TelegramId is not null)
+            {
+               await telegramBotClient.ForwardMessageAsync(
+                    chatId: user.TelegramId,
+                    fromChatId: AdminId,
+                    message.MessageId);
+            }
         }
     }
 

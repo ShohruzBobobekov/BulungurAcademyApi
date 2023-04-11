@@ -1,5 +1,8 @@
 ﻿using BulungurAcademy.Domain.Entities;
 using BulungurAcademy.Domain.Entities.Subjects;
+using Microsoft.VisualBasic;
+using System.Globalization;
+using System.Runtime.Serialization;
 using Telegram.Bot;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
@@ -174,12 +177,16 @@ public partial class UpdateHandler
         var examApplicant = await examApplicantRepository
             .SelectByIdWithDetailsAsync(examId, userId);
 
+        //DateTimeFormat format = new DateTimeFormat();
         await telegramBotClient.SendTextMessageAsync(
             chatId: callbackQuery.From.Id,
             text: "Imtihonga muvaffaqiyatli ro'yxatdan o'tdingiz.\n\n" +
-            $"<pre>Imtihon: {examApplicant.Exam.ExamName}, Imtihon Vaqti: {examApplicant.Exam.ExamDate},\n" +
-            $"Fanlaringiz: {examApplicant.FirstSubject.Name}, {examApplicant.SecondSubject.Name}</pre>",
-            parseMode: ParseMode.Html);
+            $"Imtihon: {examApplicant.Exam.ExamName}," +
+            $"Imtihon kuni: {examApplicant.Exam.ExamDate.Year}-yil, " +
+            $"{examApplicant.Exam.ExamDate.ToString("MMMM")} " +
+            $"{examApplicant.Exam.ExamDate.Day},\n" +
+            $"Fanlaringiz: {examApplicant.FirstSubject.Name}, {examApplicant.SecondSubject.Name}",
+            parseMode: ParseMode.MarkdownV2);
     }
 
 }
