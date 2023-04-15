@@ -30,7 +30,7 @@ public partial class UpdateHandler
             var task = command switch
             {
                 "/start" => HandleStartCommandAsync(message),
-                "Men" => HandleRegisterCommandAsync(message),
+                "Men:" => HandleRegisterCommandAsync(message),
                 "Imtihonlar" => HandleExamCommandAsync(message),
                 "#Diqqat" => HandleAnnouncement(message),
                 _ => HandleNotAvailableCommandAsync(message)
