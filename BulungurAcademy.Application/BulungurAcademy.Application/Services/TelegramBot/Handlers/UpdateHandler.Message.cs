@@ -30,7 +30,7 @@ public partial class UpdateHandler
             var task = command switch
             {
                 "/start" => HandleStartCommandAsync(message),
-                "/register" => HandleRegisterCommandAsync(message),
+                "Men" => HandleRegisterCommandAsync(message),
                 "Imtihonlar" => HandleExamCommandAsync(message),
                 "#Diqqat" => HandleAnnouncement(message),
                 _ => HandleNotAvailableCommandAsync(message)
@@ -88,7 +88,7 @@ public partial class UpdateHandler
                 text: "Bulung'ur academy botiga xush kelibsiz! " +
                 "Botdan foydlanish uchun ro'yxatdan o'ting. " +
                 "Familiya, Ismingizni quyidagi formatda yuboring 👇\n\n" +
-                "Misol uchun: <b>  /register Palonchiyev Pistonchi</b>",
+                "Misol uchun: <b>  Men: Palonchiyev Pistonchi</b>",
                 parseMode: ParseMode.Html);
     }
 
@@ -134,10 +134,7 @@ public partial class UpdateHandler
             new KeyboardButton("Imtihonlar ro'yxati"));
         markup.ResizeKeyboard = true;
 
-        await SendTextMessageToClient(
-            chatId: message.From.Id,
-            text: "Ro'yxatdan o'tish muvaffaqiyatli yakunlandi",
-            replyMarkup: markup);
+
     }
 
     private async Task HandleExamCommandAsync(Message message)

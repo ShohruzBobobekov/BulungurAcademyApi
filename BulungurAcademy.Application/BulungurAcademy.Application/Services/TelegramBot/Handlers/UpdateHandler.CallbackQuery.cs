@@ -146,7 +146,8 @@ public partial class UpdateHandler
                 text: $" Imtihon: {examApplicant.Exam.ExamName}\n" +
                 $" Vaqti: {examApplicant.Exam.GetExamDateToString()}\n" +
                 $" Birinchi fan: {examApplicant.FirstSubject.Name}\n" +
-                $" Ikkinchi fan: {examApplicant.SecondSubject.Name}\n",
+                $" Ikkinchi fan: {examApplicant.SecondSubject.Name}\n\n" +
+                $" Ro'yxatdan o'tish muvaffaqiyatli yakunlandi",
                 messageId: callbackQuery.Message.MessageId,
                 replyMarkup: inlineMarkup);
         }
