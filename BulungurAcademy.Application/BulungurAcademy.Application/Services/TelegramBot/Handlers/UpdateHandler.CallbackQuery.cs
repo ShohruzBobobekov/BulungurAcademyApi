@@ -66,7 +66,15 @@ public partial class UpdateHandler
         var storageUser = userRepository
             .SelectAll()
             .FirstOrDefault(user => user.TelegramId == callbackQuery.From.Id);
-
+        if (storageUser is null)
+        {
+            telegramBotClient.SendTextMessageAsync(
+                chatId: callbackQuery.From.Id,
+                text: "*** Avval ro'yhatdan o'ting ***",
+                parseMode:Telegram.Bot.Types.Enums.ParseMode.MarkdownV2);
+            HandleStartCommandAsync(callbackQuery.Message);
+            return;
+        }
         ExamApplicant? examApplicant = examApplicantRepository
             .SelectAllWithDetailsAsync(examApplicant =>
                 examApplicant.UserId == storageUser.Id

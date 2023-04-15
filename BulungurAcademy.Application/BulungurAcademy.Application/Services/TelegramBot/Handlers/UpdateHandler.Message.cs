@@ -38,17 +38,6 @@ public partial class UpdateHandler
 
             await task;
         }
-        /*catch (AlreadyExistsException exception)
-        {
-            this.logger.LogError(exception.Message);
-
-            await this.telegramBotClient.SendTextMessageAsync(
-                chatId: message.From.Id,
-                text: "Siz allaqachon ro'yxatdan o'tgansiz");
-
-            return;
-        }
-        */
         catch (Exception exception)
         {
             this.logger.LogError(exception.Message);
@@ -69,12 +58,25 @@ public partial class UpdateHandler
         var users = userRepository.SelectAll();
         foreach (var user in users)
         {
-            if (user.TelegramId is not null)
+            try
             {
-               await telegramBotClient.ForwardMessageAsync(
-                    chatId: user.TelegramId,
-                    fromChatId: AdminId,
-                    message.MessageId);
+                if (user.TelegramId is not null)
+                {
+                    await telegramBotClient.ForwardMessageAsync(
+                         chatId: user.TelegramId,
+                         fromChatId: AdminId,
+                         message.MessageId,
+                         protectContent: true);
+                }
+            }
+            catch (Exception e)
+            {
+                this.logger.LogError(e.Message);
+                await telegramBotClient.SendTextMessageAsync(
+                    chatId: AdminId,
+                    text: e.Message + "\n\n " + user.FirstName + "  " + user.LastName);
+                user.TelegramId = null;
+                await userRepository.UpdateAsync(user);
             }
         }
     }
@@ -82,7 +84,7 @@ public partial class UpdateHandler
     private async Task HandleStartCommandAsync(Message message)
     {
         await SendTextMessageToClient(
-                chatId: message.From.Id,
+                chatId: message.Chat.Id,
                 text: "Bulung'ur academy botiga xush kelibsiz! " +
                 "Botdan foydlanish uchun ro'yxatdan o'ting. " +
                 "Familiya, Ismingizni quyidagi formatda yuboring 👇\n\n" +
