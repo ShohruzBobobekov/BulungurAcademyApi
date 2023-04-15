@@ -134,7 +134,10 @@ public partial class UpdateHandler
             new KeyboardButton("Imtihonlar ro'yxati"));
         markup.ResizeKeyboard = true;
 
-
+       await telegramBotClient.SendTextMessageAsync(
+            chatId: message.Chat.Id,
+            "Kontakt saqlqndi Imtihonni tanlang: ",
+            replyMarkup: markup);
     }
 
     private async Task HandleExamCommandAsync(Message message)
