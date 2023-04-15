@@ -136,7 +136,7 @@ public partial class UpdateHandler
 
        await telegramBotClient.SendTextMessageAsync(
             chatId: message.Chat.Id,
-            "Kontakt saqlqndi Imtihonni tanlang: ",
+            "Kontakt saqlandi Imtihonni tanlang: ",
             replyMarkup: markup);
     }
 
