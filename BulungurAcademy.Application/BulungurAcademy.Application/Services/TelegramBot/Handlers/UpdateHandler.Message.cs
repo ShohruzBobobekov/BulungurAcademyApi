@@ -88,7 +88,7 @@ public partial class UpdateHandler
                 text: "Bulung'ur academy botiga xush kelibsiz! " +
                 "Botdan foydlanish uchun ro'yxatdan o'ting. " +
                 "Familiya, Ismingizni quyidagi formatda yuboring 👇\n\n" +
-                "Misol uchun: <b>  Men: Palonchiyev Pistonchi</b>",
+                "Misol uchun: <b>  Men: Bobobekov Shohruz</b>",
                 parseMode: ParseMode.Html);
     }
 
