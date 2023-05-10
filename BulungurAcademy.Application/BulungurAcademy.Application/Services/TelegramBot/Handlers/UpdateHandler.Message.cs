@@ -85,9 +85,11 @@ public partial class UpdateHandler
     {
         await SendTextMessageToClient(
                 chatId: message.Chat.Id,
-                text: "Bulung'ur academy botiga xush kelibsiz! " +
-                "Botdan foydlanish uchun ro'yxatdan o'ting. " +
-                "Familiya, Ismingizni quyidagi formatda yuboring 👇\n\n" +
+                text: "Bulung'ur academy botiga xush kelibsiz!" +
+                " Botdan foydalanish uchun ro'yxatdan o'ting." +
+                " Namunadagidek👇oldin Men:so'zi yoziladi va" +
+                " bitta probel (bo'sh joy) tashlab familiya va ismingizni kiriting" +
+                ".Murojat uchun tel: 93 2775806\n\n" +
                 "Misol uchun: <b>  Men: Bobobekov Shohruz</b>",
                 parseMode: ParseMode.Html);
     }
